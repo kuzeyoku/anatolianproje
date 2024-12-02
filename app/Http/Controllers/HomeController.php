@@ -23,7 +23,6 @@ class HomeController extends Controller
         $data["projects"] = $this->getModuleData(ModuleEnum::Project, Project::class, 6);
         $data["testimonials"] = $this->getModuleData(ModuleEnum::Testimonial, Testimonial::class);
         $data["blogs"] = $this->getModuleData(ModuleEnum::Blog, Blog::class, 3);
-        $data["sectors"] = $this->getModuleData(ModuleEnum::Sector, Sector::class);
         $data["about"] = CacheService::cacheQuery("about_home", fn() => Page::find(setting("information", "about_page")));
         return view("index", $data);
     }

@@ -4,8 +4,9 @@ namespace App\Services\Front;
 
 use App\Enums\StatusEnum;
 use App\Models\Setting;
+use Cache;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\Cache;
+
 
 class SettingService
 {
@@ -15,6 +16,10 @@ class SettingService
 
     public static function getAll(): Collection
     {
+        if (!\Schema::hasTable('settings')) {
+            return new Collection();
+        }
+
         return Cache::remember("settings", config("cache.time"), function () {
             return Setting::all();
         });
@@ -45,6 +50,9 @@ class SettingService
 
     public static function getCacheTime()
     {
+        if (!\Schema::hasTable('settings')) {
+            return 60 * 60;
+        }
         return Cache::remember("setting.cache_time", config("cache.time"), function () {
             return intval(Setting::where('key', 'time')->first()?->value ?: 60 * 60);
         });

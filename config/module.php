@@ -22,9 +22,6 @@ return [
     "category" => [
         "status" => true,
     ],
-    "sector" => [
-        "status" => true,
-    ],
     "service" => [
         "status" => true,
     ],
