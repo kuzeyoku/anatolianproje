@@ -4,13 +4,13 @@
             <div class="col-xl-6 col-xl-6">
                 <div class="why-choose-one__left">
                     <div class="why-choose-one__shape-1 float-bob-y">
-                        <img src="assets/images/shapes/why-choose-one-shape-1.png" alt="">
+                        <img src="{{asset("assets/images/shapes/why-choose-one-shape-1.png")}}" alt="">
                     </div>
                     <div class="section-title text-left">
                         <div class="section-title__tagline-box">
                             <span class="section-title__tagline">Why Choose us</span>
                             <div class="section-title__icon">
-                                <img src="assets/images/icon/section-title-icon.png" alt="">
+                                <img src="{{asset("assets/images/icon/section-title-icon.png")}}" alt="">
                             </div>
                         </div>
                         <h2 class="section-title__title">Maximizing profitability
@@ -25,7 +25,7 @@
                             <div class="col-xl-6 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="100ms">
                                 <div class="why-choose-one__count-single">
                                     <div class="why-choose-one__counter-shape-1">
-                                        <img src="assets/images/shapes/why-choose-one-counter-shape-1.png"
+                                        <img src="{{asset("assets/images/shapes/why-choose-one-counter-shape-1.png")}}"
                                              alt="">
                                     </div>
                                     <div class="why-choose-one__count-icon">
@@ -43,7 +43,7 @@
                             <div class="col-xl-6 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="200ms">
                                 <div class="why-choose-one__count-single">
                                     <div class="why-choose-one__counter-shape-1">
-                                        <img src="assets/images/shapes/why-choose-one-counter-shape-1.png"
+                                        <img src="{{asset("assets/images/shapes/why-choose-one-counter-shape-1.png")}}"
                                              alt="">
                                     </div>
                                     <div cl=""></div>
@@ -89,7 +89,7 @@
                 <div class="why-choose-one__right">
                     <div class="why-choose-one__img wow slideInRight" data-wow-delay="100ms"
                          data-wow-duration="2500ms">
-                        <img src="assets/images/resources/why-choose-one-img.jpg" alt="">
+                        <img src="{{asset("assets/images/resources/why-choose-one-img.jpg")}}" alt="">
                         <div class="why-choose-one__experience-box">
                             <div class="why-choose-one__experience">
                                 <div class="why-choose-one__experience-count count-box">

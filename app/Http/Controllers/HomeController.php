@@ -8,6 +8,7 @@ use App\Models\Brand;
 use App\Models\Page;
 use App\Models\Project;
 use App\Models\Sector;
+use App\Models\Service;
 use App\Models\Slider;
 use App\Models\Testimonial;
 use App\Services\CacheService;
@@ -18,6 +19,7 @@ class HomeController extends Controller
     public function index()
     {
         SeoService::index();
+        $data["services"] = $this->getModuleData(ModuleEnum::Service, Service::class, 6);
         $data["brands"] = $this->getModuleData(ModuleEnum::Brand, Brand::class);
         $data["sliders"] = $this->getModuleData(ModuleEnum::Slider, Slider::class);
         $data["projects"] = $this->getModuleData(ModuleEnum::Project, Project::class, 6);

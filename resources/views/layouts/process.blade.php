@@ -1,5 +1,5 @@
 <section class="work-process">
-    <div class="work-process__bg" style="background-image: url(assets/images/backgrounds/work-process-bg.jpg);">
+    <div class="work-process__bg" style="background-image: url({{asset("assets/images/backgrounds/work-process-bg.jpg")}});">
     </div>
     <div class="work-process__video-link">
         <a href="https://www.youtube.com/watch?v=Get7rqXYrbQ" class="video-popup">
@@ -19,7 +19,7 @@
                         <div class="section-title__tagline-box">
                             <span class="section-title__tagline">Working Process</span>
                             <div class="section-title__icon">
-                                <img src="assets/images/icon/section-title-icon.png" alt="">
+                                <img src="{{asset("assets/images/icon/section-title-icon.png")}}" alt="">
                             </div>
                         </div>
                         <h2 class="section-title__title">Maximizing profitability
@@ -32,7 +32,7 @@
                             </div>
                             <div class="work-process__content">
                                 <div class="work-process__shape-1"
-                                     style="background-image: url(assets/images/shapes/work-process-shape-1.png);">
+                                     style="background-image: url({{asset("assets/images/shapes/work-process-shape-1.png")}});">
                                 </div>
                                 <h3 class="work-process__title"><a href="contact.html">Request A Quote</a></h3>
                                 <p class="work-process__text">Creature toward female dont over thering on given
@@ -42,7 +42,7 @@
                         <li class="wow fadeInRight" data-wow-delay="200ms">
                             <div class="work-process__content">
                                 <div class="work-process__shape-1"
-                                     style="background-image: url(assets/images/shapes/work-process-shape-1.png);">
+                                     style="background-image: url({{asset("assets/images/icon/section-title-icon.png")}});">
                                 </div>
                                 <h3 class="work-process__title"><a href="case-details.html">Research Project</a>
                                 </h3>
@@ -59,7 +59,7 @@
                             </div>
                             <div class="work-process__content">
                                 <div class="work-process__shape-1"
-                                     style="background-image: url(assets/images/shapes/work-process-shape-1.png);">
+                                     style="background-image: url({{asset("assets/images/icon/section-title-icon.png")}});">
                                 </div>
                                 <h3 class="work-process__title"><a href="about.html">Satisfied Works</a></h3>
                                 <p class="work-process__text">Creature toward female dont over thering on given

@@ -1,9 +1,9 @@
 <footer class="site-footer">
     <div class="site-footer__shape-1 float-bob-x">
-        <img src="assets/images/shapes/site-footer-shape-1.png" alt="">
+        <img src="{{asset("assets/images/shapes/site-footer-shape-1.png")}}" alt="">
     </div>
     <div class="site-footer__shape-2 float-bob-y">
-        <img src="assets/images/shapes/site-footer-shape-2.png" alt="">
+        <img src="{{asset("assets/images/shapes/site-footer-shape-2.png")}}" alt="">
     </div>
     <div class="container">
         <div class="site-footer__top">
@@ -11,7 +11,8 @@
                 <div class="col-xl-3 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="100ms">
                     <div class="footer-widget__column footer-widget__about">
                         <div class="footer-widget__logo">
-                            <a href="index.html"><img src="assets/images/resources/footer-logo.png" alt=""></a>
+                            <a href="{{route("home")}}"><img src="{{asset("assets/images/resources/footer-logo.png")}}"
+                                                             alt=""></a>
                         </div>
                         <p class="footer-widget__about-text">Eros vivamus platea nullam id consequat eu sociis
                             lectus aliquam nibh auctor elitsed libero pharetra consequat and fad sociis conubia
@@ -38,13 +39,6 @@
                                 <li><a href="case-studie-1.html">Case Studies</a></li>
                                 <li><a href="contact.html">Contact us</a></li>
                                 <li><a href="contact.html">Write For Us</a></li>
-                            </ul>
-                            <ul class="footer-widget__link footer-widget__link-2 list-unstyled">
-                                <li><a href="about.html">Ebooks</a></li>
-                                <li><a href="about.html">Cloudways Users</a></li>
-                                <li><a href="about.html">Group</a></li>
-                                <li><a href="about.html">Customer Voice</a></li>
-                                <li><a href="about.html">affiliate</a></li>
                             </ul>
                         </div>
                     </div>
@@ -73,37 +67,43 @@
                         <ul class="footer-widget__instagram-list list-unstyled clearfix">
                             <li>
                                 <div class="footer-widget__instagram-img">
-                                    <img src="assets/images/project/footer-widget-instagram-img-1.jpg" alt="">
+                                    <img src="{{asset("assets/images/project/footer-widget-instagram-img-1.jpg")}}"
+                                         alt="">
                                     <a href="#"><span class="fab fa-instagram"></span></a>
                                 </div>
                             </li>
                             <li>
                                 <div class="footer-widget__instagram-img">
-                                    <img src="assets/images/project/footer-widget-instagram-img-2.jpg" alt="">
+                                    <img src="{{asset("assets/images/project/footer-widget-instagram-img-2.jpg")}}"
+                                         alt="">
                                     <a href="#"><span class="fab fa-instagram"></span></a>
                                 </div>
                             </li>
                             <li>
                                 <div class="footer-widget__instagram-img">
-                                    <img src="assets/images/project/footer-widget-instagram-img-3.jpg" alt="">
+                                    <img src="{{asset("assets/images/project/footer-widget-instagram-img-3.jpg")}}"
+                                         alt="">
                                     <a href="#"><span class="fab fa-instagram"></span></a>
                                 </div>
                             </li>
                             <li>
                                 <div class="footer-widget__instagram-img">
-                                    <img src="assets/images/project/footer-widget-instagram-img-4.jpg" alt="">
+                                    <img src="{{asset("assets/images/project/footer-widget-instagram-img-4.jpg")}}"
+                                         alt="">
                                     <a href="#"><span class="fab fa-instagram"></span></a>
                                 </div>
                             </li>
                             <li>
                                 <div class="footer-widget__instagram-img">
-                                    <img src="assets/images/project/footer-widget-instagram-img-5.jpg" alt="">
+                                    <img src="{{asset("assets/images/project/footer-widget-instagram-img-5.jpg")}}"
+                                         alt="">
                                     <a href="#"><span class="fab fa-instagram"></span></a>
                                 </div>
                             </li>
                             <li>
                                 <div class="footer-widget__instagram-img">
-                                    <img src="assets/images/project/footer-widget-instagram-img-6.jpg" alt="">
+                                    <img src="{{asset("assets/images/project/footer-widget-instagram-img-6.jpg")}}"
+                                         alt="">
                                     <a href="#"><span class="fab fa-instagram"></span></a>
                                 </div>
                             </li>
@@ -116,8 +116,8 @@
     <div class="site-footer__bottom">
         <div class="container">
             <div class="site-footer__bottom-inner">
-                <p class="site-footer__bottom-text">© 2024
-                    Copyright <a href="#">bizgrow.</a> | All rights reserved</p>
+                <p class="site-footer__bottom-text">© {{date("Y")}}
+                    Copyright <a href="#">@setting("general","title")</a> | Tüm Hakları Saklıdır</p>
                 <ul class="list-unstyled site-footer__bottom-menu">
                     <li><a href="about.html">Privacy & Policy</a></li>
                     <li><a href="about.html">Terms of use</a></li>
