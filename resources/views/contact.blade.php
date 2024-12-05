@@ -23,7 +23,9 @@
                                         <span class="icon-phone-call-1"></span>
                                     </div>
                                     <div class="text">
-                                        <p><a href="tel:@setting('contact','phone')">@setting("contact","phone")</a></p>
+                                        <p>
+                                            <a href="tel:@setting('contact','phone')">@setting("contact","phone")</a>
+                                        </p>
                                     </div>
                                 </li>
                                 <li>
@@ -46,7 +48,8 @@
                                 </li>
                             </ul>
                             <div class="contact-page__live-chat">
-                                <a href="https://wa.me/@setting('contact','phone')"><span class="icon-comments"></span>Canlı
+                                <a onclick="return!window.open(this.href)"
+                                   href="https://wa.me/@setting('contact','phone')"><span class="icon-comments"></span>Canlı
                                     İletişim</a>
                             </div>
                         </div>
@@ -56,8 +59,16 @@
                     <div class="contact-page__right">
                         <div class="contact-page__form-box">
                             <h5 class="contact-page__form-title">Hızlı İletişim</h5>
+                            @if($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach($errors->all() as $error)
+                                            <li>{{$error}}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                             {{html()->form()->route("contact.send")->class("comment-one__form")->open()}}
-
                             <div class="comment-form__input-box">
                                 <div class="comment-form__input-box-name">
                                     <p>Adınız Soyadınız</p>
@@ -76,66 +87,33 @@
                                 <div class="col-xl-6">
                                     <div class="comment-form__input-box">
                                         <div class="comment-form__input-box-name">
-                                            <p>Phone</p>
+                                            <p>Telefon</p>
                                         </div>
-                                        <input type="text" placeholder="Phone" name="phone">
+                                        {{html()->text("phone")->placeholder("Telefon")->required()}}
                                     </div>
                                 </div>
                             </div>
-
-
+                            <div class="comment-form__input-box">
+                                <div class="comment-form__input-box-name">
+                                    <p>Konu</p>
+                                </div>
+                                {{html()->text("subject")->placeholder("Konu")->required()}}
+                            </div>
                             <div class="comment-form__input-box text-message-box">
                                 <div class="comment-form__input-box-name">
                                     <p>Mesajınız</p>
                                 </div>
                                 {{html()->textarea("message")->placeholder("Mesajınız")->required()}}
                             </div>
+                            <div class="checked-box">
+                                {{html()->checkbox("terms")->id("terms")->required()}}
+                                <label for="terms"><span></span>Verdiğim iletişim bilgilerinin kaydedilmesini ve
+                                    kullanılmasını onaylıyorum.</label>
+                            </div>
+                            <div class="comment-form__btn-box">
+                                {{html()->submit("<span class='icon-right-arrow'></span> Gönder")->class("thm-btn comment-form__btn")}}
+                            </div>
                             {{html()->form()->close()}}
-
-                            <div class="row">
-
-                                <div class="col-xl-6">
-                                    <div class="comment-form__input-box">
-                                        <div class="comment-form__input-box-name">
-                                            <p>Your email</p>
-                                        </div>
-                                        <input type="email" placeholder="Your email" name="email">
-                                    </div>
-                                </div>
-                                <div class="col-xl-6">
-                                    <div class="comment-form__input-box">
-                                        <div class="comment-form__input-box-name">
-                                            <p>Phone</p>
-                                        </div>
-                                        <input type="text" placeholder="Phone" name="phone">
-                                    </div>
-                                </div>
-                                <div class="col-xl-6">
-                                    <div class="comment-form__input-box">
-                                        <div class="comment-form__input-box-name">
-                                            <p>Subject</p>
-                                        </div>
-                                        <input type="text" placeholder="Subject" name="subject">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-xl-12">
-                                    <div class="checked-box">
-                                        <input type="checkbox" name="skipper1" id="skipper" checked="">
-                                        <label for="skipper"><span></span>Save my name, email, and website
-                                            in
-                                            this browser
-                                            for the next time I comment.</label>
-                                    </div>
-                                    <div class="comment-form__btn-box">
-                                        <button type="submit" class="thm-btn comment-form__btn"><span
-                                                class="icon-right-arrow"></span>Post Comment
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            </form>
                             <div class="result"></div>
                         </div>
                     </div>

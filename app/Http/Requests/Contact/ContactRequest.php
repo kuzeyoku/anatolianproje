@@ -24,10 +24,10 @@ class ContactRequest extends FormRequest
         return [
             "name" => "required|string|min:3|max:50",
             "email" => "required|email:filter",
-            "phone" => "required|numeric|digits_between:10,15",
-            "subject" => "required|string|min:3|max:50",
+            "phone" => "required|numeric",
+            "subject" => "required|string|min:3",
             "message" => "required|string|min:3|max:500",
-            //"terms" => "required|accepted",
+            "terms" => "required|accepted",
             "g-recaptcha-response" => "",
         ];
     }
@@ -40,15 +40,8 @@ class ContactRequest extends FormRequest
             "phone" => __("front/contact.txt5"),
             "subject" => __("front/contact.txt6"),
             "message" => __("front/contact.txt7"),
-            //"terms" => __("front/contact.txt18"),
+            "terms" => __("front/contact.txt8"),
             "g-recaptcha-response" => __("front/contact.form_recaptcha"),
-        ];
-    }
-
-    public function messages()
-    {
-        return [
-            "required" => __("front/contact.required")
         ];
     }
 }

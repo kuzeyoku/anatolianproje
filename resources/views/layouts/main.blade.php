@@ -86,6 +86,8 @@
 <script src="{{asset("assets/vendors/sidebar-content/jquery-sidebar-content.js")}}"></script>
 <script src="{{asset("assets/vendors/marquee/marquee.min.js")}}"></script>
 <script src="{{asset("assets/js/bizgrow.js")}}"></script>
+@include("common.alert")
+@stack("script")
 </body>
 
 </html>

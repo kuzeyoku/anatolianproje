@@ -4,7 +4,7 @@
         @if (is_array(session('success')))
             <script>
                 Swal.fire({
-                    position: "top-end",
+                    position: "center",
                     icon: "success",
                     title: "{{ session('success')['title'] }}",
                     text: "{{ session('success')['message'] }}",
@@ -15,7 +15,7 @@
         @else
             <script>
                 Swal.fire({
-                    position: 'top-end',
+                    position: 'center',
                     icon: 'success',
                     title: "{{ __('admin/general.success') }}",
                     text: "{{ session('success') }}",
@@ -29,7 +29,7 @@
         @if (is_array(session('error')))
             <script>
                 Swal.fire({
-                    position: "top-end",
+                    position: "center",
                     icon: "error",
                     title: "{{ session('error')['title'] }}",
                     text: "{{ session('error')['message'] }}",
@@ -40,12 +40,12 @@
         @else
             <script>
                 Swal.fire({
-                    position: 'top-end',
+                    position: 'center',
                     icon: 'error',
                     title: "{{ __('admin/general.error') }}",
                     text: "{{ session('error') }}",
                     showConfirmButton: false,
-                    timer: 100000
+                    timer: 3000
                 })
             </script>
         @endif

@@ -2,7 +2,7 @@
     <div class="container">
         <div class="counter-one__inner">
             <div class="counter-one__bg"
-                 style="background-image: url(assets/images/backgrounds/counter-one-bg.png);"></div>
+                 style="background-image: url({{asset("assets/images/backgrounds/counter-one-bg.png")}});"></div>
             <ul class="counter-one__count-list list-unstyled">
                 <li class="wow fadeInUp" data-wow-delay="100ms">
                     <div class="icon">

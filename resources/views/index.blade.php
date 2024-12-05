@@ -17,14 +17,8 @@
 
     @include("layouts.counter")
 
-    @include("layouts.team")
-
-    @include("layouts.pricing")
-
     @include("layouts.brand")
 
     @include("layouts.blog")
-
-    @include("layouts.newsletter")
 
 @endsection
