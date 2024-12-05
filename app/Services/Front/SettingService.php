@@ -4,9 +4,8 @@ namespace App\Services\Front;
 
 use App\Enums\StatusEnum;
 use App\Models\Setting;
-use Cache;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Collection;
-
 
 class SettingService
 {

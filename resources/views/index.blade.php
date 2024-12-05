@@ -5,13 +5,7 @@
 
     @include("layouts.about")
 
-    @include("layouts.feature")
-
     @include("layouts.service")
-
-    @include("layouts.estimate")
-
-    @include("layouts.choose")
 
     @include("layouts.testimonial")
 

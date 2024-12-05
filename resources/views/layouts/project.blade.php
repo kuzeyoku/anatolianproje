@@ -2,12 +2,12 @@
     <div class="container">
         <div class="section-title text-center">
             <div class="section-title__tagline-box">
-                <span class="section-title__tagline">Recent Project</span>
+                <span class="section-title__tagline">Projelerimiz</span>
                 <div class="section-title__icon">
-                    <img src="assets/images/icon/section-title-icon.png" alt="">
+                    <img src="{{asset("assets/images/icon/section-title-icon.png")}}" alt="">
                 </div>
             </div>
-            <h2 class="section-title__title">Latest Case Studies</h2>
+            <h2 class="section-title__title">Tamamlanmış Projelerimiz</h2>
         </div>
         <div class="project-one__bottom">
             <div class="project-one__carousel owl-carousel owl-theme thm-owl__carousel" data-owl-options='{
@@ -34,146 +34,34 @@
                             }
                         }
                     }'>
-                <!--Project One Single Start-->
-                <div class="item">
-                    <div class="project-one__single">
-                        <div class="project-one__img-box">
-                            <div class="project-one__img">
-                                <img src="assets/images/project/project-1-1.jpg" alt="">
-                            </div>
-                            <div class="project-one__content-inner">
-                                <div class="project-one__content-box">
-                                    <div class="project-one__content">
-                                        <div class="project-one__icon">
-                                            <span class="icon-salary"></span>
+                @foreach($projects as $project)
+                    <div class="item">
+                        <div class="project-one__single">
+                            <div class="project-one__img-box">
+                                <div class="project-one__img">
+                                    <img src="{{$project->image}}" alt="">
+                                </div>
+                                <div class="project-one__content-inner">
+                                    <div class="project-one__content-box">
+                                        <div class="project-one__content">
+                                            <div class="project-one__icon">
+                                                <span class="icon-salary"></span>
+                                            </div>
+                                            <h3 class="project-one__title">
+                                                <a href="{{$project->url}}">{{$project->title}}</a>
+                                            </h3>
                                         </div>
-                                        <h3 class="project-one__title"><a href="case-details.html">Creature <br>
-                                                toward
-                                                female</a>
-                                        </h3>
-                                    </div>
-                                    <div class="project-one__arrow">
-                                        <a href="assets/images/project/project-1-1.jpg" class="img-popup"><span
-                                                class="icon-next"></span></a>
+                                        <div class="project-one__arrow">
+                                            <a href="{{$project->url}}">
+                                                <span class="icon-next"></span>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!--Project One Single End-->
-                <!--Project One Single Start-->
-                <div class="item">
-                    <div class="project-one__single">
-                        <div class="project-one__img-box">
-                            <div class="project-one__img">
-                                <img src="assets/images/project/project-1-2.jpg" alt="">
-                            </div>
-                            <div class="project-one__content-inner">
-                                <div class="project-one__content-box">
-                                    <div class="project-one__content">
-                                        <div class="project-one__icon">
-                                            <span class="icon-salary"></span>
-                                        </div>
-                                        <h3 class="project-one__title"><a href="case-details.html">Creature <br>
-                                                toward
-                                                female</a>
-                                        </h3>
-                                    </div>
-                                    <div class="project-one__arrow">
-                                        <a href="assets/images/project/project-1-2.jpg" class="img-popup"><span
-                                                class="icon-next"></span></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--Project One Single End-->
-                <!--Project One Single Start-->
-                <div class="item">
-                    <div class="project-one__single">
-                        <div class="project-one__img-box">
-                            <div class="project-one__img">
-                                <img src="assets/images/project/project-1-3.jpg" alt="">
-                            </div>
-                            <div class="project-one__content-inner">
-                                <div class="project-one__content-box">
-                                    <div class="project-one__content">
-                                        <div class="project-one__icon">
-                                            <span class="icon-salary"></span>
-                                        </div>
-                                        <h3 class="project-one__title"><a href="case-details.html">Creature <br>
-                                                toward
-                                                female</a>
-                                        </h3>
-                                    </div>
-                                    <div class="project-one__arrow">
-                                        <a href="assets/images/project/project-1-3.jpg" class="img-popup"><span
-                                                class="icon-next"></span></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--Project One Single End-->
-                <!--Project One Single Start-->
-                <div class="item">
-                    <div class="project-one__single">
-                        <div class="project-one__img-box">
-                            <div class="project-one__img">
-                                <img src="assets/images/project/project-1-4.jpg" alt="">
-                            </div>
-                            <div class="project-one__content-inner">
-                                <div class="project-one__content-box">
-                                    <div class="project-one__content">
-                                        <div class="project-one__icon">
-                                            <span class="icon-salary"></span>
-                                        </div>
-                                        <h3 class="project-one__title"><a href="case-details.html">Creature <br>
-                                                toward
-                                                female</a>
-                                        </h3>
-                                    </div>
-                                    <div class="project-one__arrow">
-                                        <a href="assets/images/project/project-1-4.jpg" class="img-popup"><span
-                                                class="icon-next"></span></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--Project One Single End-->
-                <!--Project One Single Start-->
-                <div class="item">
-                    <div class="project-one__single">
-                        <div class="project-one__img-box">
-                            <div class="project-one__img">
-                                <img src="assets/images/project/project-1-5.jpg" alt="">
-                            </div>
-                            <div class="project-one__content-inner">
-                                <div class="project-one__content-box">
-                                    <div class="project-one__content">
-                                        <div class="project-one__icon">
-                                            <span class="icon-salary"></span>
-                                        </div>
-                                        <h3 class="project-one__title"><a href="case-details.html">Creature <br>
-                                                toward
-                                                female</a>
-                                        </h3>
-                                    </div>
-                                    <div class="project-one__arrow">
-                                        <a href="assets/images/project/project-1-5.jpg" class="img-popup"><span
-                                                class="icon-next"></span></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--Project One Single End-->
+                @endforeach
             </div>
         </div>
     </div>

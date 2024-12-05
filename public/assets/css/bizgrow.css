@@ -3331,6 +3331,7 @@ ul {
     position: relative;
     display: block;
     padding: 120px 0 120px;
+    margin-bottom: 120px;
     z-index: 1;
 }
 
@@ -3714,7 +3715,7 @@ ul {
 .services-one {
     position: relative;
     display: block;
-    padding: 250px 0 216px;
+    padding: 120px 0 216px;
     margin-top: -140px;
     z-index: 1;
 }
@@ -5281,6 +5282,20 @@ ul {
 }
 
 .work-process__list li:nth-child(2) .work-process__content::before {
+    left: inherit;
+    right: -21px;
+    border-right: inherit;
+    border-left: 21px solid var(--bizgrow-extra);
+    border-top: 16px solid transparent;
+    border-bottom: 16px solid transparent;
+}
+
+.work-process__list li:nth-child(4) .work-process__content {
+    margin-left: 0;
+    margin-right: 42px;
+}
+
+.work-process__list li:nth-child(4) .work-process__content::before {
     left: inherit;
     right: -21px;
     border-right: inherit;

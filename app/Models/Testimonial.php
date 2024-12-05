@@ -36,4 +36,11 @@ class Testimonial extends Model implements HasMedia
         return StatusEnum::fromValue($this->status)->badge();
     }
 
+    public function getImageAttribute(): string
+    {
+        return cache()->rememberForever("testimonial_image_" . $this->id, function () {
+            return $this->getFirstMediaUrl() ?? asset("assets/common/images/noimage.jpg");
+        });
+    }
+
 }
