@@ -9356,7 +9356,7 @@ ul {
 .blog-page {
     position: relative;
     display: block;
-    padding: 120px 0 120px;
+    padding: 120px 0 200px;
 }
 
 .blog-page__left {
@@ -10065,7 +10065,7 @@ ul {
 .blog-details {
     position: relative;
     display: block;
-    padding: 120px 0 120px;
+    padding: 120px 0 200px;
 }
 
 .blog-details__left {
@@ -10392,7 +10392,6 @@ ul {
 .author__content {
     position: relative;
     display: block;
-    margin-left: 30px;
 }
 
 .author__name {
@@ -10491,7 +10490,6 @@ ul {
 
 .comment-one__content {
     position: relative;
-    margin-left: 20px;
     margin-top: 3px;
 }
 

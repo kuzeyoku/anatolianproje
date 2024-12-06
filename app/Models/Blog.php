@@ -104,7 +104,12 @@ class Blog extends Model implements HasMedia
 
     public function getTagsToArrayAttribute(): array
     {
-        return explode(",", $this->translate->pluck('tags', "lang")->first());
+        $tags = $this->translate->where("lang", app()->getLocale())->pluck('tags')->first();
+        if (!empty($tags)) {
+            return explode(",", $tags);
+        } else {
+            return [];
+        }
     }
 
     public function getShortDescriptionAttribute(): string

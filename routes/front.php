@@ -25,7 +25,7 @@ Route::middleware(CountVisitors::class, Maintenance::class)->group(function () {
             Route::get("/", "index")->name("blog.index");
             Route::get("/{blog}/{slug}", "show")->name("blog.show");
             Route::get("/category/{category}/{slug}", "category")->name("blog.category");
-            Route::post("/{blog}/comment/store", "comment_store")->name("blog.comment_store");
+            Route::post("/{blog}/comment/store", "comment_store")->name("blog.comment.store");
         });
     }
 
