@@ -17,6 +17,7 @@ class QueryCollector extends PDOCollector
     protected $queries = [];
     protected $queryCount = 0;
     protected $transactionEventsCount = 0;
+    protected $infoStatements = 0;
     protected $softLimit = null;
     protected $hardLimit = null;
     protected $lastMemoryUsage;
@@ -183,7 +184,7 @@ class QueryCollector extends PDOCollector
         }
 
         $bindings = match (true) {
-            $limited && filled($query->bindings) => null,
+            $limited && filled($query->bindings) => [],
             default => $query->connection->prepareBindings($query->bindings),
         };
 
@@ -195,14 +196,14 @@ class QueryCollector extends PDOCollector
             'time' => $time,
             'memory' => $this->lastMemoryUsage ? memory_get_usage(false) - $this->lastMemoryUsage : 0,
             'source' => $source,
-            'connection' => $query->connection->getName(),
+            'connection' => $query->connection,
             'driver' => $query->connection->getConfig('driver'),
             'hints' => ($this->showHints && !$limited) ? $hints : null,
             'show_copy' => $this->showCopyButton,
         ];
 
         if ($this->timeCollector !== null) {
-            $this->timeCollector->addMeasure(Str::limit($sql, 100), $startTime, $endTime, [], 'db');
+            $this->timeCollector->addMeasure(Str::limit($sql, 100), $startTime, $endTime, [], 'db', 'Database Query');
         }
     }
 
@@ -377,7 +378,7 @@ class QueryCollector extends PDOCollector
         $filename = pathinfo($file, PATHINFO_FILENAME);
 
         foreach ($this->middleware as $alias => $class) {
-            if (strpos($class, $filename) !== false) {
+            if (!is_null($class) && !is_null($filename) && strpos($class, $filename) !== false) {
                 return $alias;
             }
         }
@@ -458,7 +459,7 @@ class QueryCollector extends PDOCollector
             'time' => 0,
             'memory' => 0,
             'source' => $source,
-            'connection' => $connection->getName(),
+            'connection' => $connection,
             'driver' => $connection->getConfig('driver'),
             'hints' => null,
             'show_copy' => false,
@@ -472,6 +473,7 @@ class QueryCollector extends PDOCollector
     {
         $this->queries = [];
         $this->queryCount = 0;
+        $this->infoStatements = 0 ;
     }
 
     /**
@@ -494,7 +496,7 @@ class QueryCollector extends PDOCollector
             $totalTime += $query['time'];
             $totalMemory += $query['memory'];
 
-            $connectionName = DB::connection($query['connection'])->getDatabaseName();
+            $connectionName = $query['connection']->getDatabaseName();
             if (str_ends_with($connectionName, '.sqlite')) {
                 $connectionName = $this->normalizeFilePath($connectionName);
             }
@@ -524,9 +526,9 @@ class QueryCollector extends PDOCollector
                 'explain' => $this->explainQuery && $canExplainQuery ? [
                     'url' => route('debugbar.queries.explain'),
                     'driver' => $query['driver'],
-                    'connection' => $query['connection'],
+                    'connection' => $query['connection']->getName(),
                     'query' => $query['query'],
-                    'hash' => (new Explain())->hash($query['connection'], $query['query'], $query['bindings']),
+                    'hash' => (new Explain())->hash($query['connection']->getName(), $query['query'], $query['bindings']),
                 ] : null,
             ];
         }
@@ -562,6 +564,7 @@ class QueryCollector extends PDOCollector
                 'sql' => '... ' . ($this->queryCount - $this->hardLimit) . ' additional queries are executed but now shown because of Debugbar query limits. Limits can be raised in the config (debugbar.options.db.soft/hard_limit)',
                 'type' => 'info',
             ];
+            $this->infoStatements+= 2;
         } elseif ($this->hardLimit && $this->queryCount > $this->hardLimit) {
             array_unshift($statements, [
                 'sql' => '# Query hard limit for Debugbar is reached after ' . $this->hardLimit . ' queries, additional ' . ($this->queryCount - $this->hardLimit) . ' queries are not shown.. Limits can be raised in the config (debugbar.options.db.hard_limit)',
@@ -571,17 +574,22 @@ class QueryCollector extends PDOCollector
                 'sql' => '... ' . ($this->queryCount - $this->hardLimit) . ' additional queries are executed but now shown because of Debugbar query limits. Limits can be raised in the config (debugbar.options.db.hard_limit)',
                 'type' => 'info',
             ];
+            $this->infoStatements+= 2;
         } elseif ($this->softLimit && $this->queryCount > $this->softLimit) {
             array_unshift($statements, [
-                'sql' => '# Query soft limit for Debugbar is reached after ' . $this->softLimit . ' queries, additional ' . ($this->queryCount - $this->softLimit) . ' queries only show the query. Limit can be raised in the config. Limits can be raised in the config (debugbar.options.db.soft_limit)',
+                'sql' => '# Query soft limit for Debugbar is reached after ' . $this->softLimit . ' queries, additional ' . ($this->queryCount - $this->softLimit) . ' queries only show the query. Limits can be raised in the config (debugbar.options.db.soft_limit)',
                 'type' => 'info',
             ]);
+            $this->infoStatements++;
         }
 
+        $visibleStatements = count($statements) - $this->infoStatements;
+
         $data = [
+            'count' => $visibleStatements,
             'nb_statements' => $this->queryCount,
-            'nb_visible_statements' => count($statements),
-            'nb_excluded_statements' => $this->queryCount + $this->transactionEventsCount - count($statements),
+            'nb_visible_statements' => $visibleStatements,
+            'nb_excluded_statements' => $this->queryCount + $this->transactionEventsCount - $visibleStatements,
             'nb_failed_statements' => 0,
             'accumulated_duration' => $totalTime,
             'accumulated_duration_str' => $this->formatDuration($totalTime),
@@ -613,7 +621,7 @@ class QueryCollector extends PDOCollector
                 "default" => "[]"
             ],
             "queries:badge" => [
-                "map" => "queries.nb_visible_statements",
+                "map" => "queries.nb_statements",
                 "default" => 0
             ]
         ];
@@ -622,9 +630,16 @@ class QueryCollector extends PDOCollector
     private function getSqlQueryToDisplay(array $query): string
     {
         $sql = $query['query'];
-        if ($query['type'] === 'query' && $this->renderSqlWithParams && method_exists(DB::connection($query['connection'])->getQueryGrammar(), 'substituteBindingsIntoRawSql')) {
-            $sql = DB::connection($query['connection'])->getQueryGrammar()->substituteBindingsIntoRawSql($sql, $query['bindings'] ?? []);
-        } elseif ($query['type'] === 'query' && $this->renderSqlWithParams) {
+        if ($query['type'] === 'query' && $this->renderSqlWithParams && $query['connection']->getQueryGrammar() instanceof \Illuminate\Database\Query\Grammars\Grammar && method_exists($query['connection']->getQueryGrammar(), 'substituteBindingsIntoRawSql')) {
+            try {
+                $sql = $query['connection']->getQueryGrammar()->substituteBindingsIntoRawSql($sql, $query['bindings'] ?? []);
+                return $this->getDataFormatter()->formatSql($sql);
+            } catch (\Throwable $e) {
+                // Continue using the old substitute
+            }
+        }
+
+        if ($query['type'] === 'query' && $this->renderSqlWithParams) {
             $bindings = $this->getDataFormatter()->checkBindings($query['bindings']);
             if (!empty($bindings)) {
                 $pdo = null;

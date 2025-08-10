@@ -2,6 +2,97 @@
 
 All notable changes to `image` will be documented in this file
 
+## 3.8.4 - 2025-06-04
+
+### What's Changed
+
+* Bump dependabot/fetch-metadata from 2.3.0 to 2.4.0 by @dependabot in https://github.com/spatie/image/pull/297
+* Update GdDriver.php by @GhostvOne in https://github.com/spatie/image/pull/298
+
+### New Contributors
+
+* @GhostvOne made their first contribution in https://github.com/spatie/image/pull/298
+
+**Full Changelog**: https://github.com/spatie/image/compare/3.8.3...3.8.4
+
+## 3.8.3 - 2025-04-25
+
+### What's Changed
+
+* refactor: simplify loadFile by replacing fopen/fread with file_get_contents by @Ayoub-Mabrouk in https://github.com/spatie/image/pull/296
+* refactor(image): simplify and merge exif and fileinfo extension checks by @Ayoub-Mabrouk in https://github.com/spatie/image/pull/295
+
+**Full Changelog**: https://github.com/spatie/image/compare/3.8.2...3.8.3
+
+## 3.8.2 - 2025-04-24
+
+### What's Changed
+
+* refactor: simplify resizeWidth method by @Ayoub-Mabrouk in https://github.com/spatie/image/pull/292
+* refactor: simplify and optimize resizeHeight method by @Ayoub-Mabrouk in https://github.com/spatie/image/pull/293
+* refactor: simplify resize method by @Ayoub-Mabrouk in https://github.com/spatie/image/pull/294
+
+### New Contributors
+
+* @Ayoub-Mabrouk made their first contribution in https://github.com/spatie/image/pull/292
+
+**Full Changelog**: https://github.com/spatie/image/compare/3.8.1...3.8.2
+
+## 3.8.1 - 2025-03-27
+
+### What's Changed
+
+* Bump dependabot/fetch-metadata from 2.2.0 to 2.3.0 by @dependabot in https://github.com/spatie/image/pull/287
+* Bump aglipanci/laravel-pint-action from 2.4 to 2.5 by @dependabot in https://github.com/spatie/image/pull/288
+* Allow custom image drivers by @Peeterush in https://github.com/spatie/image/pull/290
+
+**Full Changelog**: https://github.com/spatie/image/compare/3.8.0...3.8.1
+
+## 3.8.0 - 2025-01-17
+
+### What's Changed
+
+* Add -90 rotation degree by @hbakouane in https://github.com/spatie/image/pull/285
+
+### New Contributors
+
+* @hbakouane made their first contribution in https://github.com/spatie/image/pull/285
+
+**Full Changelog**: https://github.com/spatie/image/compare/3.7.5...3.8.0
+
+## 3.7.5 - 2025-01-13
+
+### What's Changed
+
+* PHP 8.4 tests by @erikn69 in https://github.com/spatie/image/pull/277
+* Correct documentation for FillMax in resizing-images.md by @ElGovanni in https://github.com/spatie/image/pull/278
+* Correction: Update basic-usage.md Selecting a driver" section by @PrabalPradhan1991 in https://github.com/spatie/image/pull/280
+* Update basic-usage.md Reverting back the incorrect changes that I suggested by @PrabalPradhan1991 in https://github.com/spatie/image/pull/281
+* Do not remove color profiles when resizing canvas. by @Peeterush in https://github.com/spatie/image/pull/284
+
+### New Contributors
+
+* @ElGovanni made their first contribution in https://github.com/spatie/image/pull/278
+* @Peeterush made their first contribution in https://github.com/spatie/image/pull/284
+
+**Full Changelog**: https://github.com/spatie/image/compare/3.7.4...3.7.5
+
+## 3.7.4 - 2024-10-07
+
+### What's Changed
+
+* Fix broken link by @Synchro in https://github.com/spatie/image/pull/272
+* Update resizing-images.md by @makakken in https://github.com/spatie/image/pull/273
+* Improve DX by specifying namespace for GD functions by @alies-dev in https://github.com/spatie/image/pull/274
+* Fix issue with palette images when saving a webp file using GD.
+
+### New Contributors
+
+* @makakken made their first contribution in https://github.com/spatie/image/pull/273
+* @alies-dev made their first contribution in https://github.com/spatie/image/pull/274
+
+**Full Changelog**: https://github.com/spatie/image/compare/3.7.3...3.7.4
+
 ## 3.7.3 - 2024-08-06
 
 ### What's Changed
