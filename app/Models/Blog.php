@@ -3,17 +3,38 @@
 namespace App\Models;
 
 use App\Enums\ModuleEnum;
-use App\Enums\StatusEnum;
+use App\Traits\HasModule;
+use App\Traits\HasTranslations;
+use App\Traits\HasCategory;
+use App\Traits\HasComments;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
-use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Blog extends Model implements HasMedia
+class Blog extends BaseModel implements HasMedia
 {
     use InteractsWithMedia;
+    use HasTranslations;
+    use HasCategory;
+    use HasComments;
+    use HasModule;
+
+    protected $translationModel = BlogTranslate::class;
+    protected $commentModel = BlogComment::class;
+    protected $translationForeignKey = "blog_id";
+    protected $commentForeignKey = "blog_id";
+    protected $module = ModuleEnum::Blog;
+    protected $appends = [
+        "title",
+        "titles",
+        "description",
+        "descriptions",
+        "tags",
+        "tags_to_array",
+        "short_description",
+        "meta_description",
+    ];
 
     protected $fillable = [
         'slug',
@@ -25,122 +46,9 @@ class Blog extends Model implements HasMedia
 
     protected $with = ["category", "translate", "user", "comments"];
 
-    public function scopeActive($query)
-    {
-        return $query->whereStatus(StatusEnum::Active->value);
-    }
-
-    public function scopeOrder($query)
-    {
-        return $query->orderBy("order", "asc")->orderBy("id", "desc");
-    }
-
-    public function scopeViewOrder($query)
-    {
-        return $query->orderBy("view_count", "desc");
-    }
-
-    public function translate(): HasMany
-    {
-        return $this->hasMany(BlogTranslate::class);
-    }
-
-    public function comments(): HasMany
-    {
-        return $this->hasMany(BlogComment::class);
-    }
-
-    public function category(): BelongsTo
-    {
-        return $this->belongsTo(Category::class);
-    }
-
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function getImageAttribute(): string
-    {
-        return cache()->remember("blog_image_" . $this->id, config("cache.time"), function () {
-            return $this->getFirstMediaUrl() ?? asset("assets/common/images/noimage.jpg");
-        });
-    }
-
-    public function getPreviousAttribute(): Blog|null
-    {
-        return $this->where("id", ">", $this->id)->orderBy("id", "ASC")->first();
-    }
-
-    public function getNextAttribute(): Blog|null
-    {
-        return $this->where("id", "<", $this->id)->orderBy("id", "ASC")->first();
-    }
-
-    public function getTitleAttribute()
-    {
-        return $this->translate->where("lang", app()->getLocale())->pluck('title')->first();
-    }
-
-    public function getTitlesAttribute(): array
-    {
-        return $this->translate->pluck('title', "lang")->all();
-    }
-
-    public function getDescriptionAttribute()
-    {
-        return $this->translate->where("lang", app()->getLocale())->pluck('description')->first();
-    }
-
-    public function getDescriptionsAttribute(): array
-    {
-        return $this->translate->pluck('description', "lang")->all();
-    }
-
-    public function getTagsAttribute(): array
-    {
-        return $this->translate->pluck('tags', "lang")->all();
-    }
-
-    public function getTagsToArrayAttribute(): array
-    {
-        $tags = $this->translate->where("lang", app()->getLocale())->pluck('tags')->first();
-        if (!empty($tags)) {
-            return explode(",", $tags);
-        } else {
-            return [];
-        }
-    }
-
-    public function getShortDescriptionAttribute(): string
-    {
-        return Str::limit(strip_tags($this->description), 210);
-    }
-
-    public function getMetaDescriptionAttribute(): string
-    {
-        $description = $this->translate->where("lang", app()->getFallbackLocale())->pluck('description')->first();
-        return Str::limit(strip_tags($description), 160);
-    }
-
-    public function getUrlAttribute(): string
-    {
-        return route(ModuleEnum::Blog->route() . ".show", [$this->id, $this->slug]);
-    }
-
-    public function getCategoryUrlAttribute(): string
-    {
-        return route(ModuleEnum::Blog->route() . ".category", [$this->category->id, $this->category->slug]);
-    }
-
-    public function getStatusViewAttribute(): string
-    {
-        return StatusEnum::fromValue($this->status)->badge();
-    }
-
-    public function getModuleAttribute()
-    {
-        return ModuleEnum::Blog->singleTitle();
     }
 
     protected static function boot(): void

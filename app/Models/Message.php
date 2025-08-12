@@ -3,9 +3,8 @@
 namespace App\Models;
 
 use App\Enums\StatusEnum;
-use Illuminate\Database\Eloquent\Model;
 
-class Message extends Model
+class Message extends BaseModel
 {
     protected $fillable = [
         "name",
@@ -22,11 +21,6 @@ class Message extends Model
     public function scopeUnread($query)
     {
         return $query->whereStatus(StatusEnum::Unread);
-    }
-
-    public function getStatusViewAttribute(): string
-    {
-        return StatusEnum::fromValue($this->status)->badge();
     }
 
     protected static function boot(): void

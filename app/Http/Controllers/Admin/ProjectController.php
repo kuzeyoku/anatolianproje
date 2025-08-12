@@ -40,11 +40,11 @@ class ProjectController extends Controller
     public function imageStore(ImageProjectRequest $request, Project $project): object
     {
         if ($this->service->imageUpload($request, $project)) {
-            return (object)[
+            return (object) [
                 "message" => __("admin/alert.default_success")
             ];
         } else {
-            return (object)[
+            return (object) [
                 "message" => __("admin/alert.default_error")
             ];
         }
@@ -55,10 +55,10 @@ class ProjectController extends Controller
         try {
             $this->service->imageDelete($image);
             return back()
-                ->with("success",__("admin/alert.default_success"));
+                ->with("success", __("admin/alert.default_success"));
         } catch (Throwable $e) {
             return back()
-                ->with("error",__("admin/alert.default_error"));
+                ->with("error", __("admin/alert.default_error"));
         }
     }
 
@@ -67,10 +67,10 @@ class ProjectController extends Controller
         try {
             $this->service->imageAllDelete($project);
             return back()
-                ->with("success",__("admin/alert.default_success"));
+                ->with("success", __("admin/alert.default_success"));
         } catch (Throwable $e) {
             return back()
-                ->with("error",__("admin/alert.default_error"));
+                ->with("error", __("admin/alert.default_error"));
         }
     }
 
@@ -85,11 +85,11 @@ class ProjectController extends Controller
             $this->service->create($request->validated());
             return redirect()
                 ->route("admin.{$this->service->route()}.index")
-                ->with("success",__("admin/alert.default_success"));
+                ->with("success", __("admin/alert.default_success"));
         } catch (Throwable $e) {
             return back()
                 ->withInput()
-                ->with("error",__("admin/alert.default_error"));
+                ->with("error", __("admin/alert.default_error"));
         }
     }
 
@@ -104,11 +104,11 @@ class ProjectController extends Controller
             $this->service->update($request->validated(), $project);
             return redirect()
                 ->route("admin.{$this->service->route()}.index")
-                ->with("success",__("admin/alert.default_success"));
+                ->with("success", __("admin/alert.default_success"));
         } catch (Throwable $e) {
             return back()
                 ->withInput()
-                ->with("error",__("admin/alert.default_error"));
+                ->with("error", __("admin/alert.default_error"));
         }
     }
 
@@ -117,10 +117,10 @@ class ProjectController extends Controller
         try {
             $this->service->statusUpdate($request->validated(), $project);
             return back()
-                ->with("success",__("admin/alert.default_success"));
+                ->with("success", __("admin/alert.default_success"));
         } catch (Throwable $e) {
             return back()
-                ->with("error",__("admin/alert.default_error"));
+                ->with("error", __("admin/alert.default_error"));
         }
     }
 
@@ -130,10 +130,10 @@ class ProjectController extends Controller
             $this->service->delete($project);
             return redirect()
                 ->route("admin.{$this->service->route()}.index")
-                ->with("success",__("admin/alert.default_success"));
+                ->with("success", __("admin/alert.default_success"));
         } catch (Throwable $e) {
             return back()
-                ->with("error",__("admin/alert.default_error"));
+                ->with("error", __("admin/alert.default_error"));
         }
     }
 }

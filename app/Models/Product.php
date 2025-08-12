@@ -3,19 +3,24 @@
 namespace App\Models;
 
 use App\Enums\ModuleEnum;
-use App\Enums\StatusEnum;
-use App\Services\CacheService;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Traits\HasCategory;
+use App\Traits\HasModule;
 use Illuminate\Support\Str;
+use App\Traits\HasTranslations;
 use Spatie\MediaLibrary\HasMedia;
-use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Product extends Model implements HasMedia
+class Product extends BaseModel implements HasMedia
 {
     use InteractsWithMedia;
-
+    use HasTranslations;
+    use HasCategory;
+    use HasModule;
+    protected $translationModel = ProductTranslate::class;
+    protected $categoryModel = Category::class;
+    protected $translationForeignKey = "product_id";
+    protected $categoryModelForeignKey = "product_id";
+    protected $module = ModuleEnum::Product;
     protected $fillable = [
         "status",
         "slug",
@@ -26,51 +31,6 @@ class Product extends Model implements HasMedia
     ];
 
     protected $with = ["translate", "category"];
-
-    public function scopeActive($query)
-    {
-        return $query->whereStatus(StatusEnum::Active);
-    }
-
-    public function scopeOrder($query)
-    {
-        return $query->orderBy("order")->orderBy("id", "DESC");
-    }
-
-    public function translate(): HasMany
-    {
-        return $this->hasMany(ProductTranslate::class);
-    }
-
-    public function category(): BelongsTo
-    {
-        return $this->belongsTo(Category::class);
-    }
-
-    public function getImageAttribute()
-    {
-        return CacheService::cacheQuery("product_image_" . $this->id, fn() => $this->getFirstMediaUrl() ?? asset("assets/common/images/noimage.jpg"));
-    }
-
-    public function getTitlesAttribute(): array
-    {
-        return $this->translate->pluck("title", "lang")->all();
-    }
-
-    public function getTitleAttribute(): string|null
-    {
-        return $this->translate->where("lang", session("locale"))->pluck('title')->first();
-    }
-
-    public function getDescriptionsAttribute(): array
-    {
-        return $this->translate->pluck("description", "lang")->all();
-    }
-
-    public function getDescriptionAttribute(): string|null
-    {
-        return $this->translate->where("lang", session("locale"))->pluck('description')->first();
-    }
 
     public function getFeaturesAttribute(): array
     {
@@ -92,28 +52,6 @@ class Product extends Model implements HasMedia
         }
         return $result;
     }
-
-    public function getShortDescriptionAttribute(): string
-    {
-        return Str::limit(trim(strip_tags($this->description)), 100);
-    }
-
-    public function getMetaDescriptionAttribute(): string
-    {
-        $description = $this->translate->where("lang", app()->getFallbackLocale())->pluck('description')->first();
-        return Str::limit(trim(strip_tags($description)), 160);
-    }
-
-    public function getUrlAttribute(): string
-    {
-        return route(ModuleEnum::Product->route() . ".show", [$this->id, $this->slug]);
-    }
-
-    public function getStatusViewAttribute(): string
-    {
-        return StatusEnum::fromValue($this->status)->badge();
-    }
-
     protected static function boot(): void
     {
         parent::boot();

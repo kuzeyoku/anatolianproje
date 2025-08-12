@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Enums\UserRole;
 use App\Enums\ModuleEnum;
+use App\Traits\HasModule;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\MediaLibrary\HasMedia;
 use Illuminate\Notifications\Notifiable;
@@ -15,6 +16,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable implements HasMedia
 {
     use HasApiTokens, HasFactory, Notifiable, InteractsWithMedia;
+    use HasModule;
+    protected $module = ModuleEnum::User;
 
     /**
      * The attributes that are mass assignable.
@@ -49,9 +52,4 @@ class User extends Authenticatable implements HasMedia
         'password' => 'hashed',
         "role" => UserRole::class,
     ];
-
-    public function getModuleAttribute()
-    {
-        return ModuleEnum::User->singleTitle();
-    }
 }

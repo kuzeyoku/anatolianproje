@@ -1,0 +1,52 @@
+<?php
+
+namespace App\Models;
+
+use App\Enums\StatusEnum;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
+
+class BaseModel extends Model
+{
+    public function getImageAttribute(): string
+    {
+        return Cache::remember($this->module->value . "_image_" . $this->id, config("cache.time"), function () {
+            return $this->getFirstMediaUrl() ?? asset("assets/common/images/noimage.jpg");
+        });
+    }
+
+    public function getOtherAttribute($limit = 5)
+    {
+        return $this->active()->where("id", "!=", $this->id)->limit($limit)->get();
+    }
+
+    public function getPreviousAttribute()
+    {
+        return $this->where("id", ">", $this->id)->orderBy("id", "ASC")->first();
+    }
+
+    public function getNextAttribute()
+    {
+        return $this->where("id", "<", $this->id)->orderBy("id", "ASC")->first();
+    }
+
+    public function getStatusViewAttribute(): string
+    {
+        return StatusEnum::fromValue($this->status)->badge();
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', StatusEnum::Active->value);
+    }
+
+    public function scopeOrder($query)
+    {
+        return $query->orderBy("order", "asc")->orderBy("id", "desc");
+    }
+
+    public function scopeViewOrder($query)
+    {
+        return $query->orderBy("view_count", "desc");
+    }
+}

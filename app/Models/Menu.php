@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Traits\HasTranslations;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Menu extends Model
+class Menu extends BaseModel
 {
+    use HasTranslations;
+    protected $translationModel = MenuTranslate::class;
+    protected $translationForeignKey = "menu_id";
     protected $fillable = [
         "url",
         "parent_id",
@@ -18,29 +21,9 @@ class Menu extends Model
 
     protected $with = ["translate", "subMenu"];
 
-    public function translate(): HasMany
-    {
-        return $this->hasMany(MenuTranslate::class);
-    }
-
     public function subMenu(): HasMany
     {
         return $this->hasMany(Menu::class, "parent_id");
-    }
-
-    public function scopeOrder($query)
-    {
-        return $query->orderBy("order");
-    }
-
-    public function getTitlesAttribute(): array
-    {
-        return $this->translate->pluck("title", "lang")->all();
-    }
-
-    public function getTitleAttribute(): string|null
-    {
-        return $this->translate->where("lang", session("locale"))->pluck('title')->first();
     }
 
     public static function boot(): void
