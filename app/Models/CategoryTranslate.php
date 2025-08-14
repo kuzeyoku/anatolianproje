@@ -10,7 +10,7 @@ class CategoryTranslate extends Model
         'category_id',
         'lang',
         'title',
-        'description'
+        'description',
     ];
 
     public $timestamps = false;

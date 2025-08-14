@@ -8,22 +8,25 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Menu extends BaseModel
 {
     use HasTranslations;
+
     protected $translationModel = MenuTranslate::class;
-    protected $translationForeignKey = "menu_id";
+
+    protected $translationForeignKey = 'menu_id';
+
     protected $fillable = [
-        "url",
-        "parent_id",
-        "order",
-        "blank",
+        'url',
+        'parent_id',
+        'order',
+        'blank',
     ];
 
     public $timestamps = false;
 
-    protected $with = ["translate", "subMenu"];
+    protected $with = ['translate', 'subMenu'];
 
     public function subMenu(): HasMany
     {
-        return $this->hasMany(Menu::class, "parent_id");
+        return $this->hasMany(Menu::class, 'parent_id');
     }
 
     public static function boot(): void

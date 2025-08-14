@@ -18,10 +18,11 @@ class CountVisitors
     public function handle(Request $request, Closure $next): Response
     {
         try {
-            Visitor::firstOrCreate(['ip_address' => $request->ip()])->increment("visit_count");
+            Visitor::firstOrCreate(['ip_address' => $request->ip()])->increment('visit_count');
         } catch (Exception $e) {
             // do nothing
         }
+
         return $next($request);
     }
 }

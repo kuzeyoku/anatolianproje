@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('visitors', function (Blueprint $table) {
             $table->id();
             $table->string('ip_address')->unique()->index();
-            $table->integer("visit_count")->default(1);
+            $table->integer('visit_count')->default(1);
             $table->timestamps();
         });
     }

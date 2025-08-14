@@ -17,8 +17,8 @@ use Illuminate\Support\Facades\Route;
 //     Route::post("/store", "store")->name("setup.store");
 // });
 
-require __DIR__ . "/admin.php";
-require __DIR__ . "/front.php";
+require __DIR__.'/admin.php';
+require __DIR__.'/front.php';
 
 Route::fallback(function () {
     return view('errors.404');

@@ -14,11 +14,11 @@ return new class extends Migration
     {
         Schema::create('popups', function (Blueprint $table) {
             $table->id();
-            $table->enum("type", ["image", "video", "text"])->default("text");
-            $table->string("video")->nullable();
-            $table->string("url")->nullable();
-            $table->json("setting")->nullable();
-            $table->enum("status", StatusEnum::getValues())->default(StatusEnum::Active->value);
+            $table->enum('type', ['image', 'video', 'text'])->default('text');
+            $table->string('video')->nullable();
+            $table->string('url')->nullable();
+            $table->json('setting')->nullable();
+            $table->enum('status', StatusEnum::getValues())->default(StatusEnum::Active->value);
             $table->timestamps();
         });
     }

@@ -3,49 +3,49 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Enums\ModuleEnum;
-use Throwable;
-use App\Models\Project;
-use Illuminate\Support\Facades\View;
-use App\Services\Admin\ProjectService;
 use App\Http\Requests\GeneralStatusRequest;
 use App\Http\Requests\Project\ImageProjectRequest;
 use App\Http\Requests\Project\StoreProjectRequest;
 use App\Http\Requests\Project\UpdateProjectRequest;
+use App\Models\Project;
+use App\Services\Admin\ProjectService;
+use Illuminate\Support\Facades\View;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Throwable;
 
 class ProjectController extends Controller
 {
-
     public function __construct(private readonly ProjectService $service)
     {
         View::share([
-            "categories" => $service->getCategories(),
-            "route" => $service->route(),
-            "folder" => $service->folder(),
-            "module" => ModuleEnum::Service
+            'categories' => $service->getCategories(),
+            'route' => $service->route(),
+            'folder' => $service->folder(),
+            'module' => ModuleEnum::Service,
         ]);
     }
 
     public function index()
     {
         $items = $this->service->getAll();
-        return view(themeView("admin", "{$this->service->folder()}.index"), compact("items"));
+
+        return view(themeView('admin', "{$this->service->folder()}.index"), compact('items'));
     }
 
     public function image(Project $project)
     {
-        return view(themeView("admin", "layout.image"), compact("project"));
+        return view(themeView('admin', 'layout.image'), compact('project'));
     }
 
     public function imageStore(ImageProjectRequest $request, Project $project): object
     {
         if ($this->service->imageUpload($request, $project)) {
             return (object) [
-                "message" => __("admin/alert.default_success")
+                'message' => __('admin/alert.default_success'),
             ];
         } else {
             return (object) [
-                "message" => __("admin/alert.default_error")
+                'message' => __('admin/alert.default_error'),
             ];
         }
     }
@@ -54,11 +54,12 @@ class ProjectController extends Controller
     {
         try {
             $this->service->imageDelete($image);
+
             return back()
-                ->with("success", __("admin/alert.default_success"));
+                ->with('success', __('admin/alert.default_success'));
         } catch (Throwable $e) {
             return back()
-                ->with("error", __("admin/alert.default_error"));
+                ->with('error', __('admin/alert.default_error'));
         }
     }
 
@@ -66,49 +67,52 @@ class ProjectController extends Controller
     {
         try {
             $this->service->imageAllDelete($project);
+
             return back()
-                ->with("success", __("admin/alert.default_success"));
+                ->with('success', __('admin/alert.default_success'));
         } catch (Throwable $e) {
             return back()
-                ->with("error", __("admin/alert.default_error"));
+                ->with('error', __('admin/alert.default_error'));
         }
     }
 
     public function create()
     {
-        return view(themeView("admin", "{$this->service->folder()}.create"));
+        return view(themeView('admin', "{$this->service->folder()}.create"));
     }
 
     public function store(StoreProjectRequest $request)
     {
         try {
             $this->service->create($request->validated());
+
             return redirect()
                 ->route("admin.{$this->service->route()}.index")
-                ->with("success", __("admin/alert.default_success"));
+                ->with('success', __('admin/alert.default_success'));
         } catch (Throwable $e) {
             return back()
                 ->withInput()
-                ->with("error", __("admin/alert.default_error"));
+                ->with('error', __('admin/alert.default_error'));
         }
     }
 
     public function edit(Project $project)
     {
-        return view(themeView("admin", "{$this->service->folder()}.edit"), compact("project"));
+        return view(themeView('admin', "{$this->service->folder()}.edit"), compact('project'));
     }
 
     public function update(UpdateProjectRequest $request, Project $project)
     {
         try {
             $this->service->update($request->validated(), $project);
+
             return redirect()
                 ->route("admin.{$this->service->route()}.index")
-                ->with("success", __("admin/alert.default_success"));
+                ->with('success', __('admin/alert.default_success'));
         } catch (Throwable $e) {
             return back()
                 ->withInput()
-                ->with("error", __("admin/alert.default_error"));
+                ->with('error', __('admin/alert.default_error'));
         }
     }
 
@@ -116,11 +120,12 @@ class ProjectController extends Controller
     {
         try {
             $this->service->statusUpdate($request->validated(), $project);
+
             return back()
-                ->with("success", __("admin/alert.default_success"));
+                ->with('success', __('admin/alert.default_success'));
         } catch (Throwable $e) {
             return back()
-                ->with("error", __("admin/alert.default_error"));
+                ->with('error', __('admin/alert.default_error'));
         }
     }
 
@@ -128,12 +133,13 @@ class ProjectController extends Controller
     {
         try {
             $this->service->delete($project);
+
             return redirect()
                 ->route("admin.{$this->service->route()}.index")
-                ->with("success", __("admin/alert.default_success"));
+                ->with('success', __('admin/alert.default_success'));
         } catch (Throwable $e) {
             return back()
-                ->with("error", __("admin/alert.default_error"));
+                ->with('error', __('admin/alert.default_error'));
         }
     }
 }

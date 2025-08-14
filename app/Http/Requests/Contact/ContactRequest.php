@@ -22,26 +22,26 @@ class ContactRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "name" => "required|string|min:3|max:50",
-            "email" => "required|email:filter",
-            "phone" => "required|numeric",
-            "subject" => "required|string|min:3",
-            "message" => "required|string|min:3|max:500",
-            "terms" => "required|accepted",
-            "g-recaptcha-response" => "",
+            'name' => 'required|string|min:3|max:50',
+            'email' => 'required|email:filter',
+            'phone' => 'required|numeric',
+            'subject' => 'required|string|min:3',
+            'message' => 'required|string|min:3|max:500',
+            'terms' => 'required|accepted',
+            'g-recaptcha-response' => '',
         ];
     }
 
     public function attributes()
     {
         return [
-            "name" => __("front/contact.txt3"),
-            "email" => __("front/contact.txt4"),
-            "phone" => __("front/contact.txt5"),
-            "subject" => __("front/contact.txt6"),
-            "message" => __("front/contact.txt7"),
-            "terms" => __("front/contact.txt8"),
-            "g-recaptcha-response" => __("front/contact.form_recaptcha"),
+            'name' => __('front/contact.txt3'),
+            'email' => __('front/contact.txt4'),
+            'phone' => __('front/contact.txt5'),
+            'subject' => __('front/contact.txt6'),
+            'message' => __('front/contact.txt7'),
+            'terms' => __('front/contact.txt8'),
+            'g-recaptcha-response' => __('front/contact.form_recaptcha'),
         ];
     }
 }

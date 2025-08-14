@@ -10,9 +10,9 @@ class Reference extends BaseModel implements HasMedia
     use InteractsWithMedia;
 
     protected $fillable = [
-        "url",
-        "title",
-        "status",
-        "order"
+        'url',
+        'title',
+        'status',
+        'order',
     ];
 }

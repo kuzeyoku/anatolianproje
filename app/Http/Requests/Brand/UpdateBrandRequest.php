@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests\Brand;
 
-use Illuminate\Foundation\Http\FormRequest;
 use App\Enums\ModuleEnum;
+use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateBrandRequest extends FormRequest
 {
@@ -22,23 +22,23 @@ class UpdateBrandRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "image" => "image|mimes:jpeg,png,jpg,gif",
-            "url" => "nullable|active_url",
-            "title" => "nullable",
-            "order" => "required|numeric|min:0",
-            "status" => "required",
-            "imageDelete" => ""
+            'image' => 'image|mimes:jpeg,png,jpg,gif',
+            'url' => 'nullable|active_url',
+            'title' => 'nullable',
+            'order' => 'required|numeric|min:0',
+            'status' => 'required',
+            'imageDelete' => '',
         ];
     }
 
     public function attributes(): array
     {
         return [
-            "image" => __("admin/{$this->folder}.form_image"),
-            "url" => __("admin/{$this->folder}.form_url"),
-            "title" => __("admin/{$this->folder}.form_title"),
-            "order" => __("admin/general.order"),
-            "status" => __("admin/general.status")
+            'image' => __("admin/{$this->folder}.form_image"),
+            'url' => __("admin/{$this->folder}.form_url"),
+            'title' => __("admin/{$this->folder}.form_title"),
+            'order' => __('admin/general.order'),
+            'status' => __('admin/general.status'),
         ];
     }
 }

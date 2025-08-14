@@ -6,7 +6,6 @@ use App\Enums\ModuleEnum;
 use App\Models\Page;
 
 class PageService extends BaseService
-
 {
     public function __construct(Page $page)
     {

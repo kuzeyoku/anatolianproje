@@ -23,7 +23,7 @@ class GeneralStatusRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "status" => ["required", "in:" . implode(",", StatusEnum::getValues())],
+            'status' => ['required', 'in:'.implode(',', StatusEnum::getValues())],
         ];
     }
 }

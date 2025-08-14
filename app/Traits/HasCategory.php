@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Traits;
+
 use App\Models\Category;
 
 trait HasCategory
@@ -23,6 +24,7 @@ trait HasCategory
     {
         return $this->getCategoryAttributeValue('name');
     }
+
     public function getCategorySlugAttribute()
     {
         return $this->getCategoryAttributeValue('slug');

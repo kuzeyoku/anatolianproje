@@ -25,7 +25,7 @@ class ReplyMessageRequest extends FormRequest
             'email' => 'required|email',
             'subject' => 'required|string',
             'message' => 'required|string',
-            "message_id" => "required|integer"
+            'message_id' => 'required|integer',
         ];
     }
 }

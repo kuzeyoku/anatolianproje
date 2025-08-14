@@ -8,10 +8,10 @@ use App\Services\Front\SeoService;
 
 class ContactController extends Controller
 {
-
     public function index()
     {
         SeoService::index();
+
         return view('contact');
     }
 
@@ -19,12 +19,13 @@ class ContactController extends Controller
     {
         try {
             ContactService::sendMail($request->validated());
+
             return back()
-                ->with("success", __("front/contact.send_success"));
+                ->with('success', __('front/contact.send_success'));
         } catch (\Exception $e) {
             return back()
                 ->withInput()
-                ->with("error", __("front/contact.send_error"));
+                ->with('error', __('front/contact.send_error'));
         }
     }
 }

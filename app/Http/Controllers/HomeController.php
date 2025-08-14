@@ -7,7 +7,6 @@ use App\Models\Blog;
 use App\Models\Brand;
 use App\Models\Page;
 use App\Models\Project;
-use App\Models\Sector;
 use App\Models\Service;
 use App\Models\Slider;
 use App\Models\Testimonial;
@@ -19,14 +18,15 @@ class HomeController extends Controller
     public function index()
     {
         SeoService::index();
-        $data["services"] = $this->getModuleData(ModuleEnum::Service, Service::class, 6);
-        $data["brands"] = $this->getModuleData(ModuleEnum::Brand, Brand::class);
-        $data["sliders"] = $this->getModuleData(ModuleEnum::Slider, Slider::class);
-        $data["projects"] = $this->getModuleData(ModuleEnum::Project, Project::class, 6);
-        $data["testimonials"] = $this->getModuleData(ModuleEnum::Testimonial, Testimonial::class);
-        $data["blogs"] = $this->getModuleData(ModuleEnum::Blog, Blog::class, 3);
-        $data["about"] = CacheService::cacheQuery("about_home", fn() => Page::find(setting("information", "about_page")));
-        return view("index", $data);
+        $data['services'] = $this->getModuleData(ModuleEnum::Service, Service::class, 6);
+        $data['brands'] = $this->getModuleData(ModuleEnum::Brand, Brand::class);
+        $data['sliders'] = $this->getModuleData(ModuleEnum::Slider, Slider::class);
+        $data['projects'] = $this->getModuleData(ModuleEnum::Project, Project::class, 6);
+        $data['testimonials'] = $this->getModuleData(ModuleEnum::Testimonial, Testimonial::class);
+        $data['blogs'] = $this->getModuleData(ModuleEnum::Blog, Blog::class, 3);
+        $data['about'] = CacheService::cacheQuery('about_home', fn () => Page::find(setting('information', 'about_page')));
+
+        return view('index', $data);
     }
 
     private function getModuleData(ModuleEnum $module, $model, $limit = 0)
@@ -35,6 +35,7 @@ class HomeController extends Controller
         if ($limit > 0) {
             $query->limit($limit);
         }
-        return CacheService::cacheQuery($module->value . "_home", fn() => $query->get());
+
+        return CacheService::cacheQuery($module->value.'_home', fn () => $query->get());
     }
 }

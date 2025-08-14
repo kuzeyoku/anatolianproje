@@ -15,10 +15,12 @@ class Localization
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (session()->has("locale"))
-            app()->setLocale(session()->get("locale"));
-        else
-            session()->put("locale", app()->getLocale());
+        if (session()->has('locale')) {
+            app()->setLocale(session()->get('locale'));
+        } else {
+            session()->put('locale', app()->getLocale());
+        }
+
         return $next($request);
     }
 }

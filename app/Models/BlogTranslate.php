@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class BlogTranslate extends Model
@@ -12,7 +11,7 @@ class BlogTranslate extends Model
         'lang',
         'title',
         'description',
-        'tags'
+        'tags',
     ];
 
     public $timestamps = false;

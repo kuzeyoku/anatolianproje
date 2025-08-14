@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Language;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Enums\ModuleEnum;
 
 class UpdateLanguageRequest extends FormRequest
 {
@@ -15,16 +14,16 @@ class UpdateLanguageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "title" => "required",
-            "status" => "required"
+            'title' => 'required',
+            'status' => 'required',
         ];
     }
 
     public function attributes(): array
     {
         return [
-            "title" => __("admin/{ModuleEnum::Language->folder()}.form_title"),
-            "status" => __("admin/general.status")
+            'title' => __('admin/{ModuleEnum::Language->folder()}.form_title'),
+            'status' => __('admin/general.status'),
         ];
     }
 }

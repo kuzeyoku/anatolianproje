@@ -12,38 +12,43 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 
 class Service extends BaseModel implements HasMedia
 {
-    use InteractsWithMedia;
-    use HasTranslations;
     use HasCategory;
     use HasModule;
+    use HasTranslations;
+    use InteractsWithMedia;
 
     protected $translationModel = ServiceTranslate::class;
+
     protected $categoryModel = Category::class;
-    protected $translationForeignKey = "service_id";
-    protected $categoryModelForeignKey = "service_id";
+
+    protected $translationForeignKey = 'service_id';
+
+    protected $categoryModelForeignKey = 'service_id';
+
     protected $module = ModuleEnum::Service;
+
     protected $fillable = [
-        "status",
-        "order",
-        "slug",
-        "category_id",
+        'status',
+        'order',
+        'slug',
+        'category_id',
     ];
 
     protected mixed $locale;
 
-    protected $with = ["translate", "category"];
+    protected $with = ['translate', 'category'];
 
     public function __construct()
     {
         parent::__construct();
-        $this->locale = session("locale");
+        $this->locale = session('locale');
     }
 
     protected static function boot(): void
     {
         parent::boot();
         static::creating(function ($model) {
-            $model->slug = Str::slug(request("title." . app()->getFallbackLocale()));
+            $model->slug = Str::slug(request('title.'.app()->getFallbackLocale()));
         });
     }
 }

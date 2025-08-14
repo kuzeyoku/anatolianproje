@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('product_translates', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("product_id")->constrained("products")->cascadeOnDelete();
-            $table->string("lang", 10)->index();
-            $table->foreign("lang")->references("code")->on("languages")->cascadeonDelete();
-            $table->string("title", 255)->nullable();
-            $table->text("description")->nullable();
-            $table->text("features")->nullable();
+            $table->foreignId('product_id')->constrained('products')->cascadeOnDelete();
+            $table->string('lang', 10)->index();
+            $table->foreign('lang')->references('code')->on('languages')->cascadeonDelete();
+            $table->string('title', 255)->nullable();
+            $table->text('description')->nullable();
+            $table->text('features')->nullable();
         });
     }
 

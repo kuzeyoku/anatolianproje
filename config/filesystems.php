@@ -39,7 +39,7 @@ return [
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'url' => env('APP_URL') . '/public/storage',
+            'url' => env('APP_URL').'/public/storage',
             'visibility' => 'public',
             'throw' => false,
         ],
@@ -47,15 +47,15 @@ return [
         'media' => [
             'driver' => 'local',
             'root' => storage_path('app/public/media'),
-            'url' => env('APP_URL') . '/public/storage/media',
+            'url' => env('APP_URL').'/public/storage/media',
             'visibility' => 'public',
             'throw' => false,
         ],
 
-        "lang" => [
-            "driver" => "local",
-            "root" => resource_path("lang"),
-            "throw" => false,
+        'lang' => [
+            'driver' => 'local',
+            'root' => resource_path('lang'),
+            'throw' => false,
         ],
 
         's3' => [

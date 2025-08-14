@@ -11,8 +11,11 @@ class AdminNotification extends Notification
     use Queueable;
 
     protected string $type;
+
     protected string $message;
+
     protected string $exception;
+
     /**
      * Create a new notification instance.
      */
@@ -30,7 +33,7 @@ class AdminNotification extends Notification
      */
     public function via(): array
     {
-        return ["database"];
+        return ['database'];
     }
 
     /**
@@ -52,9 +55,9 @@ class AdminNotification extends Notification
     public function toDatabase(): array
     {
         return [
-            "type" => $this->type,
-            "message" => $this->message,
-            "exception" => $this->exception,
+            'type' => $this->type,
+            'message' => $this->message,
+            'exception' => $this->exception,
         ];
     }
 }

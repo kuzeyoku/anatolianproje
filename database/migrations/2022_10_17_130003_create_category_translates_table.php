@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('category_translates', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("category_id")->constrained("categories")->cascadeOnDelete();
-            $table->string("lang", 10)->index();
-            $table->foreign("lang")->references("code")->on("languages")->cascadeonDelete();
-            $table->string("title", 255)->nullable();
-            $table->text("description")->nullable();
+            $table->foreignId('category_id')->constrained('categories')->cascadeOnDelete();
+            $table->string('lang', 10)->index();
+            $table->foreign('lang')->references('code')->on('languages')->cascadeonDelete();
+            $table->string('title', 255)->nullable();
+            $table->text('description')->nullable();
         });
     }
 

@@ -7,7 +7,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class StoreTestimonialRequest extends FormRequest
 {
-
     public function authorize(): bool
     {
         return true;
@@ -23,26 +22,26 @@ class StoreTestimonialRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "image" => "required|image|mimes:jpeg,png,jpg,gif",
-            "name" => "required",
-            "company" => "nullable",
-            "position" => "nullable",
-            "message" => "required",
-            "order" => "required|numeric|min:0",
-            "status" => "required",
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif',
+            'name' => 'required',
+            'company' => 'nullable',
+            'position' => 'nullable',
+            'message' => 'required',
+            'order' => 'required|numeric|min:0',
+            'status' => 'required',
         ];
     }
 
     public function attributes(): array
     {
         return [
-            "image" => __("admin/{$this->folder}.form_image"),
-            "name" => __("admin/{$this->folder}.form_name"),
-            "company" => __("admin/{$this->folder}.form_company"),
-            "position" => __("admin/{$this->folder}.form_position"),
-            "message" => __("admin/{$this->folder}.form_message"),
-            "order" => __("admin/general.order"),
-            "status" => "admin.general.status",
+            'image' => __("admin/{$this->folder}.form_image"),
+            'name' => __("admin/{$this->folder}.form_name"),
+            'company' => __("admin/{$this->folder}.form_company"),
+            'position' => __("admin/{$this->folder}.form_position"),
+            'message' => __("admin/{$this->folder}.form_message"),
+            'order' => __('admin/general.order'),
+            'status' => 'admin.general.status',
         ];
     }
 }

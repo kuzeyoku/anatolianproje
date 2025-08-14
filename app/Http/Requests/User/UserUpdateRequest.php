@@ -30,20 +30,20 @@ class UserUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "name" => "required",
-            "email" => "required|email|unique:users,email," . $this->user->id . ",id",
-            "password" => "nullable|min:6",
-            "role" => "required",
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email,'.$this->user->id.',id',
+            'password' => 'nullable|min:6',
+            'role' => 'required',
         ];
     }
 
     public function attributes(): array
     {
         return [
-            "name" => __("admin/{$this->folder}.form_name"),
-            "email" => __("admin/{$this->folder}.form_email"),
-            "password" => __("admin/{$this->folder}.form_password"),
-            "role" => __("admin/{$this->folder}.form_role"),
+            'name' => __("admin/{$this->folder}.form_name"),
+            'email' => __("admin/{$this->folder}.form_email"),
+            'password' => __("admin/{$this->folder}.form_password"),
+            'role' => __("admin/{$this->folder}.form_role"),
         ];
     }
 }

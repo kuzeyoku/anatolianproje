@@ -1,4 +1,5 @@
 <?php
+
 return [
-    "txt1" => "Detaylar"
+    'txt1' => 'Detaylar',
 ];

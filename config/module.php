@@ -1,52 +1,114 @@
 <?php
 
 return [
-    "message" => [
-        "status" => true,
+    'message' => [
+        'status' => true,
+        'menu' => [
+            'index',
+            'blocked',
+        ],
     ],
-    "media" => [
-        "status" => true,
+    'media' => [
+        'status' => true,
+        'menu' => [
+            'index',
+        ],
     ],
-    "blog" => [
-        "status" => true,
+    'blog' => [
+        'status' => true,
+        'menu' => [
+            'create',
+            'index',
+        ],
     ],
-    "page" => [
-        "status" => true,
+    'page' => [
+        'status' => true,
+        'menu' => [
+            'create',
+            'index',
+        ],
     ],
-    "user" => [
-        "status" => true,
+    'user' => [
+        'status' => true,
+        'menu' => [
+            'create',
+            'index',
+        ],
     ],
-    "language" => [
-        "status" => true,
+    'language' => [
+        'status' => true,
+        'menu' => [
+            'create',
+            'index',
+        ],
     ],
-    "category" => [
-        "status" => true,
+    'category' => [
+        'status' => true,
+        'menu' => [
+            'create',
+            'index',
+        ],
     ],
-    "service" => [
-        "status" => true,
+    'service' => [
+        'status' => true,
+        'menu' => [
+            'create',
+            'index',
+        ],
     ],
-    "project" => [
-        "status" => true,
+    'project' => [
+        'status' => true,
+        'menu' => [
+            'create',
+            'index',
+        ],
     ],
-    "product" => [
-        "status" => true,
+    'product' => [
+        'status' => true,
+        'menu' => [
+            'create',
+            'index',
+        ],
     ],
-    "slider" => [
-        "status" => true,
+    'slider' => [
+        'status' => true,
+        'menu' => [
+            'create',
+            'index',
+        ],
     ],
-    "brand" => [
-        "status" => true,
+    'brand' => [
+        'status' => true,
+        'menu' => [
+            'create',
+            'index',
+        ],
     ],
-    "reference" => [
-        "status" => true,
+    'reference' => [
+        'status' => true,
+        'menu' => [
+            'create',
+            'index',
+        ],
     ],
-    "testimonial" => [
-        "status" => true,
+    'testimonial' => [
+        'status' => true,
+        'menu' => [
+            'create',
+            'index',
+        ],
     ],
-    "popup" => [
-        "status" => true,
+    'popup' => [
+        'status' => true,
+        'menu' => [
+            'create',
+            'index',
+        ],
     ],
-    "menu" => [
-        "status" => true,
+    'menu' => [
+        'status' => true,
+        'menu' => [
+            'index',
+        ],
     ],
 ];

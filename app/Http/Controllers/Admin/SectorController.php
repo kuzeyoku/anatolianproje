@@ -21,25 +21,27 @@ class SectorController extends Controller
     public function index()
     {
         $items = $this->service->getAll();
-        return view(themeView("admin", "{$this->service->folder()}.index"), compact('items'));
+
+        return view(themeView('admin', "{$this->service->folder()}.index"), compact('items'));
     }
 
     public function create()
     {
-        return view(themeView("admin", "{$this->service->folder()}.create"));
+        return view(themeView('admin', "{$this->service->folder()}.create"));
     }
 
     public function store(StoreSectorRequest $request)
     {
         try {
             $this->service->create($request->validated());
+
             return redirect()
                 ->route("admin.{$this->service->route()}.index")
-                ->with("success", __("admin/alert.default_success"));
+                ->with('success', __('admin/alert.default_success'));
         } catch (Throwable $e) {
             return back()
                 ->withInput()
-                ->with("error", __("admin/alert.default_error"));
+                ->with('error', __('admin/alert.default_error'));
         }
     }
 }

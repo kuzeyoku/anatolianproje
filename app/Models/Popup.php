@@ -10,21 +10,25 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 
 class Popup extends BaseModel implements HasMedia
 {
-    use InteractsWithMedia;
-    use HasTranslations;
     use HasModule;
+    use HasTranslations;
+    use InteractsWithMedia;
+
     protected $translationModel = PopupTranslate::class;
-    protected $translationForeignKey = "popup_id";
+
+    protected $translationForeignKey = 'popup_id';
+
     protected $module = ModuleEnum::Popup;
+
     protected $fillable = [
-        "type",
-        "video",
-        "url",
-        "setting",
-        "status"
+        'type',
+        'video',
+        'url',
+        'setting',
+        'status',
     ];
 
-    protected $with = ["translate"];
+    protected $with = ['translate'];
 
     public function getSettingsAttribute()
     {

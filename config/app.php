@@ -42,7 +42,7 @@ return [
     |
     */
 
-    'debug' => (bool)env('APP_DEBUG', false),
+    'debug' => (bool) env('APP_DEBUG', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -57,7 +57,7 @@ return [
 
     'url' => env('APP_URL', 'http://localhost/'),
 
-    'asset_url' => env('APP_URL') . '/public',
+    'asset_url' => env('APP_URL').'/public',
 
     /*
     |--------------------------------------------------------------------------
@@ -189,9 +189,8 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
-        "Html" => Spatie\Html\Facades\Html::class,
+        'Html' => Spatie\Html\Facades\Html::class,
         'SEO' => Artesaos\SEOTools\Facades\SEOTools::class,
     ])->toArray(),
-
 
 ];

@@ -10,18 +10,22 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 
 class Slider extends BaseModel implements HasMedia
 {
-    use InteractsWithMedia;
-    use HasTranslations;
     use HasModule;
+    use HasTranslations;
+    use InteractsWithMedia;
+
     protected $translationModel = SliderTranslate::class;
-    protected $translationForeignKey = "slider_id";
+
+    protected $translationForeignKey = 'slider_id';
+
     protected $module = ModuleEnum::Slider;
+
     protected $fillable = [
-        "button",
-        "video",
-        "status",
-        "order"
+        'button',
+        'video',
+        'status',
+        'order',
     ];
 
-    protected $with = ["translate"];
+    protected $with = ['translate'];
 }

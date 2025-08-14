@@ -20,12 +20,12 @@ function statusList(): mixed
 
 function themeView($folder, $file): string
 {
-    return config("template.{$folder}.view") . "." . $file;
+    return config("template.{$folder}.view").'.'.$file;
 }
 
 function themeAsset($folder, $file): string
 {
-    return asset("assets/" . config("template.{$folder}.asset") . "/" . $file);
+    return asset('assets/'.config("template.{$folder}.asset").'/'.$file);
 }
 
 function setting($category, $key = null, $default = null): mixed
@@ -34,5 +34,6 @@ function setting($category, $key = null, $default = null): mixed
     if (is_null($key)) {
         return $settings[$category] ?? [];
     }
+
     return $settings[$category][$key] ?? $default;
 }

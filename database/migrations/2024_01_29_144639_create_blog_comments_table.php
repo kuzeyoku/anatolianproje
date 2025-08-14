@@ -14,12 +14,12 @@ return new class extends Migration
     {
         Schema::create('blog_comments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('blog_id')->constrained("blogs")->cascadeOnDelete();
+            $table->foreignId('blog_id')->constrained('blogs')->cascadeOnDelete();
             $table->string('name');
-            $table->string("email");
-            $table->longText("comment");
-            $table->string("ip");
-            $table->enum("status", StatusEnum::getValues());
+            $table->string('email');
+            $table->longText('comment');
+            $table->string('ip');
+            $table->enum('status', StatusEnum::getValues());
             $table->timestamps();
         });
     }

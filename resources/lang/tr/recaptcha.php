@@ -1,5 +1,5 @@
 <?php
 
 return [
-    "failed" => "Robot Doğrulaması Başarısız."
+    'failed' => 'Robot Doğrulaması Başarısız.',
 ];

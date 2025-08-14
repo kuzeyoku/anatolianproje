@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class ProjectTranslate extends Model
 {
     protected $fillable = [
-        "project_id",
-        "lang",
-        "title",
-        "description",
-        "features",
+        'project_id',
+        'lang',
+        'title',
+        'description',
+        'features',
     ];
 
     public $timestamps = false;

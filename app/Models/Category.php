@@ -2,28 +2,30 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Str;
 use App\Traits\HasTranslations;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Category extends BaseModel implements HasMedia
 {
-    use InteractsWithMedia;
     use HasTranslations;
+    use InteractsWithMedia;
 
     protected $translationModel = CategoryTranslate::class;
-    protected $translationForeignKey = "category_id";
+
+    protected $translationForeignKey = 'category_id';
+
     protected $fillable = [
         'slug',
         'status',
         'module',
         'parent_id',
-        "order"
+        'order',
     ];
 
-    protected $with = ["translate"];
+    protected $with = ['translate'];
 
     public function scopeModule($query, $module)
     {
@@ -32,7 +34,7 @@ class Category extends BaseModel implements HasMedia
 
     public function subCategories(): HasMany
     {
-        return $this->hasMany(Category::class, "parent_id");
+        return $this->hasMany(Category::class, 'parent_id');
     }
 
     public function products(): HasMany
@@ -59,13 +61,13 @@ class Category extends BaseModel implements HasMedia
     {
         parent::boot();
         self::creating(function ($category) {
-            $category->slug = Str::slug(request("title." . app()->getFallbackLocale()));
+            $category->slug = Str::slug(request('title.'.app()->getFallbackLocale()));
         });
         self::deleting(function ($category) {
-            $category->products()->update(["category_id" => 0]);
-            $category->projects()->update(["category_id" => 0]);
-            $category->services()->update(["category_id" => 0]);
-            $category->blogs()->update(["category_id" => 0]);
+            $category->products()->update(['category_id' => 0]);
+            $category->projects()->update(['category_id' => 0]);
+            $category->services()->update(['category_id' => 0]);
+            $category->blogs()->update(['category_id' => 0]);
             $category->subCategories()->delete();
         });
     }

@@ -12,9 +12,11 @@ class Setup extends Model
 
     public static function status()
     {
-        if (Setup::first())
+        if (Setup::first()) {
             return Setup::first()->status;
-        return "not_installed";
+        }
+
+        return 'not_installed';
     }
 
     public $timestamps = false;

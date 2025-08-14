@@ -15,12 +15,14 @@ class Admin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->check())
-            view()->composer(themeView("admin", "layout.header"), function ($view) {
+        if (auth()->check()) {
+            view()->composer(themeView('admin', 'layout.header'), function ($view) {
                 $messages = \App\Models\Message::unread()->get();
                 $comments = \App\Models\BlogComment::pending()->get();
                 $view->with(compact('messages', 'comments'));
             });
+        }
+
         return $next($request);
     }
 }

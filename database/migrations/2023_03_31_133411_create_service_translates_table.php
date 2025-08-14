@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('service_translates', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("service_id")->constrained("services")->cascadeOnDelete();
-            $table->string("lang", 10)->index();
-            $table->foreign("lang")->references("code")->on("languages")->cascadeonDelete();
-            $table->string("title", 255)->nullable();
-            $table->text("description")->nullable();
+            $table->foreignId('service_id')->constrained('services')->cascadeOnDelete();
+            $table->string('lang', 10)->index();
+            $table->foreign('lang')->references('code')->on('languages')->cascadeonDelete();
+            $table->string('title', 255)->nullable();
+            $table->text('description')->nullable();
         });
     }
 

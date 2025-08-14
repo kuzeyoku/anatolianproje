@@ -15,5 +15,5 @@ class PageTranslate extends Model
         'description',
     ];
 
-    public  $timestamps = false;
+    public $timestamps = false;
 }

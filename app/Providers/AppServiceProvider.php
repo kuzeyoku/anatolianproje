@@ -10,9 +10,7 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Register any application services.
      */
-    public function register(): void
-    {
-    }
+    public function register(): void {}
 
     /**
      * Bootstrap any application services.
@@ -21,8 +19,8 @@ class AppServiceProvider extends ServiceProvider
     {
         \Illuminate\Support\Facades\Schema::defaultStringLength(191);
         config()->set('cache.time', \App\Services\Front\SettingService::getCacheTime());
-        config()->set("seotools.meta.webmaster_tags", setting("webmaster"));
-        Blade::directive("setting", function ($expression) {
+        config()->set('seotools.meta.webmaster_tags', setting('webmaster'));
+        Blade::directive('setting', function ($expression) {
             return "<?php echo setting({$expression}); ?>";
         });
     }

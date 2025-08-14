@@ -9,12 +9,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class BlogComment extends Model
 {
     public $fillable = [
-        "blog_id",
-        "name",
-        "email",
-        "comment",
-        "ip",
-        "status"
+        'blog_id',
+        'name',
+        'email',
+        'comment',
+        'ip',
+        'status',
     ];
 
     public function blog(): BelongsTo
@@ -34,7 +34,7 @@ class BlogComment extends Model
 
     public function getGravatarUrlAttribute(): string
     {
-        return "https://www.gravatar.com/avatar/" . md5(strtolower(trim($this->email)));
+        return 'https://www.gravatar.com/avatar/'.md5(strtolower(trim($this->email)));
     }
 
     protected static function boot(): void

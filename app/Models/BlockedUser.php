@@ -8,7 +8,7 @@ class BlockedUser extends Model
 {
     protected $fillable = [
         'email',
-        'ip'
+        'ip',
     ];
 
     public function scopeEmail($query, $email)

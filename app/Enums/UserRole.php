@@ -4,22 +4,22 @@ namespace App\Enums;
 
 enum UserRole: string
 {
-    case DEMO  = "demo";
-    case EDITOR = "editor";
-    case ADMIN = "admin";
+    case DEMO = 'demo';
+    case EDITOR = 'editor';
+    case ADMIN = 'admin';
 
     public function permissions()
     {
         return match ($this) {
             self::DEMO => [
-                "index",
-                "create"
+                'index',
+                'create',
             ],
             self::EDITOR => [
-                "index",
-                "create",
-                "edit",
-                "update"
+                'index',
+                'create',
+                'edit',
+                'update',
             ]
         };
     }
@@ -29,10 +29,9 @@ enum UserRole: string
         return UserRole::from($role->value)->permissions();
     }
 
-
     public function title(): string
     {
-        return __("admin/role." . $this->value);
+        return __('admin/role.'.$this->value);
     }
 
     public static function getValues(): array

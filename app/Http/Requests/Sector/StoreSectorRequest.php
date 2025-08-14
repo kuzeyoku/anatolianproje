@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests\Sector;
 
-use Illuminate\Foundation\Http\FormRequest;
 use App\Enums\ModuleEnum;
+use Illuminate\Foundation\Http\FormRequest;
 
 class StoreSectorRequest extends FormRequest
 {
@@ -22,23 +22,23 @@ class StoreSectorRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "title." . app()->getFallbackLocale() => "required",
-            "title.*" => "",
-            "url" => "required",
-            "status" => "required",
-            "order" => "required|numeric|min:0",
-            "image" => "image|mimes:jpeg,png,jpg,gif",
+            'title.'.app()->getFallbackLocale() => 'required',
+            'title.*' => '',
+            'url' => 'required',
+            'status' => 'required',
+            'order' => 'required|numeric|min:0',
+            'image' => 'image|mimes:jpeg,png,jpg,gif',
         ];
     }
 
     public function attributes(): array
     {
         return [
-            "title." . app()->getFallbackLocale() => __("admin/{$this->folder}.form_title"),
-            "url" => __("admin/{$this->folder}.form_url"),
-            "status" => __("admin/general.status"),
-            "order" => __("admin/general.order"),
-            "image" => __("admin/{$this->folder}.form_image"),
+            'title.'.app()->getFallbackLocale() => __("admin/{$this->folder}.form_title"),
+            'url' => __("admin/{$this->folder}.form_url"),
+            'status' => __('admin/general.status'),
+            'order' => __('admin/general.order'),
+            'image' => __("admin/{$this->folder}.form_image"),
         ];
     }
 }

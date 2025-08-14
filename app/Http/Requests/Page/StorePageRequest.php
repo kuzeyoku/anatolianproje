@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests\Page;
 
-use Illuminate\Foundation\Http\FormRequest;
 use App\Enums\ModuleEnum;
+use Illuminate\Foundation\Http\FormRequest;
 
 class StorePageRequest extends FormRequest
 {
@@ -22,21 +22,21 @@ class StorePageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "title." . app()->getFallbackLocale() => "required",
-            "title.*" => "",
-            "description.*" => "",
-            "status" => "required",
-            "quick_link" => "required"
+            'title.'.app()->getFallbackLocale() => 'required',
+            'title.*' => '',
+            'description.*' => '',
+            'status' => 'required',
+            'quick_link' => 'required',
         ];
     }
 
     public function attributes(): array
     {
         return [
-            "title." . app()->getFallbackLocale() => __("admin/{$this->folder}.form_title"),
-            "description.*" => __("admin/{$this->folder}.form_description"),
-            "status" => __("admin/general.status"),
-            "quick_link" => __("admin/{$this->folder}.form_quick_link")
+            'title.'.app()->getFallbackLocale() => __("admin/{$this->folder}.form_title"),
+            'description.*' => __("admin/{$this->folder}.form_description"),
+            'status' => __('admin/general.status'),
+            'quick_link' => __("admin/{$this->folder}.form_quick_link"),
         ];
     }
 }

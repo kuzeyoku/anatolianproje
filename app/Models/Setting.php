@@ -9,11 +9,11 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 class Setting extends Model implements HasMedia
 {
     use InteractsWithMedia;
-    
+
     protected $fillable = [
-        "key",
-        "value",
-        "category"
+        'key',
+        'value',
+        'category',
     ];
 
     public $timestamps = false;

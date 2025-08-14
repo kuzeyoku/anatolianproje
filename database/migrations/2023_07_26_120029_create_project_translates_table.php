@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('project_translates', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("project_id")->constrained()->cascadeOnDelete();
+            $table->foreignId('project_id')->constrained()->cascadeOnDelete();
             $table->string('lang', 10)->index();
             $table->foreign('lang')->references('code')->on('languages')->cascadeonDelete();
-            $table->string("title", 255)->nullable();
-            $table->text("description")->nullable();
-            $table->text("shortdescription")->nullable();
-            $table->text("features")->nullable();
+            $table->string('title', 255)->nullable();
+            $table->text('description')->nullable();
+            $table->text('shortdescription')->nullable();
+            $table->text('features')->nullable();
         });
     }
 

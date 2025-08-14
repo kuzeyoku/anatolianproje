@@ -2,7 +2,6 @@
 
 namespace App\Listeners;
 
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Mail\Events\MessageSending;
 
 class ChangeMailSettingsBeforeSending
@@ -18,8 +17,5 @@ class ChangeMailSettingsBeforeSending
     /**
      * Handle the event.
      */
-    public function handle(MessageSending $event): void
-    {
-
-    }
+    public function handle(MessageSending $event): void {}
 }

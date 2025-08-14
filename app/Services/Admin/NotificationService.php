@@ -15,15 +15,15 @@ class NotificationService
 
     public function alert(string $type, array $params = []): string
     {
-        $params["module"] = $this->module->alertTitle();
+        $params['module'] = $this->module->alertTitle();
+
         return __("admin/alert.{$type}", $params);
     }
 
     public function log(string $type, array $params = []): string
     {
-        $params["module"] = $this->module->alertTitle();
+        $params['module'] = $this->module->alertTitle();
+
         return __("admin/alert.{$type}_log", $params);
     }
-
-    
 }

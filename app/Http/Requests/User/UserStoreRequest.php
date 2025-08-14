@@ -30,22 +30,22 @@ class UserStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "name" => "required",
-            "email" => "required|email|unique:users,email",
-            "password" => "required|min:6|confirmed",
-            "password_confirmation" => "required|min:6",
-            "role" => "required",
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:6|confirmed',
+            'password_confirmation' => 'required|min:6',
+            'role' => 'required',
         ];
     }
 
     public function attributes(): array
     {
         return [
-            "name" => __("admin/{$this->folder}.form_name"),
-            "email" => __("admin/{$this->folder}.form_email"),
-            "password" => __("admin/{$this->folder}.form_password"),
-            "password_confirmation" => __("admin/{$this->folder}.form_password_confirmation"),
-            "role" => __("admin/{$this->folder}.form_role"),
+            'name' => __("admin/{$this->folder}.form_name"),
+            'email' => __("admin/{$this->folder}.form_email"),
+            'password' => __("admin/{$this->folder}.form_password"),
+            'password_confirmation' => __("admin/{$this->folder}.form_password_confirmation"),
+            'role' => __("admin/{$this->folder}.form_role"),
         ];
     }
 }

@@ -2,13 +2,13 @@
 
 namespace App\Services\Admin;
 
-use App\Models\Message;
 use App\Enums\ModuleEnum;
 use App\Enums\StatusEnum;
 use App\Mail\Admin\ReplyMessage;
 use App\Models\BlockedUser;
-use Illuminate\Support\Facades\Mail;
+use App\Models\Message;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Mail;
 
 class MessageService extends BaseService
 {
@@ -32,12 +32,12 @@ class MessageService extends BaseService
 
     public function block(Model $message)
     {
-        if (BlockedUser::where('email', $message->email)->whereOr("ip", $message->ip)->exists()) {
-            throw new \Exception(__("admin/" . parent::folder() . ".already_blocked"));
+        if (BlockedUser::where('email', $message->email)->whereOr('ip', $message->ip)->exists()) {
+            throw new \Exception(__('admin/'.parent::folder().'.already_blocked'));
         }
         BlockedUser::create([
             'email' => $message->email,
-            'ip' => $message->ip
+            'ip' => $message->ip,
         ]);
         $message->delete();
         Message::where('email', $message->email)->orWhere('ip', $message->ip)->delete();
@@ -50,6 +50,6 @@ class MessageService extends BaseService
 
     public function getBlocked()
     {
-        return BlockedUser::paginate(config("pagination.admin", 15));
+        return BlockedUser::paginate(config('pagination.admin', 15));
     }
 }

@@ -4,7 +4,6 @@ namespace App\Mail\Admin;
 
 use App\Models\User;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
@@ -15,12 +14,13 @@ class ForgotPassword extends Mailable
     use Queueable, SerializesModels;
 
     protected $user;
+
     /**
      * Create a new message instance.
      */
     public function __construct(User $user)
     {
-        $this->user =  $user;
+        $this->user = $user;
     }
 
     /**
@@ -28,7 +28,8 @@ class ForgotPassword extends Mailable
      */
     public function envelope(): Envelope
     {
-        $subject = "Şifre Sıfırlama";
+        $subject = 'Şifre Sıfırlama';
+
         return new Envelope(subject: $subject);
     }
 

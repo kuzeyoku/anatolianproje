@@ -3,7 +3,6 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
@@ -16,7 +15,6 @@ class Interview extends Mailable
     /**
      * Create a new message instance.
      */
-
     protected $data;
 
     public function __construct(array $data)
@@ -42,7 +40,7 @@ class Interview extends Mailable
         return new Content(
             view: 'emails.interview',
             with: [
-                "data" => $this->data
+                'data' => $this->data,
             ]
         );
     }

@@ -16,7 +16,7 @@ class LoginRequest extends FormRequest
         return [
             'email' => 'required|email:filter',
             'password' => 'required',
-            'g-recaptcha-response' => ""
+            'g-recaptcha-response' => '',
         ];
     }
 
@@ -24,7 +24,7 @@ class LoginRequest extends FormRequest
     {
         return [
             'email' => __('admin/auth.email'),
-            'password' => __('admin/auth.password')
+            'password' => __('admin/auth.password'),
         ];
     }
 }

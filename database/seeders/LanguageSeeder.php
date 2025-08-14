@@ -12,22 +12,22 @@ class LanguageSeeder extends Seeder
      */
     public function run(): void
     {
-        Db::table("languages")->insert([
+        Db::table('languages')->insert([
             [
-                "title" => "Türkçe",
-                "code" => "tr",
-                "status" => "active",
-                "is_default" => true,
-                "created_at" => now(),
-                "updated_at" => now()
+                'title' => 'Türkçe',
+                'code' => 'tr',
+                'status' => 'active',
+                'is_default' => true,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
-                "title" => "English",
-                "code" => "en",
-                "status" => "active",
-                "is_default" => false,
-                "created_at" => now(),
-                "updated_at" => now()
+                'title' => 'English',
+                'code' => 'en',
+                'status' => 'active',
+                'is_default' => false,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
         ]);
     }

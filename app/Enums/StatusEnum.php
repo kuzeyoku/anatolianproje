@@ -6,19 +6,19 @@ use Exception;
 
 enum StatusEnum: string
 {
-    case Active = "active";
-    case Passive = "passive";
-    case Draft = "draft";
-    case Pending = "pending";
-    case Read = "read";
-    case Unread = "unread";
-    case Answered = "answered";
-    case Yes = "yes";
-    case No = "no";
+    case Active = 'active';
+    case Passive = 'passive';
+    case Draft = 'draft';
+    case Pending = 'pending';
+    case Read = 'read';
+    case Unread = 'unread';
+    case Answered = 'answered';
+    case Yes = 'yes';
+    case No = 'no';
 
     public function title(): string
     {
-        return __("admin/status." . $this->value);
+        return __('admin/status.'.$this->value);
     }
 
     /**
@@ -27,14 +27,14 @@ enum StatusEnum: string
     public function color(): string
     {
         return match ($this) {
-            self::Active => "success",
-            self::Passive => "danger",
-            self::Draft => "warning",
-            self::Pending => "secondary",
-            self::Read => "linesuccess",
-            self::Unread => "linedanger",
-            self::Answered => "lineinfo",
-            default => throw new \Exception('Unexpected match value'),
+            self::Active => 'success',
+            self::Passive => 'danger',
+            self::Draft => 'warning',
+            self::Pending => 'secondary',
+            self::Read => 'linesuccess',
+            self::Unread => 'linedanger',
+            self::Answered => 'lineinfo',
+            default => throw new Exception('Unexpected match value'),
         };
     }
 
@@ -44,11 +44,11 @@ enum StatusEnum: string
     public function icon(): string
     {
         return match ($this) {
-            self::Active => "check",
-            self::Passive => "ban",
-            self::Draft => "edit",
-            self::Pending => "clock",
-            default => throw new \Exception('Unexpected match value'),
+            self::Active => 'check',
+            self::Passive => 'ban',
+            self::Draft => 'edit',
+            self::Pending => 'clock',
+            default => throw new Exception('Unexpected match value'),
         };
     }
 
@@ -89,7 +89,7 @@ enum StatusEnum: string
             return $statusList[$value];
         }
 
-        throw new Exception(__("admin/general.invalid_value"));
+        throw new Exception(__('admin/general.invalid_value'));
     }
 
     public static function toSelectArray(): array

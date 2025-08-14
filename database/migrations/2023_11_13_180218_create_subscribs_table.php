@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('subscribs', function (Blueprint $table) {
             $table->id();
             $table->string('email')->unique();
-            $table->string("ip")->nullable();
+            $table->string('ip')->nullable();
             $table->timestamps();
         });
     }

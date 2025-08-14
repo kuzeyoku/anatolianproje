@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Exception;
-use App\Models\Menu;
-use App\Services\Admin\MenuService;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\View;
 use App\Http\Requests\Menu\StoreMenuRequest;
 use App\Http\Requests\Menu\UpdateMenuRequest;
+use App\Models\Menu;
+use App\Services\Admin\MenuService;
+use Exception;
+use Illuminate\Support\Facades\View;
 
 class MenuController extends Controller
 {
@@ -16,31 +16,34 @@ class MenuController extends Controller
     {
         View::share([
             'route' => $service->route(),
-            'folder' => $service->folder()
+            'folder' => $service->folder(),
         ]);
     }
 
     public function index()
     {
         $data = $this->getData();
-        $data["menu"] = null;
-        return view(themeView("admin", "{$this->service->folder()}.index"), $data);
+        $data['menu'] = null;
+
+        return view(themeView('admin', "{$this->service->folder()}.index"), $data);
     }
 
     public function edit(Menu $menu)
     {
         $data = $this->getData($menu);
-        $data["menu"] = $menu;
-        return view(themeView("admin", "{$this->service->folder()}.index"), $data);
+        $data['menu'] = $menu;
+
+        return view(themeView('admin', "{$this->service->folder()}.index"), $data);
     }
 
     private function getData($menu = null)
     {
         $mdata = Menu::order()->get();
-        $parents = $mdata->whereNotIn("id", [optional($menu)->id] ?: []);
-        $data["menus"] = $mdata;
-        $data["parents"] = $parents->pluck("title", "id");
-        $data["urlList"] = $this->service->getUrlList();
+        $parents = $mdata->whereNotIn('id', [optional($menu)->id] ?: []);
+        $data['menus'] = $mdata;
+        $data['parents'] = $parents->pluck('title', 'id');
+        $data['urlList'] = $this->service->getUrlList();
+
         return $data;
     }
 
@@ -48,13 +51,14 @@ class MenuController extends Controller
     {
         try {
             $this->service->create($request->validated());
+
             return redirect()
                 ->route("admin.{$this->service->route()}.index")
-                ->with("success",__("admin/alert.default_success"));
+                ->with('success', __('admin/alert.default_success'));
         } catch (Exception $e) {
             return back()
                 ->withInput()
-                ->with("error",__("admin/alert.default_error"));
+                ->with('error', __('admin/alert.default_error'));
         }
     }
 
@@ -62,13 +66,14 @@ class MenuController extends Controller
     {
         try {
             $this->service->update($request->validated(), $menu);
+
             return redirect()
                 ->route("admin.{$this->service->route()}.index")
-                ->with("success",__("admin/alert.default_success"));
+                ->with('success', __('admin/alert.default_success'));
         } catch (Exception $e) {
             return back()
                 ->withInput()
-                ->with("error",__("admin/alert.default_error"));
+                ->with('error', __('admin/alert.default_error'));
         }
     }
 
@@ -76,12 +81,13 @@ class MenuController extends Controller
     {
         try {
             $this->service->delete($menu);
+
             return redirect()
                 ->route("admin.{$this->service->route()}.index")
-                ->with("success",__("admin/alert.default_success"));
+                ->with('success', __('admin/alert.default_success'));
         } catch (Exception $e) {
             return back()
-                ->with("error",__("admin/alert.default_error"));
+                ->with('error', __('admin/alert.default_error'));
         }
     }
 }

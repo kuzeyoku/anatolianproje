@@ -18,7 +18,7 @@ class ForgotPasswordRequest extends FormRequest
     {
         return [
             'email' => 'required|email:filter|exists:users',
-            'g-recaptcha-response' => ""
+            'g-recaptcha-response' => '',
         ];
     }
 

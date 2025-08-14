@@ -14,7 +14,7 @@ class EditorRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "file" => "image|mimes:jpeg,png,jpg,gif|max:10240",
+            'file' => 'image|mimes:jpeg,png,jpg,gif|max:10240',
         ];
     }
 }

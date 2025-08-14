@@ -22,16 +22,16 @@ class NewsletterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "n_email" => "required|email|unique:newsletters,email",
-            "g-recapcha-response" => ""
+            'n_email' => 'required|email|unique:newsletters,email',
+            'g-recapcha-response' => '',
         ];
     }
 
     public function attributes(): array
     {
         return [
-            "n_email" => __("front/footer.txt4"),
-            "g-recapcha-response" => __("front/contact.form_recaptcha")
+            'n_email' => __('front/footer.txt4'),
+            'g-recapcha-response' => __('front/contact.form_recaptcha'),
         ];
     }
 }

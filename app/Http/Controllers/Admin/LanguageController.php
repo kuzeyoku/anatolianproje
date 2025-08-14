@@ -2,53 +2,54 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Throwable;
-use App\Models\Language;
-use Illuminate\Support\Facades\View;
-use App\Services\Admin\LanguageService;
 use App\Http\Requests\GeneralStatusRequest;
 use App\Http\Requests\Language\StoreLanguageRequest;
 use App\Http\Requests\Language\UpdateLanguageRequest;
+use App\Models\Language;
+use App\Services\Admin\LanguageService;
+use Illuminate\Support\Facades\View;
+use Throwable;
 
 class LanguageController extends Controller
 {
-
     public function __construct(private readonly LanguageService $service)
     {
         View::share([
             'route' => $service->route(),
-            'folder' => $service->folder()
+            'folder' => $service->folder(),
         ]);
     }
 
     public function index()
     {
         $items = $this->service->getAll();
-        return view(themeView("admin", "{$this->service->folder()}.index"), compact('items'));
+
+        return view(themeView('admin', "{$this->service->folder()}.index"), compact('items'));
     }
 
     public function create()
     {
-        return view(themeView("admin", "{$this->service->folder()}.create"));
+        return view(themeView('admin', "{$this->service->folder()}.create"));
     }
 
     public function store(StoreLanguageRequest $request)
     {
         try {
             $this->service->create($request->validated());
+
             return redirect()
                 ->route("admin.{$this->service->route()}.index")
-                ->with("success",__("admin/alert.default_success"));
+                ->with('success', __('admin/alert.default_success'));
         } catch (Throwable $e) {
             return back()
                 ->withInput()
-                ->with("error",__("admin/alert.default_error"));
+                ->with('error', __('admin/alert.default_error'));
         }
     }
 
     public function edit(Language $language)
     {
-        return view(themeView("admin", "{$this->service->folder()}.edit"), compact('language'));
+        return view(themeView('admin', "{$this->service->folder()}.edit"), compact('language'));
     }
 
     public function files(Language $language)
@@ -59,16 +60,18 @@ class LanguageController extends Controller
         $fileContent = $response['fileContent'] ?? [];
         $filename = $response['filename'] ?? null;
         $dir = $response['folder'] ?? null;
-        return view(themeView("admin", "{$this->service->folder()}.files"), compact('language', 'frontFiles', 'adminFiles', 'fileContent', 'filename', 'dir'));
+
+        return view(themeView('admin', "{$this->service->folder()}.files"), compact('language', 'frontFiles', 'adminFiles', 'fileContent', 'filename', 'dir'));
     }
 
     public function updateFileContent(Language $language)
     {
         try {
             $this->service->updateFileContent($language);
-            return back()->with("success",__("admin/alert.default_success"));
+
+            return back()->with('success', __('admin/alert.default_success'));
         } catch (Throwable $e) {
-            return back()->with("error",__("admin/alert.default_error"));
+            return back()->with('error', __('admin/alert.default_error'));
         }
     }
 
@@ -76,13 +79,14 @@ class LanguageController extends Controller
     {
         try {
             $this->service->update($request->validated(), $language);
+
             return redirect()
                 ->route("admin.{$this->service->route()}.index")
-                ->with("success",__("admin/alert.default_success"));
+                ->with('success', __('admin/alert.default_success'));
         } catch (Throwable $e) {
             return back()
                 ->withInput()
-                ->with("error",__("admin/alert.default_error"));
+                ->with('error', __('admin/alert.default_error'));
         }
     }
 
@@ -90,11 +94,12 @@ class LanguageController extends Controller
     {
         try {
             $this->service->statusUpdate($request->validated(), $language);
+
             return back()
-                ->with("success",__("admin/alert.default_success"));
+                ->with('success', __('admin/alert.default_success'));
         } catch (Throwable $e) {
             return back()
-                ->with("error",__("admin/alert.default_error"));
+                ->with('error', __('admin/alert.default_error'));
         }
     }
 
@@ -102,12 +107,13 @@ class LanguageController extends Controller
     {
         try {
             $this->service->delete($language);
+
             return redirect()
                 ->route("admin.{$this->service->route()}.index")
-                ->with("success",__("admin/alert.default_success"));
+                ->with('success', __('admin/alert.default_success'));
         } catch (Throwable $e) {
             return back()
-                ->with("error",__("admin/alert.default_error"));
+                ->with('error', __('admin/alert.default_error'));
         }
     }
 }

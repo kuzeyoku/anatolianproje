@@ -10,9 +10,9 @@ class Brand extends BaseModel implements HasMedia
     use InteractsWithMedia;
 
     protected $fillable = [
-        "url",
-        "title",
-        "order",
-        "status"
+        'url',
+        'title',
+        'order',
+        'status',
     ];
 }

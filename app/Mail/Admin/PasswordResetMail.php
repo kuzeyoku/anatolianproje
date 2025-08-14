@@ -6,13 +6,15 @@ use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
-use Illuminate\Queue\SerializesModels;
 use Illuminate\Mail\Mailables\Envelope;
+use Illuminate\Queue\SerializesModels;
 
 class PasswordResetMail extends Mailable
 {
     use Queueable, SerializesModels;
+
     protected $user;
+
     /**
      * Create a new message instance.
      */
@@ -37,7 +39,7 @@ class PasswordResetMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: themeView("admin", "emails.password_reset"),
+            view: themeView('admin', 'emails.password_reset'),
             with: [
                 'name' => $this->user->name,
             ]

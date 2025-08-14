@@ -1,4 +1,5 @@
 <?php
+
 return [
     'reset' => 'Şifreniz değiştirildi. Yeni şifreniz ile giriş yapabilirsiniz.',
     'sent' => 'Şifre sıfırlama bağlantınız e-posta ile gönderildi!',

@@ -2,8 +2,8 @@
 
 namespace App\Services\Admin;
 
-use App\Models\Service;
 use App\Enums\ModuleEnum;
+use App\Models\Service;
 
 class ServiceService extends BaseService
 {

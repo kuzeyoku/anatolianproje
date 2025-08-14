@@ -1,14 +1,14 @@
 <?php
 
 return [
-    "front" => [
-        "asset" => "theme",
+    'front' => [
+        'asset' => 'theme',
     ],
-    "admin" => [
-        "view" => "admin",
-        "asset" => "admin"
+    'admin' => [
+        'view' => 'admin',
+        'asset' => 'admin',
     ],
-    "common" => [
-        "asset" => "common"
-    ]
+    'common' => [
+        'asset' => 'common',
+    ],
 ];

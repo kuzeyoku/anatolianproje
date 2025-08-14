@@ -13,15 +13,15 @@ return new class extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
-            $table->string("name")->nullable();
-            $table->string("email")->nullable();
-            $table->string("phone")->nullable();
-            $table->string("subject")->nullable();
-            $table->text("message")->nullable();
-            $table->enum("status", ["read", "unread", "answered"])->default("unread");
-            $table->string("ip")->nullable();
-            $table->text("user_agent")->nullable();
-            $table->enum("consent", ["yes", "no"])->default("no");
+            $table->string('name')->nullable();
+            $table->string('email')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('subject')->nullable();
+            $table->text('message')->nullable();
+            $table->enum('status', ['read', 'unread', 'answered'])->default('unread');
+            $table->string('ip')->nullable();
+            $table->text('user_agent')->nullable();
+            $table->enum('consent', ['yes', 'no'])->default('no');
             $table->timestamps();
         });
     }

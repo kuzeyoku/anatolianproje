@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('page_translates', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("page_id")->constrained("pages")->cascadeOnDelete();
-            $table->string("lang", 10)->index();
-            $table->foreign("lang")->references("code")->on("languages")->cascadeonDelete();
+            $table->foreignId('page_id')->constrained('pages')->cascadeOnDelete();
+            $table->string('lang', 10)->index();
+            $table->foreign('lang')->references('code')->on('languages')->cascadeonDelete();
             $table->string('title', 255)->nullable();
             $table->text('description')->nullable();
         });
