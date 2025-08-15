@@ -19,6 +19,7 @@ class Page extends BaseModel
     protected $module = ModuleEnum::Page;
 
     protected $fillable = [
+        "type",
         'slug',
         'status',
         'quick_link',
@@ -26,16 +27,11 @@ class Page extends BaseModel
 
     protected $with = ['translate'];
 
-    public static function toSelectArray(): array
-    {
-        return self::active()->get()->pluck('title', 'id')->all();
-    }
-
     protected static function boot(): void
     {
         parent::boot();
         static::creating(function ($model) {
-            $model->slug = Str::slug(request('title.'.app()->getFallbackLocale()));
+            $model->slug = Str::slug(request('title.' . app()->getFallbackLocale()));
         });
     }
 }

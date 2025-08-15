@@ -61,7 +61,7 @@ class Blog extends BaseModel implements HasMedia
         parent::boot();
         static::creating(function ($model) {
             $model->user_id = \Illuminate\Support\Facades\Auth::id();
-            $model->slug = Str::slug(request('title.'.app()->getFallbackLocale()));
+            $model->slug = Str::slug(request('title.' . app()->getFallbackLocale()));
         });
     }
 }

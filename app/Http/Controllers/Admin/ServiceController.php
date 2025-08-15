@@ -16,7 +16,7 @@ class ServiceController extends Controller
     public function __construct(private readonly ServiceService $service)
     {
         View::share([
-            'categories' => $service->getCategories(ModuleEnum::Service),
+            'categories' => $service->getCategories(),
             'route' => $service->route(),
             'folder' => $service->folder(),
             'module' => ModuleEnum::Service,
@@ -44,6 +44,8 @@ class ServiceController extends Controller
                 ->route("admin.{$this->service->route()}.index")
                 ->with('success', __('admin/alert.default_success'));
         } catch (Throwable $e) {
+            dd($e->getMessage());
+            
             return back()
                 ->withInput()
                 ->with('error', __('admin/alert.default_error'));

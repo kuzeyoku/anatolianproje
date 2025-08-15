@@ -42,7 +42,7 @@ class BlogController extends Controller
             return redirect()
                 ->route("admin.{$this->service->route()}.index")
                 ->with('success', __('admin/alert.default_success'));
-        } catch (Throwable) {
+        } catch (Throwable $e) {
             return back()
                 ->withInput()
                 ->with('error', __('admin/alert.default_error'));

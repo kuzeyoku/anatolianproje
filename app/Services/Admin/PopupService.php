@@ -13,16 +13,16 @@ class PopupService extends BaseService
         parent::__construct($popup, ModuleEnum::Popup);
     }
 
-    public function create($request): void
+    public function create(array $request): Model
     {
         $request['setting'] = $this->setToSetting($request);
-        parent::create($request);
+        return parent::create($request);
     }
 
-    public function update($request, Model $item): void
+    public function update(array $request, Model $item): Model
     {
         $request['setting'] = $this->setToSetting($request);
-        parent::update($request, $item);
+        return parent::update($request, $item);
     }
 
     private function setToSetting($request): string

@@ -7,15 +7,20 @@ use Illuminate\Http\Request;
 
 class SettingService
 {
-    public function update(Request $request)
+public function update(Request $request)
     {
-        if ($request->category == 'asset') {
+        if ($request->category === 'asset') {
             return $this->assetUpload($request);
         }
-        $except = $request->except('_token', '_method', 'category');
-        $settings = array_map(function ($key, $value) use ($request) {
-            return ['key' => $key, 'value' => $value, 'category' => $request->category];
-        }, array_keys($except), $except);
+
+        $settings = collect($request->except('_token', '_method', 'category'))
+            ->map(function ($value, $key) use ($request) {
+                return [
+                    'key' => $key,
+                    'value' => $value,
+                    'category' => $request->category,
+                ];
+            })->values()->toArray();
 
         return Setting::upsert($settings, ['key', 'category'], ['value']);
     }

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\StatusEnum;
+use App\Services\CacheService;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 
@@ -10,7 +11,7 @@ class BaseModel extends Model
 {
     public function getImageAttribute(): string
     {
-        return Cache::remember($this->module->value.'_image_'.$this->id, config('cache.time'), function () {
+        return Cache::remember($this->module->value.'_image_'.$this->id, CacheService::cacheTime(), function () {
             return $this->getFirstMediaUrl() ?? asset('assets/common/images/noimage.jpg');
         });
     }

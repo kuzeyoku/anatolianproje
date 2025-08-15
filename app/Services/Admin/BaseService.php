@@ -3,13 +3,12 @@
 namespace App\Services\Admin;
 
 use App\Enums\ModuleEnum;
-use App\Models\Category;
 use Illuminate\Database\Eloquent\Model;
 
 class BaseService
 {
-    protected TranslationService $translationService;
-    protected MediaService $mediaService;
+    private TranslationService $translationService;
+    private MediaService $mediaService;
     public function __construct(private readonly Model $model, private readonly ModuleEnum $module)
     {
         $this->translationService = app(TranslationService::class);
@@ -26,48 +25,36 @@ class BaseService
         return $this->module->route();
     }
 
-    public function getAll()
+    public function getAll(int $perPage = null)
     {
-        return $this->model->orderBy('id', 'DESC')->paginate(setting('pagination', 'admin'));
+        $perPage ??= setting('pagination', 'admin');
+        return $this->model->orderByDesc('id')->paginate($perPage);
     }
 
-    public function create(array $request): void
+    public function create(array $data): Model
     {
-        $item = $this->model->create($request);
-        $this->translationService->sync($item, $request);
-        $this->mediaService->handleUploads($item, $request);
+        $item = $this->model->create($data);
+        $this->translationService->sync($item, $data);
+        $this->mediaService->handleUploads($item, $data);
+        return $item;
     }
 
-    public function update(array $request, Model $item): void
+    public function update(array $data, Model $item): Model
     {
-        $item->update($request);
-        $this->translationService->sync($item, $request);
-        $this->mediaService->handleUploads($item, $request);
+        $item->update($data);
+        $this->translationService->sync($item, $data);
+        $this->mediaService->handleUploads($item, $data);
+        return $item;
     }
 
-
-    public function statusUpdate($request, Model $item): bool
+    public function statusUpdate(array $data, Model $item): bool
     {
-        return $item->update($request);
+        return $item->update($data);
     }
 
     public function delete(Model $item): ?bool
     {
+        $this->mediaService->clearMedia($item);
         return $item->delete();
-    }
-
-    public function imageDelete(Model $item): ?bool
-    {
-        return $item->delete();
-    }
-
-    public function imageAllDelete(Model $item)
-    {
-        return $item->clearMediaCollection('images');
-    }
-
-    public function getCategories(): array
-    {
-        return Category::active()->module($this->module)->get()->pluck('titles.' . app()->getFallbackLocale(), 'id')->toArray();
     }
 }

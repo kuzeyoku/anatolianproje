@@ -20,17 +20,17 @@ class LanguageService extends BaseService
     /**
      * @throws Exception
      */
-    public function create(array $request): void
+    public function create(array $request): Model
     {
         $code = strtolower($request['code']);
-        $default = resource_path('lang/'.app()->getFallbackLocale());
+        $default = resource_path('lang/' . app()->getFallbackLocale());
         $new = resource_path("lang/$code");
-        if (! File::exists($new)) {
+        if (!File::exists($new)) {
             File::copyDirectory($default, $new);
         } else {
             throw new Exception(__('admin/language.code_exists'));
         }
-        parent::create($request);
+        return parent::create($request);
     }
 
     /**
@@ -51,7 +51,7 @@ class LanguageService extends BaseService
 
     public static function toArray()
     {
-        return cache()->remember('languages', config('cache.time'), function () {
+        return cache()->remember('languages', setting("cache", "time"), function () {
             return Language::active()->get();
         });
     }
@@ -77,9 +77,9 @@ class LanguageService extends BaseService
             $folder = request('folder');
             $fileContent = [];
 
-            if (Lang::has($folder.'/'.$filename)) {
+            if (Lang::has($folder . '/' . $filename)) {
                 Lang::setLocale($language->code);
-                $fileContent = Lang::get($folder.'/'.$filename);
+                $fileContent = Lang::get($folder . '/' . $filename);
             }
 
             return compact('frontFiles', 'adminFiles', 'fileContent', 'filename', 'folder');
@@ -93,14 +93,14 @@ class LanguageService extends BaseService
         $folder = request()->folder;
         $filename = request()->filename;
         $request = request()->except('_token', '_method', 'filename', 'folder');
-        $content = "<?php\nreturn [\n".implode(",\n", array_map(function ($key, $value) {
-            if (! is_null($key) && ! is_null($value)) {
-                return "'$key' => '".addslashes($value)."'";
+        $content = "<?php\nreturn [\n" . implode(",\n", array_map(function ($key, $value) {
+            if (!is_null($key) && !is_null($value)) {
+                return "'$key' => '" . addslashes($value) . "'";
             }
 
             return null;
-        }, array_keys($request), $request))."\n];";
+        }, array_keys($request), $request)) . "\n];";
 
-        return Storage::disk('lang')->put($language->code.'/'.$folder.'/'.$filename.'.php', $content);
+        return Storage::disk('lang')->put($language->code . '/' . $folder . '/' . $filename . '.php', $content);
     }
 }
