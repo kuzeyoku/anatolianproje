@@ -19,7 +19,7 @@
                             <ul>
                                 @foreach (App\Enums\SettingCategoryEnum::cases() as $setting)
                                     <li>
-                                        <a href="{{ route('admin.setting', ['category' => $setting->value]) }}">{{ $setting->title() }}</a>
+                                        <a href="{{ route('admin.settings', ['category' => $setting->value]) }}">{{ $setting->title() }}</a>
                                     </li>
                                 @endforeach
                             </ul>

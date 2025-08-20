@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Services\CacheService;
 use Illuminate\Support\ServiceProvider;
 
 class CookieProvider extends ServiceProvider
@@ -20,8 +21,8 @@ class CookieProvider extends ServiceProvider
     public function boot(): void
     {
         if (setting('information', 'cookie_notification_status') == \App\Enums\StatusEnum::Active->value) {
-            $page = cache()->remember('cookie_policy_page', setting("cache", "time"), function () {
-                return \App\Models\Page::find(setting('information', 'cookie_policy_page'));
+            $page = CacheService::cacheQuery("cookie_notification_page", function () {
+                return \App\Models\Page::type(\App\Enums\PageTypeEnum::Cookie->value)->first();
             });
             view()->composer('common.cookie_alert', function ($view) use ($page) {
                 $cookie_policy_page_url = $page?->url ?? '#';

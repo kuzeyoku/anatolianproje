@@ -13,5 +13,6 @@ return [
     'form_title_placeholder' => 'Sayfa Başlığı Giriniz',
     'form_description' => 'Sayfa İçeriği',
     'form_quick_link' => 'Hızlı Link Listesinde Göster',
+    "form_type" => "Sayfa Şablonu",
     'table_title' => 'Sayfa Başlığı',
 ];

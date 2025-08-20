@@ -1,7 +1,7 @@
 @extends(themeView('admin', 'layout.edit'), ['tab' => true, 'item' => $service])
 @section('form')
     {{ html()->file('image')->attribute('data-allowed-file-extensions', 'png jpg jpeg gif')->attribute('data-default-file', $service->getFirstMediaUrl())->accept('.png, .jpg, .jpeg, .gif')->class('dropify-image') }}
-    {{ html()->file('document')->attribute('data-allowed-file-extensions', 'pdf doc docx xls xlsx ppt pptx')->attribute('data-default-file', $service->getFirstMediaUrl("document"))->accept('.pdf, .doc, .docx, .xls, .xlsx, .ppt, .pptx')->class('dropify-document') }}
+    {{ html()->file('document')->multiple()->attribute('data-allowed-file-extensions', 'pdf doc docx xls xlsx ppt pptx')->attribute('data-default-file', $service->getFirstMediaUrl("document"))->accept('.pdf, .doc, .docx, .xls, .xlsx, .ppt, .pptx')->class('dropify-document') }}
     @foreach (LanguageList() as $lang)
         <div id="{{ $lang->code }}" class="tab-pane @if ($loop->first) active show @endif">
             {{ html()->label(__("admin/{$folder}.form_title")) }}

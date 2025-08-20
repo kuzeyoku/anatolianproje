@@ -5,6 +5,7 @@ namespace App\Services\Front;
 use App\Enums\StatusEnum;
 use App\Models\BlockedUser;
 use App\Models\Message;
+use App\Services\RecaptchaService;
 use App\Services\ValidationService;
 use Exception;
 use Illuminate\Support\Facades\Mail;
@@ -16,7 +17,7 @@ class ContactService
      */
     public static function sendMail(array $data): void
     {
-        ValidationService::checkRecaptcha($data);
+        RecaptchaService::validation($data);
         self::checkBlocked($data);
         self::createMessage($data);
         self::setEmailSettings();

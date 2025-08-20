@@ -19,7 +19,7 @@
                 @if ($tab)
                     @include(themeView('admin', 'layout.langtab'))
                 @endif
-                {{ html()->form('PUT')->route("admin.{$folder}.update", $item)->acceptsFiles()->open() }}
+                {{ html()->form('PUT')->route("admin.{$route}.update", $item)->acceptsFiles()->open() }}
                 @if ($tab)
                     <div class="tab-content">
                         @yield('form')

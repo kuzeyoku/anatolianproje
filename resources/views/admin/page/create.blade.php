@@ -9,11 +9,15 @@
         </div>
     @endforeach
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-4">
+            {{ html()->label(__('admin/page.form_type')) }}
+            {{ html()->select('type', App\Enums\PageTypeEnum::toSelectArray())->placeholder("Seçiniz")->class('form-control') }}
+        </div>
+        <div class="col-lg-4">
             {{ html()->label(__('admin/page.form_quick_link')) }}
             {{ html()->select('quick_link', App\Enums\StatusEnum::getYesNoSelectArray())->class('form-control') }}
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-4">
             {{ html()->label(__('admin/general.status')) }}
             {{ html()->select('status', statusList())->class('form-control') }}
         </div>

@@ -28,7 +28,7 @@
             </a>
         @endisset
         @isset($edit)
-            <a class="me-2 p-2" href="{{ route("admin.{$folder}.edit", $item) }}">
+            <a class="me-2 p-2" href="{{ route("admin.{$route}.edit", $item) }}">
                 <i data-feather="edit" class="feather-icon text-success"></i>
             </a>
         @endisset

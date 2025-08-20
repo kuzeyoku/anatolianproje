@@ -1,11 +1,12 @@
 <?php
 
+use App\Enums\ModuleEnum;
 use App\Enums\StatusEnum;
 use App\Http\Middleware\CountVisitors;
 use App\Http\Middleware\Maintenance;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(CountVisitors::class, Maintenance::class)->group(function () {
+Route::middleware([CountVisitors::class, Maintenance::class])->group(function () {
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
     if (setting('system', 'multilanguage') == StatusEnum::Active->value) {
@@ -20,40 +21,39 @@ Route::middleware(CountVisitors::class, Maintenance::class)->group(function () {
 
     Route::get('/page/{page}/{slug}', [App\Http\Controllers\PageController::class, 'show'])->name('page.show');
 
-    if (config('module.blog.status')) {
-        Route::controller(App\Http\Controllers\BlogController::class)->prefix('blog')->group(function () {
-            Route::get('/', 'index')->name('blog.index');
-            Route::get('/{blog}/{slug}', 'show')->name('blog.show');
-            Route::get('/category/{category}/{slug}', 'category')->name('blog.category');
-            Route::post('/{blog}/comment/store', 'comment_store')->name('blog.comment.store');
+    if (ModuleEnum::Blog->status()) {
+        Route::prefix(ModuleEnum::Blog->route())->controller(App\Http\Controllers\BlogController::class)->name(ModuleEnum::Blog->routeName())->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/{blog}/{slug}', 'show')->name('show');
+            Route::get('/category/{category}/{slug}', 'category')->name('category');
+            Route::post('/{blog}/comment/store', 'comment_store')->name('comment.store');
         });
     }
 
-    if (config('module.service.status')) {
-        Route::controller(App\Http\Controllers\ServiceController::class)->prefix('service')->group(function () {
-            Route::get('/', 'index')->name('service.index');
-            Route::get('/{service}/{slug}', 'show')->name('service.show');
-            Route::get('/category/{category}/{slug}', 'category')->name('service.category');
+    if (ModuleEnum::Service->status()) {
+        Route::prefix(ModuleEnum::Service->route())->controller(App\Http\Controllers\ServiceController::class)->name(ModuleEnum::Service->routeName())->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/{service}/{slug}', 'show')->name('show');
+            Route::get('/category/{category}/{slug}', 'category')->name('category');
         });
     }
 
-    if (config('module.product.status')) {
-        Route::controller(App\Http\Controllers\ProductController::class)->prefix('product')->group(function () {
-            Route::get('/', 'index')->name('product.index');
-            Route::get('/{product}/{slug}', 'show')->name('product.show');
-            Route::get('/category/{category}/{slug}', 'category')->name('product.category');
+    if (ModuleEnum::Product->status()) {
+        Route::prefix(ModuleEnum::Product->route())->controller(App\Http\Controllers\ProductController::class)->name(ModuleEnum::Product->routeName())->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/{product}/{slug}', 'show')->name('show');
+            Route::get('/category/{category}/{slug}', 'category')->name('category');
         });
     }
 
-    if (config('module.project.status')) {
-        Route::controller(App\Http\Controllers\ProjectController::class)->prefix('project')->group(function () {
-            Route::get('/', 'index')->name('project.index');
-            Route::get('/{project}/{slug}', 'show')->name('project.show');
-            Route::get('/category/{category}/{slug}', 'category')->name('project.category');
+    if (ModuleEnum::Project->status()) {
+        Route::prefix(ModuleEnum::Project->route())->controller(App\Http\Controllers\ProjectController::class)->name(ModuleEnum::Project->routeName())->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/{project}/{slug}', 'show')->name('show');
+            Route::get('/category/{category}/{slug}', 'category')->name('category');
         });
     }
+    Route::get(uri: 'maintenance', action: [App\Http\Controllers\MaintenanceController::class, 'index'])->name('maintenance');
+
 });
 
-if (setting('maintenance.status') == StatusEnum::Active->value) {
-    Route::get('maintenance', [App\Http\Controllers\MaintenanceController::class, 'index'])->name('maintenance');
-}

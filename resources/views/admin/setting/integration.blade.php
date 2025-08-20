@@ -11,6 +11,8 @@
             {{ html()->text('recaptcha_site_key', $settings["recaptcha_site_key"] ?? null)->placeholder(__("admin/setting.recaptcha_site_key_placeholder"))->class('form-control') }}
             {{ html()->label(__("admin/setting.recaptcha_secret_key")) }}
             {{ html()->text('recaptcha_secret_key', $settings["recaptcha_secret_key"] ?? null)->placeholder(__("admin/setting.recaptcha_secret_key_placeholder"))->class('form-control') }}
+            {{ html()->label(__("admin/setting.recaptcha_min_score")) }}
+            {{ html()->number('recaptcha_min_score', $settings["recaptcha_min_score"] ?? null)->placeholder(__("admin/setting.recaptcha_min_score_placeholder"))->class('form-control') }}
         </div>
         <div class="col-xl-4 col-lg-6">
             <div class="card-title-head">

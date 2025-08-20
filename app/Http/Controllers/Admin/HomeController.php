@@ -4,11 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Blog;
 use App\Models\Visitor;
-use App\Services\Admin\LayoutService;
+use App\Services\CacheService;
 use Exception;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
 
 class HomeController extends Controller
@@ -17,7 +16,7 @@ class HomeController extends Controller
     {
         $data['userData'] = $this->getVisitorLocation($request);
         $data['visits'] = $this->getVisitorRecords(7);
-        $data['popularPosts'] = Cache::remember('popularPosts', 300, function () {
+        $data['popularPosts'] = CacheService::remember('popularPosts', function () {
             return Blog::orderByDesc('view_count')->limit(6)->get();
         });
         $data['infoLogs'] = $this->getLogRecords('info');
@@ -28,7 +27,7 @@ class HomeController extends Controller
 
     public function cacheClear()
     {
-        Cache::flush();
+        CacheService::clearAll();
 
         return redirect()->back()->with('success', __('admin/general.cache_clear_success'));
     }
@@ -36,7 +35,7 @@ class HomeController extends Controller
     public function clearVisitorCounter()
     {
         try {
-            Cache::forget('visits');
+            CacheService::forget("visits");
             Visitor::truncate();
 
             return back()->with('success', __('admin/home.visitor_counter_clear_success'));
@@ -47,7 +46,7 @@ class HomeController extends Controller
 
     private function getVisitorRecords(int $day)
     {
-        return Cache::remember('website_statistics', 300, function () use ($day) {
+        return CacheService::remember('website_statistics', function () use ($day) {
             $visits = Visitor::all();
             $data = [
                 'todaySingleVisits' => $visits->where('updated_at', '>', today())->count(),
@@ -74,17 +73,17 @@ class HomeController extends Controller
     private function getVisitorLocation(Request $request)
     {
         $client = new Client;
-        $response = $client->get('ipinfo.io/'.$request->ip().'?token=1a17407b2ccf6f');
+        $response = $client->get('ipinfo.io/' . $request->ip() . '?token=1a17407b2ccf6f');
 
         return json_decode($response->getBody());
     }
 
     private function getLogRecords($file)
     {
-        $file = storage_path('logs/custom_'.$file.'.log');
+        $file = storage_path('logs/custom_' . $file . '.log');
         if (File::exists($file)) {
             $records = array_reverse(array_filter(explode("\n", File::get($file)), function ($line) {
-                return ! empty($line);
+                return !empty($line);
             }));
         } else {
             $records = [];

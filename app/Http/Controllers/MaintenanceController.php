@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
+use App\Services\MaintenanceService;
 
 class MaintenanceController extends Controller
 {
     public function index()
     {
-        $date = Carbon::parse(setting('maintenance', 'end_date'))->format('m.d.Y');
-
+        $date = MaintenanceService::endDate();
         return view('common.maintenance', compact('date'));
     }
 }

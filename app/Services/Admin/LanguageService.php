@@ -4,6 +4,7 @@ namespace App\Services\Admin;
 
 use App\Enums\ModuleEnum;
 use App\Models\Language;
+use App\Services\CacheService;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\File;
@@ -51,7 +52,7 @@ class LanguageService extends BaseService
 
     public static function toArray()
     {
-        return cache()->remember('languages', setting("cache", "time"), function () {
+        return CacheService::remember("lanugages", function () {
             return Language::active()->get();
         });
     }

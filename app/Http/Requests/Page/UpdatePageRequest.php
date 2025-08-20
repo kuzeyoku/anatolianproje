@@ -27,6 +27,7 @@ class UpdatePageRequest extends FormRequest
             'description.*' => '',
             'status' => 'required',
             'quick_link' => 'required',
+            'type' => ''
         ];
     }
 

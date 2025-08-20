@@ -20,14 +20,6 @@
                             </p>
                         </div>
                     </li>
-                    <li>
-                        <div class="icon">
-                            <i class="icon-location"></i>
-                        </div>
-                        <div class="text">
-                            <p>@setting("contact","address")</p>
-                        </div>
-                    </li>
                 </ul>
                 <div class="main-menu__top-right">
                     <div class="main-menu__social">

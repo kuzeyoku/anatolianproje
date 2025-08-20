@@ -19,7 +19,6 @@ class ContactController extends Controller
     {
         try {
             ContactService::sendMail($request->validated());
-
             return back()
                 ->with('success', __('front/contact.send_success'));
         } catch (\Exception $e) {

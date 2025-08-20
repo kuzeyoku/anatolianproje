@@ -14,7 +14,7 @@ return new class extends Migration {
     {
         Schema::create('pages', function (Blueprint $table) {
             $table->id();
-            $table->enum("type", PageTypeEnum::getValues())->default(null);
+            $table->enum("type", PageTypeEnum::getValues())->nullable()->default(null);
             $table->string('slug', 255);
             $table->enum('status', StatusEnum::getValues())->default(StatusEnum::Active->value);
             $table->enum('quick_link', array_keys(StatusEnum::getYesNoSelectArray()))->default(StatusEnum::No->value);

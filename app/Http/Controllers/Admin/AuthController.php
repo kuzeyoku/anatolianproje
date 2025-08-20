@@ -6,6 +6,7 @@ use App\Http\Requests\Auth\ForgotPasswordRequest;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Models\User;
 use App\Notifications\AdminNotification;
+use App\Services\RecaptchaService;
 use App\Services\ValidationService;
 use Exception;
 use Illuminate\Auth\Events\PasswordReset;
@@ -47,11 +48,11 @@ class AuthController extends Controller
      */
     public function authenticate(LoginRequest $request)
     {
-        ValidationService::checkRecaptcha($request->validated());
+        RecaptchaService::validation($request->validated());
         if (Auth::attempt($request->only('email', 'password'))) {
             $request->session()->regenerate();
             $user = User::where('email', $request->email)->first();
-            $user->notify(new AdminNotification('success', $user->name.' Tarafından Giriş Yapıldı', 'IP : '.$request->ip()));
+            $user->notify(new AdminNotification('success', $user->name . ' Tarafından Giriş Yapıldı', 'IP : ' . $request->ip()));
             $message = [
                 'title' => __("admin/{$this->folder}.login_success_title", ['name' => Auth::user()->name]),
                 'message' => __("admin/{$this->folder}.login_success_message"),
@@ -63,7 +64,7 @@ class AuthController extends Controller
         }
         $user = User::where('role', 'admin')->get();
         $user->each(function ($item) use ($request) {
-            $item->notify(new AdminNotification('danger', 'Başarısız Giriş Denemesi', 'IP: '.$request->ip().' - Email: '.$request->email));
+            $item->notify(new AdminNotification('danger', 'Başarısız Giriş Denemesi', 'IP: ' . $request->ip() . ' - Email: ' . $request->email));
         });
 
         return back()
@@ -78,7 +79,7 @@ class AuthController extends Controller
 
     public function forgot_password(ForgotPasswordRequest $request)
     {
-        ValidationService::checkRecaptcha($request->validated());
+        RecaptchaService::validation($request->validated());
         $status = Password::sendResetLink($request->only('email'));
 
         return $status === Password::RESET_LINK_SENT ? redirect()->route('admin.auth.login')->with('success', __($status)) : back()->withInput()->with('error', __($status));

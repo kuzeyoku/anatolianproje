@@ -5,7 +5,7 @@ namespace App\Services\Admin;
 use App\Models\Service;
 use App\Models\Category;
 use App\Enums\ModuleEnum;
-use Illuminate\Support\Facades\Cache;
+use App\Services\CacheService;
 
 class ServiceService extends BaseService
 {
@@ -17,7 +17,7 @@ class ServiceService extends BaseService
     public function getCategories(string $locale = null): array
     {
         $locale ??= session("active_locale", app()->getFallbackLocale());
-        return Cache::remember(ModuleEnum::Service->value . "_categories_{$locale}", setting("cache", "time"), function () use ($locale) {
+        return CacheService::remember(ModuleEnum::Service->value . "_categories_{$locale}", function () use ($locale) {
             return Category::active()->module(ModuleEnum::Service)
                 ->get()
                 ->pluck("titles.{$locale}", "id")

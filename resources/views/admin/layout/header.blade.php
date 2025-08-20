@@ -29,7 +29,7 @@
             </a>
         </li>
         <li class="nav-item nav-item-box" title="@lang('admin/home.cache_clear')">
-            <a href="{{ route('admin.cache_clear') }}">
+            <a href="{{ route('admin.system.cache_clear') }}">
                 <i data-feather="server"></i>
             </a>
         </li>
@@ -46,7 +46,7 @@
                     <ul class="notification-list p-2">
                         @forelse (Auth::user()->unreadNotifications as $notification)
                             <li class="notification-message bg-soft-{{ $notification->data['type'] }}">
-                                <a href="{{ route('admin.notification.read', $notification) }}">
+                                <a href="{{ route('admin.notifications.read', $notification) }}">
                                     <p class="noti-details">
                                         <span class="noti-title">
                                             {{ $notification->data['message'] }}
@@ -68,7 +68,7 @@
                     </ul>
                 </div>
                 <div class="topnav-dropdown-footer">
-                    <a href="{{ route('admin.notification.mark_all_as_read') }}">@lang('admin/general.mark_all_as_read')</a>
+                    <a href="{{ route('admin.notifications.mark_all_as_read') }}">@lang('admin/general.mark_all_as_read')</a>
                 </div>
             </div>
         </li>
@@ -111,7 +111,7 @@
                     </ul>
                 </div>
                 <div class="topnav-dropdown-footer">
-                    <a href="{{ route('admin.message.index') }}">@lang('admin/general.to_messages')</a>
+                    <a href="{{ route('admin.messages.index') }}">@lang('admin/general.to_messages')</a>
                 </div>
             </div>
         </li>

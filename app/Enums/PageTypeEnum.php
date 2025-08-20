@@ -18,5 +18,13 @@ enum PageTypeEnum: string
             self::KVKK->value
         ];
     }
-
+    public static function toSelectArray(): Array
+    {
+        return [
+            self::Cookie->value => "Çerez Politikası",
+            self::Privacy->value => "Gizlilik Politikası",
+            self::Terms->value => "Kullanım Sözleşmesi",
+            self::KVKK->value => "KVKK"
+        ];
+    }
 }

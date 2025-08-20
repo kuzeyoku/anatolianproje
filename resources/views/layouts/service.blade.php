@@ -52,14 +52,13 @@
                             </div>
                             <div class="services-one__content">
                                 <div class="services-one__icon">
-                                    <span class="icon-planning"></span>
+                                    <span class="icon-verified"></span>
                                 </div>
                                 <h3 class="services-one__title">
                                     <a href="{{$service->url}}">{{$service->title}}</a>
                                 </h3>
                                 <div class="services-one__hover-content">
-                                    <h3 class="services-one__hover-title"><a href="{{$service->url}}">Business
-                                            Planning</a></h3>
+                                    <h3 class="services-one__hover-title"><a href="{{$service->url}}">{{$service->title}}</a></h3>
                                     <p class="services-one__hover-text">{{$service->short_description}}</p>
                                     <a href="{{$service->url}}" class="services-one__btn"><span
                                             class="icon-right-arrow-11"></span>Detaylar</a>

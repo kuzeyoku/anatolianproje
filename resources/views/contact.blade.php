@@ -5,7 +5,7 @@
     <section class="contact-page">
         <div class="container">
             <div class="row">
-                <div class="col-xl-4 col-lg-5">
+                <div class="col-xl-5 col-lg-5">
                     <div class="contact-page__left">
                         <div class="section-title-two text-left">
                             <div class="section-title-two__tagline-box">
@@ -55,7 +55,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-8 col-lg-7">
+                <div class="col-xl-7 col-lg-7">
                     <div class="contact-page__right">
                         <div class="contact-page__form-box">
                             <h5 class="contact-page__form-title">Hızlı İletişim</h5>

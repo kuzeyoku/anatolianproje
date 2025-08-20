@@ -25,6 +25,11 @@ class Page extends BaseModel
         'quick_link',
     ];
 
+    public function scopeType($query, $type)
+    {
+        $query->type($type);
+    }
+
     protected $with = ['translate'];
 
     protected static function boot(): void

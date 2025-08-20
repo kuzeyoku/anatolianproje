@@ -9,6 +9,7 @@ use App\Models\BlogComment;
 use App\Models\Category;
 use App\Services\CacheService;
 use App\Services\Front\SeoService;
+use App\Services\RecaptchaService;
 use App\Services\ValidationService;
 
 class BlogController extends Controller
@@ -16,26 +17,26 @@ class BlogController extends Controller
     public function index()
     {
         SeoService::module(ModuleEnum::Blog);
-        $cacheKey = ModuleEnum::Blog->value.'_index';
-        $data = CacheService::cacheQuery($cacheKey, fn () => $this->getBlogData());
+        $cacheKey = ModuleEnum::Blog->value . '_index';
+        $data = CacheService::cacheQuery($cacheKey, fn() => $this->getBlogData());
 
-        return view(ModuleEnum::Blog->folder().'.index', $data);
+        return view(ModuleEnum::Blog->folder() . '.index', $data);
     }
 
     public function show(Blog $blog)
     {
         SeoService::show($blog);
         $blog->increment('view_count');
-        $cacheKey = ModuleEnum::Blog->value.'_'.$blog->id.'_detail';
-        $data = CacheService::cacheQuery($cacheKey, fn () => $this->getBlogDetailData($blog));
+        $cacheKey = ModuleEnum::Blog->value . '_' . $blog->id . '_detail';
+        $data = CacheService::cacheQuery($cacheKey, fn() => $this->getBlogDetailData($blog));
 
-        return view(ModuleEnum::Blog->folder().'.show', $data);
+        return view(ModuleEnum::Blog->folder() . '.show', $data);
     }
 
     public function comment_store(CommentRequest $request, Blog $blog)
     {
         try {
-            ValidationService::checkRecaptcha($request->validated());
+            RecaptchaService::validation($request->validated());
             $this->ipControl($request->ip());
         } catch (\Exception $e) {
             return back()->withInput()->with('error', $e->getMessage());

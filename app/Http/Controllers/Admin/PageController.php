@@ -41,6 +41,7 @@ class PageController extends Controller
                 ->route("admin.{$this->service->route()}.index")
                 ->with('success', __('admin/alert.default_success'));
         } catch (Throwable $e) {
+            dd($e->getMessage());
             return back()
                 ->withInput()
                 ->with('error', __('admin/alert.default_error'));
