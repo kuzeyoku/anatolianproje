@@ -8,7 +8,7 @@ return [
     'create_description' => 'Yeni bir proje oluşturun',
     'edit' => 'Proje Düzenle',
     'edit_description' => 'Proje bilgilerini düzenleyin',
-    'list' => 'Proje Listesi',
+    'index' => 'Proje Listesi',
     'images' => 'Proje Görselleri',
     'form_title' => 'Proje Başlığı',
     'form_title_placeholder' => 'Proje Başlığı Giriniz',

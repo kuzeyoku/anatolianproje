@@ -10,14 +10,14 @@ class RecaptchaService
 {
 
     private const VERIFY_URL = "https://www.google.com/recaptcha/api/siteverify";
-    public static function isActive(): bool
+    public function isActive(): bool
     {
         return SettingService::get("integration", "recaptcha_status", StatusEnum::Passive->value) === StatusEnum::Active->value;
     }
 
-    public static function validation(Request|array $request): bool
+    public function validation(Request|array $request): bool
     {
-        if (!self::isActive())
+        if (!$this->isActive())
             return true;
 
         $token = is_array($request) ? $request["g-recaptcha-response"] ?? null : $request->{"g-recaptcha-response"};
@@ -46,24 +46,18 @@ class RecaptchaService
         }
     }
 
-    public static function getSiteKey(): ?string
+    public function getSiteKey(): ?string
     {
-        return self::isActive()
+        return $this->isActive()
             ? SettingService::get("integration", "recaptcha_site_key")
             : null;
     }
 
-    public static function renderScript(): string
+    public function getConfig(): array
     {
-        if (!self::isActive()) {
-            return '';
-        }
-
-        $siteKey = self::getSiteKey();
-        if (empty($siteKey)) {
-            return '';
-        }
-
-        return '<script src="https://www.google.com/recaptcha/api.js?render=' . $siteKey . '"></script>';
+        return [
+            "isActive" => $this->isActive(),
+            "site_key" => $this->getSiteKey()
+        ];
     }
 }

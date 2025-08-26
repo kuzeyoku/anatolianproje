@@ -18,9 +18,7 @@ class Product extends BaseModel implements HasMedia
     use InteractsWithMedia;
 
     protected $translationModel = ProductTranslate::class;
-
-    protected $categoryModel = Category::class;
-
+    
     protected $translationForeignKey = 'product_id';
 
     protected $categoryModelForeignKey = 'product_id';

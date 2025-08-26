@@ -19,7 +19,7 @@ Route::middleware([CountVisitors::class, Maintenance::class])->group(function ()
 
     Route::get('/sitemap.xml', [App\Http\Controllers\SitemapController::class, 'index'])->name('sitemap.index');
 
-    Route::get('/page/{page}/{slug}', [App\Http\Controllers\PageController::class, 'show'])->name('page.show');
+    Route::get('/' . ModuleEnum::Page->route() . '/{page}/{slug}', [App\Http\Controllers\PageController::class, 'show'])->name(ModuleEnum::Page->routeName() . 'show');
 
     if (ModuleEnum::Blog->status()) {
         Route::prefix(ModuleEnum::Blog->route())->controller(App\Http\Controllers\BlogController::class)->name(ModuleEnum::Blog->routeName())->group(function () {

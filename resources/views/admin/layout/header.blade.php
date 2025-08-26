@@ -85,7 +85,7 @@
                     <ul class="notification-list">
                         @forelse ($messages as $message)
                             <li class="notification-message">
-                                <a href="{{ route('admin.message.show', $message) }}">
+                                <a href="{{ route('admin.messages.show', $message) }}">
                                     <div class="media d-flex">
                                         <span class="avatar flex-shrink-0">
                                             <img src="{{ themeAsset('admin', 'img/avatar.png') }}">

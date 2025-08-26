@@ -8,4 +8,6 @@
     {{ html()->password('password')->placeholder(__("admin/{$folder}.form_password_placeholder"))->class('form-control') }}
     {{ html()->label(__("admin/{$folder}.form_role")) }}
     {{ html()->select('role', $roles, $user->role->value)->class('form-control') }}
+    {{ html()->label(__("admin/{$folder}.form_about")) }}
+    {{ html()->textarea("about", $user->about)->placeholder(__("admin/{$folder}.form_about_placeholder"))->class("form-control") }}
 @endsection

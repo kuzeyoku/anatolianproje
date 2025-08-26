@@ -43,9 +43,7 @@ class ServiceController extends Controller
             return redirect()
                 ->route("admin.{$this->service->route()}.index")
                 ->with('success', __('admin/alert.default_success'));
-        } catch (Throwable $e) {
-            dd($e->getMessage());
-            
+        } catch (Throwable $e) {            
             return back()
                 ->withInput()
                 ->with('error', __('admin/alert.default_error'));

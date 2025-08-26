@@ -22,21 +22,21 @@ class StoreServiceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title.'.app()->getFallbackLocale() => 'required',
+            'title.' . app()->getFallbackLocale() => 'required',
             'title.*' => '',
             'description.*' => '',
             'status' => 'required',
             'order' => 'required|numeric|min:0',
             'category_id' => '',
             'image' => 'image|mimes:jpeg,png,jpg,gif',
-            'document' => 'file|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx',
+            'documents.*' => 'file|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx',
         ];
     }
 
     public function attributes(): array
     {
         return [
-            'title.'.app()->getFallbackLocale() => __("admin/{$this->folder}.form_title"),
+            'title.' . app()->getFallbackLocale() => __("admin/{$this->folder}.form_title"),
             'description.*' => __("admin/{$this->folder}.form_description"),
             'category_id' => __("admin/{$this->folder}.form_category"),
             'image' => __("admin/{$this->folder}.form_image"),

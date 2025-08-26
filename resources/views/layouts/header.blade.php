@@ -8,7 +8,7 @@
                             <i class="icon-telephone-call"></i>
                         </div>
                         <div class="text">
-                            <p><a href="tel:@setting('contact','phone')">@setting("contact","phone")</a></p>
+                            <p><a href="tel:@setting('contact', 'phone')">@setting("contact", "phone")</a></p>
                         </div>
                     </li>
                     <li>
@@ -16,7 +16,7 @@
                             <i class="icon-mail"></i>
                         </div>
                         <div class="text">
-                            <p><a href="mailto:@setting('contact','email')">@setting('contact','email')</a>
+                            <p><a href="mailto:@setting('contact', 'email')">@setting('contact', 'email')</a>
                             </p>
                         </div>
                     </li>
@@ -38,8 +38,9 @@
                 <div class="main-menu__wrapper-inner">
                     <div class="main-menu__left">
                         <div class="main-menu__logo">
-                            <a href="{{route("home")}}"><img src="{{asset("assets/images/resources/logo-1.png")}}"
-                                                             alt=""></a>
+                            <a href="{{route("home")}}">
+                                <img src="{{asset("assets/images/resources/logo-1.png")}}" alt="">
+                            </a>
                         </div>
                         <div class="main-menu__main-menu-box">
                             <a href="#" class="mobile-nav__toggler"><i class="fa fa-bars"></i></a>
@@ -61,14 +62,7 @@
                     <div class="main-menu__right">
                         <div class="main-menu__btn-box">
                             <a href="{{route("contact.index")}}" class="main-menu__btn thm-btn"><span
-                                    class="icon-right-arrow"></span> Free Quote</a>
-                        </div>
-                        <div class="main-menu__nav-sidebar-icon">
-                            <a class="navSidebar-button" href="#">
-                                <span class="icon-dots-menu-one"></span>
-                                <span class="icon-dots-menu-two"></span>
-                                <span class="icon-dots-menu-three"></span>
-                            </a>
+                                    class="icon-right-arrow"></span> İletişim</a>
                         </div>
                     </div>
                 </div>

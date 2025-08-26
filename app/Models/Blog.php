@@ -23,7 +23,7 @@ class Blog extends BaseModel implements HasMedia
     protected $translationModel = BlogTranslate::class;
 
     protected $commentModel = BlogComment::class;
-
+    
     protected $translationForeignKey = 'blog_id';
 
     protected $commentForeignKey = 'blog_id';

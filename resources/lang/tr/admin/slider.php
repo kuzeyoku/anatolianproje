@@ -8,7 +8,7 @@ return [
     'create_description' => 'Yeni bir slider oluşturun',
     'edit' => 'Slider Düzenle',
     'edit_description' => 'Slider bilgilerini düzenleyin',
-    'list' => 'Slider Listesi',
+    'index' => 'Slider Listesi',
     'form_image' => 'Slider Görseli',
     'form_title' => 'Slider Başlığı',
     'form_title_placeholder' => 'Slider Başlığı Giriniz',

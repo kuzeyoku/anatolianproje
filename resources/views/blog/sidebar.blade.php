@@ -1,19 +1,21 @@
 <div class="sidebar">
-    <div class="sidebar__single sidebar__category">
-        <div class="sidebar__title-box">
-            <h3 class="sidebar__title">Kategoriler</h3>
+    @if ($categories->count() > 0)
+        <div class="sidebar__single sidebar__category">
+            <div class="sidebar__title-box">
+                <h3 class="sidebar__title">Kategoriler</h3>
+            </div>
+            <ul class="sidebar__category-list list-unstyled">
+                @foreach($categories as $category)
+                    <li>
+                        <a href="{{$category->url}}">
+                            {{$category->title}} ({{$category->blogs->count()}})
+                            <span class="icon-right-arrow-1"></span>
+                        </a>
+                    </li>
+                @endforeach
+            </ul>
         </div>
-        <ul class="sidebar__category-list list-unstyled">
-            @foreach($categories as $category)
-                <li>
-                    <a href="{{$category->url}}">
-                        {{$category->title}} ({{$category->blogs->count()}})
-                        <span class="icon-right-arrow-1"></span>
-                    </a>
-                </li>
-            @endforeach
-        </ul>
-    </div>
+    @endif
     <div class="sidebar__single sidebar__post">
         <div class="sidebar__title-box">
             <h3 class="sidebar__title">Popüler Konular</h3>

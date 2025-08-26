@@ -8,7 +8,7 @@ return [
     'create_description' => 'Yeni Sabit Sayfa Detaylarını Oluşturun',
     'edit' => 'Sabit Sayfa Düzenle',
     'edit_description' => 'Sabit Sayfa Detaylarını Düzenleyin',
-    'list' => 'Sabit Sayfa Listesi',
+    'index' => 'Sabit Sayfa Listesi',
     'form_title' => 'Sayfa Başlığı',
     'form_title_placeholder' => 'Sayfa Başlığı Giriniz',
     'form_description' => 'Sayfa İçeriği',

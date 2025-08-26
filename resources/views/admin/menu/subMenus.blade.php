@@ -5,7 +5,7 @@
                 <a>{{ $subMenu->title }}</a>
             </div>
             <div>
-                <a href="{{ route("admin.{$folder}.edit", $subMenu) }}" class="btn btn-sm btn-primary">
+                <a href="{{ route("admin.{$route}.edit", $subMenu) }}" class="btn btn-sm btn-primary">
                     {{ __('admin/general.edit') }}
                 </a>
                 {{ html()->form('DELETE')->route("admin.{$route}.destroy", $subMenu)->class('d-inline')->open() }}

@@ -8,7 +8,7 @@ return [
     'create_description' => 'Yeni bir yorum oluşturun',
     'edit' => 'Yorum Düzenle',
     'edit_description' => 'Yorum bilgilerini düzenleyin',
-    'list' => 'Yorum Listesi',
+    'index' => 'Yorum Listesi',
     'form_image' => 'Resim',
     'form_name' => 'Ad Soyad',
     'form_name_placeholder' => 'Ad Soyad Giriniz',

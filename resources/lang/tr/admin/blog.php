@@ -8,7 +8,7 @@ return [
     'create_description' => 'Yeni bir blog içeriği oluşturun.',
     'edit' => 'İçerik Düzenle',
     'edit_description' => 'Blog içeriğini düzenleyin.',
-    'list' => 'İçerik Listesi',
+    'index' => 'İçerik Listesi',
     'comments' => 'Yorumlar',
     'comment_title' => 'Blog Yorumları',
     'comment_description' => 'Blog yorumlarını yönetin.',

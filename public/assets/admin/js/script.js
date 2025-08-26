@@ -294,8 +294,8 @@ $(document).ready(function () {
             from: 10,
             to: 0,
             timerEnd: function () {
-                this.css({"text-decoration": "line-through"}).animate(
-                    {opacity: 0.5},
+                this.css({ "text-decoration": "line-through" }).animate(
+                    { opacity: 0.5 },
                     500
                 );
             },
@@ -494,7 +494,7 @@ $(document).ready(function () {
     $(".counters").each(function () {
         var $this = $(this),
             countTo = $this.attr("data-count");
-        $({countNum: $this.text()}).animate(
+        $({ countNum: $this.text() }).animate(
             {
                 countNum: countTo,
             },
@@ -1525,7 +1525,7 @@ $(document).ready(function () {
 
         var playerSettings = {
             controls: ["play-large"],
-            fullscreen: {enabled: false},
+            fullscreen: { enabled: false },
             resetOnEnd: true,
             hideControls: true,
             clickToPlay: true,
@@ -1732,4 +1732,6 @@ function showAlert(icon, message) {
         position: "top-end",
     });
 }
+
+
 

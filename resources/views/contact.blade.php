@@ -1,5 +1,5 @@
 @extends("layouts.main")
-@section("title","İLETİŞİM")
+@section("title", "İLETİŞİM")
 @section("content")
     @include("layouts.breadcrumb")
     <section class="contact-page">
@@ -24,7 +24,7 @@
                                     </div>
                                     <div class="text">
                                         <p>
-                                            <a href="tel:@setting('contact','phone')">@setting("contact","phone")</a>
+                                            <a href="tel:@setting('contact', 'phone')">@setting("contact", "phone")</a>
                                         </p>
                                     </div>
                                 </li>
@@ -33,7 +33,7 @@
                                         <span class="icon-location1"></span>
                                     </div>
                                     <div class="text">
-                                        <p>@setting("contact","address")</p>
+                                        <p>@setting("contact", "address")</p>
                                     </div>
                                 </li>
                                 <li>
@@ -42,14 +42,15 @@
                                     </div>
                                     <div class="text">
                                         <p>
-                                            <a href="mailto:@setting('contact','email')">@setting('contact','email')</a>
+                                            <a href="mailto:@setting('contact', 'email')">@setting('contact', 'email')</a>
                                         </p>
                                     </div>
                                 </li>
                             </ul>
                             <div class="contact-page__live-chat">
                                 <a onclick="return!window.open(this.href)"
-                                   href="https://wa.me/@setting('contact','phone')"><span class="icon-comments"></span>Canlı
+                                    href="https://wa.me/@setting('contact', 'phone')"><span
+                                        class="icon-comments"></span>Canlı
                                     İletişim</a>
                             </div>
                         </div>
@@ -68,7 +69,7 @@
                                     </ul>
                                 </div>
                             @endif
-                            {{html()->form()->route("contact.send")->class("comment-one__form")->open()}}
+                            {{html()->form()->route("contact.send")->class("comment-one__form")->id("contact-form")->open()}}
                             <div class="comment-form__input-box">
                                 <div class="comment-form__input-box-name">
                                     <p>Adınız Soyadınız</p>
@@ -106,15 +107,19 @@
                                 {{html()->textarea("message")->placeholder("Mesajınız")->required()}}
                             </div>
                             <div class="checked-box">
-                                {{html()->checkbox("terms")->id("terms")->required()}}
+                                <input type="checkbox" id="terms" name="terms" required>
+
                                 <label for="terms"><span></span>Verdiğim iletişim bilgilerinin kaydedilmesini ve
                                     kullanılmasını onaylıyorum.</label>
                             </div>
                             <div class="comment-form__btn-box">
-                                {{html()->submit("<span class='icon-right-arrow'></span> Gönder")->class("thm-btn comment-form__btn")}}
+                                {{html()->submit("<span class='icon-right-arrow'></span> Gönder")
+                                ->class("thm-btn comment-form__btn g-recaptcha")
+                                ->data("sitekey", $recaptcha["site_key"])
+                                ->data("callback", "onSubmit")
+                                ->data("action", "submit")}}
                             </div>
                             {{html()->form()->close()}}
-                            <div class="result"></div>
                         </div>
                     </div>
                 </div>
@@ -124,11 +129,26 @@
     <!--Contact Page End-->
 
     <!--Google Map Start-->
-    @if(setting("contact","map"))
+    @if(setting("contact", "map"))
         <section class="contact-page-google-map">
             <div class="container">
-                <iframe src="@setting('contact','map')" class="google-map__two" allowfullscreen=""></iframe>
+                <iframe src="@setting('contact', 'map')" class="google-map__two" allowfullscreen=""></iframe>
             </div>
         </section>
     @endif
 @endsection
+@push("script")
+    @if (setting("integration", "recaptcha_status"))
+        <script src="https://www.google.com/recaptcha/api.js"></script>
+        <script>
+            function onSubmit(token) {
+                const form = document.getElementById("contact-form");
+                if (form.checkValidity()) {
+                    form.submit();
+                } else {
+                    form.reportValidity();
+                }
+            }
+        </script>
+    @endif
+@endpush

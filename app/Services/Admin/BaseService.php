@@ -3,7 +3,9 @@
 namespace App\Services\Admin;
 
 use App\Enums\ModuleEnum;
+use Spatie\MediaLibrary\HasMedia;
 use Illuminate\Database\Eloquent\Model;
+use App\Services\SettingService;
 
 class BaseService
 {
@@ -27,7 +29,7 @@ class BaseService
 
     public function getAll(int $perPage = null)
     {
-        $perPage ??= setting('pagination', 'admin');
+        $perPage ??= SettingService::get("pagination", "admin", 15);
         return $this->model->orderByDesc('id')->paginate($perPage);
     }
 
@@ -35,7 +37,8 @@ class BaseService
     {
         $item = $this->model->create($data);
         $this->translationService->sync($item, $data);
-        $this->mediaService->handleUploads($item, $data);
+        if ($this->hasMediaSupport($item))
+            $this->mediaService->handleUploads($item, $data);
         return $item;
     }
 
@@ -43,7 +46,8 @@ class BaseService
     {
         $item->update($data);
         $this->translationService->sync($item, $data);
-        $this->mediaService->handleUploads($item, $data);
+        if ($this->hasMediaSupport($item))
+            $this->mediaService->handleUploads($item, $data);
         return $item;
     }
 
@@ -54,7 +58,13 @@ class BaseService
 
     public function delete(Model $item): ?bool
     {
-        $this->mediaService->clearMedia($item);
+        if ($this->hasMediaSupport($item))
+            $this->mediaService->clearMedia($item);
         return $item->delete();
+    }
+
+    private function hasMediaSupport($item): bool
+    {
+        return $item instanceof HasMedia;
     }
 }

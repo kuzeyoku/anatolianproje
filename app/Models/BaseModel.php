@@ -17,7 +17,7 @@ class BaseModel extends Model
 
     public function getOtherAttribute($limit = 5)
     {
-        return $this->active()->where('id', '!=', $this->id)->limit($limit)->get();
+        return $this->where('id', '!=', $this->id)->limit($limit)->get();
     }
 
     public function getPreviousAttribute()
@@ -48,5 +48,10 @@ class BaseModel extends Model
     public function scopeViewOrder($query)
     {
         return $query->orderBy('view_count', 'desc');
+    }
+
+    public function scopeExclude($query, $id)
+    {
+        return $query->where("id", "!=", $id);
     }
 }

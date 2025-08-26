@@ -7,7 +7,6 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Models\User;
 use App\Notifications\AdminNotification;
 use App\Services\RecaptchaService;
-use App\Services\ValidationService;
 use Exception;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
@@ -24,7 +23,7 @@ class AuthController extends Controller
 
     protected string $folder;
 
-    public function __construct()
+    public function __construct(private RecaptchaService $recaptchaService)
     {
         $this->route = 'auth';
         $this->folder = 'auth';
@@ -39,7 +38,6 @@ class AuthController extends Controller
         if (Auth::check()) {
             return redirect()->route('admin.index');
         }
-
         return view(themeView('admin', "{$this->folder}.login"));
     }
 
@@ -48,7 +46,8 @@ class AuthController extends Controller
      */
     public function authenticate(LoginRequest $request)
     {
-        RecaptchaService::validation($request->validated());
+        if (!$this->recaptchaService->validation(request: $request->validated()))
+            return back()->with("error", __("front/recaptcha.fail"));
         if (Auth::attempt($request->only('email', 'password'))) {
             $request->session()->regenerate();
             $user = User::where('email', $request->email)->first();
@@ -79,7 +78,9 @@ class AuthController extends Controller
 
     public function forgot_password(ForgotPasswordRequest $request)
     {
-        RecaptchaService::validation($request->validated());
+        if (!$this->recaptchaService->validation($request->validated())) {
+            return back()->with("error", __("front/recaptcha.fail"));
+        }
         $status = Password::sendResetLink($request->only('email'));
 
         return $status === Password::RESET_LINK_SENT ? redirect()->route('admin.auth.login')->with('success', __($status)) : back()->withInput()->with('error', __($status));

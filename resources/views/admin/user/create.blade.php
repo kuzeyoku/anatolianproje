@@ -10,4 +10,6 @@
     {{ html()->password('password_confirmation')->placeholder(__("admin/{$folder}.form_password_confirmation_placeholder"))->class('form-control') }}
     {{ html()->label(__("admin/{$folder}.form_role")) }}
     {{ html()->select('role', $roles, 'default')->class('form-control') }}
+    {{ html()->label(__("admin/{$folder}.form_about")) }}
+    {{ html()->textarea('about')->placeholder(__("admin/{$folder}.form_about_placeholder"))->class('form-control') }}
 @endsection

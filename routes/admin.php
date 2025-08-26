@@ -92,6 +92,10 @@ Route::prefix($adminPrefix)->name('admin.')->group(function () {
             Route::put('/{service}/status-update', "statusUpdate")->name("status_update");
         });
 
+        Route::prefix(ModuleEnum::Reference->route())->controller(ReferenceController::class)->name(ModuleEnum::Reference->routeName())->group(function () {
+            Route::put('/{reference}/status-update', "statusUpdate")->name("status_update");
+        });
+
         Route::prefix(ModuleEnum::Message->route())->controller(MessageController::class)->name(ModuleEnum::Message->routeName())->group(function () {
             Route::get('/{message}/reply', 'reply')->name('reply');
             Route::post('/{message}/sendReply', 'sendReply')->name('sendReply');

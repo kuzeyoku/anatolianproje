@@ -1,5 +1,5 @@
 @extends("layouts.main")
-@section("title",$blog->title)
+@section("title", $blog->title)
 @section("content")
     @include("layouts.breadcrumb")
     <section class="blog-details">
@@ -45,40 +45,15 @@
                         <div class="author">
                             <div class="author__content">
                                 <h3 class="author__name">{{$blog->user->name}}</h3>
-                                <p class="author__about">About author</p>
-                                <p class="author__text">Felis montes justo imperdiet urna eleifend lacus luctus cum
-                                    consequat semper suspe metus lobortis at fusce leona dignissim sociis pharetra
-                                    tortor lacinia cum accumsan tristique pulvinar ornare natoque sodales pharetra
+                                <p class="author__text">{{$blog->user->about}}
                                 </p>
-                                <div class="author__social">
-                                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                    <a href="#"><i class="fab fa-twitter"></i></a>
-                                    <a href="#"><i class="fab fa-instagram"></i></a>
-                                    <a href="#"><i class="fab fa-pinterest-p"></i></a>
-                                </div>
                             </div>
                         </div>
                         <div class="blog-details__bottom">
-                            @if($blog->comments->isNotEmpty())
-                                <div class="blog-details__comment-and-form">
-                                    <div class="comment-one">
-                                        <h3 class="comment-one__title">{{$blog->comments->count()}} Yorum Yapıldı</h3>
-                                        @foreach($blog->comments as $comment)
-                                            <div class="comment-one__single">
-                                                <div class="comment-one__content">
-                                                    <h3>{{$comment->name}}</h3>
-                                                    <span>{{$comment->created_at->format("d M Y H:i:s")}}</span>
-                                                    <p>{{$comment->comment}}</p>
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                </div>
-                            @endif
                             <div class="comment-form">
                                 <h3 class="comment-form__title">Yorum Yap </h3>
                                 <p class="comment-form__text">Açıklama Metin</p>
-                                {{html()->form()->route("blog.comment.store",$blog)->class("comment-one__form")->open()}}
+                                {{html()->form()->route("blogs.comment.store", $blog)->class("comment-one__form")->id("comment-form")->open()}}
                                 <div class="row">
                                     <div class="col-xl-6">
                                         <div class="comment-form__input-box">
@@ -104,16 +79,36 @@
                                     </div>
                                     <div class="checked-box">
                                         {{html()->checkbox("skipper")->id("skipper")->required()}}
-
                                         <label for="skipper"><span></span>Verdiğim bilgilerin kayıt edileceğini ve
                                             kullanılacağını kabul ediyorum.</label>
                                     </div>
                                     <div class="comment-form__btn-box">
-                                        {{html()->submit("<span class='icon-right-arrow'></span> Gönder")->class("thm-btn comment-form__btn")}}
+                                        {{html()->submit("<span class='icon-right-arrow'></span> Gönder")
+                                        ->class("thm-btn comment-form__btn g-recaptcha")
+                                        ->data("sitekey", $recaptcha["site_key"])
+                                        ->data("callback", "onSubmit")
+                                        ->data("action", "submit")}}
                                     </div>
                                 </div>
                                 {{html()->form()->close()}}
                             </div>
+                            @if($blog->comments->isNotEmpty())
+                                <div class="blog-details__comment-and-form">
+                                    <div class="comment-one">
+                                        <h3 class="comment-one__title">{{$blog->comments->count()}} Yorum Yapıldı</h3>
+                                        @foreach($blog->comments as $comment)
+                                            <div class="comment-one__single">
+                                                <div class="comment-one__content">
+                                                    <h3>{{$comment->name}}</h3>
+                                                    <span>{{$comment->created_at->format("d M Y H:i:s")}}</span>
+                                                    <p>{{$comment->comment}}</p>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            @endif
+
                         </div>
                     </div>
                 </div>
@@ -124,3 +119,18 @@
         </div>
     </section>
 @endsection
+@push("script")
+    @if (setting("integration", "recaptcha_status"))
+        <script src="https://www.google.com/recaptcha/api.js"></script>
+        <script>
+            function onSubmit(token) {
+                const form = document.getElementById("comment-form");
+                if (form.checkValidity()) {
+                    form.submit();
+                } else {
+                    form.reportValidity();
+                }
+            }
+        </script>
+    @endif
+@endpush

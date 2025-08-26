@@ -8,7 +8,7 @@ return [
     'create_description' => 'Yeni bir popup oluşturun',
     'edit' => 'Popup Düzenle',
     'edit_description' => 'Popup bilgilerini düzenleyin',
-    'list' => 'Popup Listesi',
+    'index' => 'Popup Listesi',
     'form_image' => 'Resim',
     'form_type' => 'Popup Tipi',
     'form_title' => 'Popup Başlığı',

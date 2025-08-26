@@ -30,7 +30,7 @@
                                         <li class="bg-primary d-flex flex-row justify-content-between">
                                             <span>{{ $menu->title }}</span>
                                             <div>
-                                                <a href="{{ route("admin.{$folder}.edit", $menu) }}"
+                                                <a href="{{ route("admin.{$route}.edit", $menu) }}"
                                                     class="btn btn-sm btn-light">
                                                     {{ __('admin/general.edit') }}
                                                 </a>

@@ -19,8 +19,6 @@ class Project extends BaseModel implements HasMedia
 
     protected $translationModel = ProjectTranslate::class;
 
-    protected $categoryModel = Category::class;
-
     protected $translationForeignKey = 'project_id';
 
     protected $categoryModelForeignKey = 'project_id';

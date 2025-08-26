@@ -8,7 +8,7 @@ return [
     'create_description' => 'Yeni bir ürün oluşturun',
     'edit' => 'Ürün Düzenle',
     'edit_description' => 'Ürün bilgilerini düzenleyin',
-    'list' => 'Ürün Listesi',
+    'index' => 'Ürün Listesi',
     'images' => 'Ürün Görselleri',
     'images_description' => 'Ürün görsellerini yönetin',
     'form_title' => 'Ürün Başlığı',

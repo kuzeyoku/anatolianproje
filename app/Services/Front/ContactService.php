@@ -5,30 +5,29 @@ namespace App\Services\Front;
 use App\Enums\StatusEnum;
 use App\Models\BlockedUser;
 use App\Models\Message;
-use App\Services\RecaptchaService;
-use App\Services\ValidationService;
 use Exception;
 use Illuminate\Support\Facades\Mail;
+use App\Services\SettingService;
 
 class ContactService
 {
     /**
      * @throws Exception
      */
-    public static function sendMail(array $data): void
+    public function sendMail(array $data): void
     {
-        RecaptchaService::validation($data);
-        self::checkBlocked($data);
-        self::createMessage($data);
-        self::setEmailSettings();
-        Mail::to(setting('contact', 'email'))
+
+        $this->checkBlocked($data);
+        $this->createMessage($data);
+        $this->setEmailSettings();
+        Mail::to(SettingService::get("contact", "email"))
             ->send(new \App\Mail\Contact($data));
     }
 
     /**
      * @throws Exception
      */
-    private static function checkBlocked($data): void
+    private function checkBlocked($data): void
     {
         $blockedUser = BlockedUser::where('email', $data['email'])
             ->orWhere('ip', request()->ip())
@@ -38,9 +37,9 @@ class ContactService
         }
     }
 
-    private static function createMessage($data): void
+    private function createMessage($data): Message
     {
-        Message::create([
+        return Message::create([
             'name' => $data['name'],
             'phone' => $data['phone'],
             'email' => $data['email'],
@@ -53,16 +52,20 @@ class ContactService
         ]);
     }
 
-    private static function setEmailSettings(): void
+    private function setEmailSettings()
     {
+        $setting = SettingService::getByCategory("smtp");
+
+        if (empty($setting))
+            return false;
         config([
-            'mail.mailers.smtp.host' => setting('smtp', 'host'),
-            'mail.mailers.smtp.port' => setting('smtp', 'port'),
-            'mail.mailers.smtp.encryption' => setting('smtp', 'encryption'),
-            'mail.mailers.smtp.username' => setting('smtp', 'username'),
-            'mail.mailers.smtp.password' => setting('smtp', 'password'),
-            'mail.from.address' => setting('smtp', 'from_address'),
-            'mail.from.name' => setting('smtp', 'from_name'),
+            'mail.mailers.smtp.host' => $setting["host"],
+            'mail.mailers.smtp.port' => $setting["port"],
+            'mail.mailers.smtp.encryption' => $setting["encryption"],
+            'mail.mailers.smtp.username' => $setting["username"],
+            'mail.mailers.smtp.password' => $setting["password"],
+            'mail.from.address' => $setting["from_address"],
+            'mail.from.name' => $setting["from_name"],
         ]);
     }
 }

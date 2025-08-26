@@ -29,4 +29,11 @@ trait HasCategory
     {
         return $this->getCategoryAttributeValue('slug');
     }
+
+    public function scopeCategory($query, $category_id)
+    {
+        if (is_null($category_id))
+            return $query;
+        return $query->where("category_id", $category_id);
+    }
 }

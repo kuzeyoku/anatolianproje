@@ -8,7 +8,7 @@ return [
     'create_description' => 'Yeni Kategori Oluştur',
     'edit' => 'Kategori Düzenle',
     'edit_description' => 'Kategori Düzenle',
-    'list' => 'Kategori Listesi',
+    'index' => 'Kategori Listesi',
     'form_title' => 'Kategori Başlığı',
     'form_title_placeholder' => 'Kategori Başlığı Giriniz',
     'form_description' => 'Kategori Açıklaması',

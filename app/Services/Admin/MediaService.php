@@ -2,29 +2,54 @@
 
 namespace App\Services\Admin;
 
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
+use Spatie\MediaLibrary\HasMedia;
 
 class MediaService
 {
-    public function clearMedia($item, $collection = "default")
+    public function clearMedia(HasMedia $item, string $collection = "default")
     {
-        return $item->clearMediaCollection($collection);
+        $item->clearMediaCollection($collection);
 
     }
-    public function handleUploads($item, $files)
+    public function handleUploads(HasMedia $item, array $files)
     {
-        if (array_key_exists('image', $files) && $files['image']->isValid()) {
+        if (isset($files["image"]) && $files["image"] instanceof UploadedFile && $files["image"]->isValid()) {
             $this->clearMedia($item);
-            $this->addMedia($item, $files, "image");
+            $this->addMedia($item, $files["image"]);
         }
-        if (array_key_exists('document', $files) && $files['document']->isValid()) {
-            $this->clearMedia($item, "documents");
-            $this->addMedia($item, $files, "document", "documents");
+
+        if (isset($files["documents"])) {
+            foreach ($files["documents"] as $document) {
+                if ($document instanceof UploadedFile && $document->isValid()) {
+                    $this->addMedia($item, $document, "documents");
+                }
+            }
+        }
+
+        if (isset($files["gallery"])) {
+            foreach ($files["gallery"] as $image) {
+                if ($image instanceof UploadedFile && $image->isValid()) {
+                    $this->addMedia($item, $image, "gallery");
+                }
+            }
         }
     }
 
-    public function addMedia($item, $data, $input, $collection = "default")
+    public function addMedia(HasMedia $item, UploadedFile $file, string $collection = "default")
     {
-        $item->addMedia($data[$input])->usingFileName(Str::random(8) . "." . $data[$input]->extension())->toMediaCollection($collection);
+        $fileName = self::generateFileName($file);
+        $item->addMedia($file)->usingFileName($fileName)->toMediaCollection($collection);
     }
+
+    public function generateFileName(UploadedFile $file): string
+    {
+        $timestamp = now()->format("YmdHis");
+        $random = Str::random(8);
+        $extension = $file->extension();
+
+        return "{$timestamp}_{$random}.{$extension}";
+    }
+
 }

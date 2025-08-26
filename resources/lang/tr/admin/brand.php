@@ -8,7 +8,7 @@ return [
     'create_description' => 'Yeni Marka Oluştur',
     'edit' => 'Marka Düzenle',
     'edit_description' => 'Marka Düzenle',
-    'list' => 'Markalar',
+    'index' => 'Markalar',
     'form_title' => 'Marka Başlığı',
     'form_title_placeholder' => 'Marka Başlığı Giriniz',
     'form_url' => 'Marka Bağlantısı',

@@ -8,7 +8,7 @@ return [
     'create_description' => 'Yeni Çeviri Oluştur',
     'edit' => 'Çeviri Düzenle',
     'edit_description' => 'Çeviri Düzenle',
-    'list' => 'Çeviri Listesi',
+    'index' => 'Çeviri Listesi',
     'code_exists' => 'Bu dil kodu zaten kullanılıyor.',
     'default_delete_error' => 'Varsayılan dil silinemez.',
     'file_not_found' => 'Dil dosyası bulunamadı.',
