@@ -1,5 +1,7 @@
 @extends("layouts.main")
 @section("title", $blog->title)
+@section("parent_url",route("blogs.index"))
+@section("parent_title","Blog")
 @section("content")
     @include("layouts.breadcrumb")
     <section class="blog-details">
@@ -20,10 +22,10 @@
                             <div class="blog-details__content-one-details">
                                 <ul class="blog-details__meta list-unstyled">
                                     <li>
-                                        <a href="#"><span class="icon-user-icon"></span>{{$blog->user->name}}</a>
+                                        <a href="javascript:void()"><span class="icon-user-icon"></span>{{$blog->user->name}}</a>
                                     </li>
                                     <li>
-                                        <a href="#"><span class="icon-comment-icon"></span>({{$blog->comments->count()}}
+                                        <a href="javascript:void()"><span class="icon-comment-icon"></span>({{$blog->comments->count()}}
                                             ) Yorum</a>
                                     </li>
                                 </ul>
@@ -37,7 +39,7 @@
                                 <div class="blog-details__tag">
                                     <span>Etiketler:</span>
                                     @foreach($blog->tagsToArray as $tag)
-                                        <a href="#">{{$tag}}</a>
+                                        <a href="javascript:void()">{{$tag}}</a>
                                     @endforeach
                                 </div>
                             @endif
@@ -83,7 +85,8 @@
                                             kullanılacağını kabul ediyorum.</label>
                                     </div>
                                     <div class="comment-form__btn-box">
-                                        {{html()->submit("<span class='icon-right-arrow'></span> Gönder")
+                                        {{html()->submit()
+                                        ->html("<span class='icon-right-arrow'></span> Gönder")
                                         ->class("thm-btn comment-form__btn g-recaptcha")
                                         ->data("sitekey", $recaptcha["site_key"])
                                         ->data("callback", "onSubmit")

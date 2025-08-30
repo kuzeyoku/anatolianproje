@@ -7,7 +7,7 @@ use App\Models\Category;
 use App\Enums\ModuleEnum;
 use App\Models\Reference;
 use App\Services\CacheService;
-use App\Services\Front\SeoService;
+use App\Services\SeoService;
 
 class ServiceController extends Controller
 {

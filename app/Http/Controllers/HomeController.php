@@ -12,7 +12,7 @@ use App\Enums\ModuleEnum;
 use App\Models\Reference;
 use App\Models\Testimonial;
 use App\Services\CacheService;
-use App\Services\Front\SeoService;
+use App\Services\SeoService;
 
 class HomeController extends Controller
 {

@@ -9,9 +9,11 @@ use App\Http\Requests\Project\StoreProjectRequest;
 use App\Http\Requests\Project\UpdateProjectRequest;
 use App\Models\Project;
 use App\Services\Admin\ProjectService;
+use Exception;
 use Illuminate\Support\Facades\View;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Throwable;
+use App\Services\Admin\MediaService;
 
 class ProjectController extends Controller
 {
@@ -34,45 +36,30 @@ class ProjectController extends Controller
 
     public function image(Project $project)
     {
-        return view(themeView('admin', 'layout.image'), compact('project'));
+        return view(themeView("admin", "{$this->service->folder()}.image"), compact('project'));
     }
 
-    public function imageStore(ImageProjectRequest $request, Project $project): object
+    public function storeImage(ImageProjectRequest $request, Project $project): object
     {
-        if ($this->service->imageUpload($request, $project)) {
+        try {
+            $this->service->imageUpload($request->validated(), $project);
             return (object) [
-                'message' => __('admin/alert.default_success'),
+                "message" => __("admin/general.success")
             ];
-        } else {
+        } catch (Throwable $e) {
             return (object) [
-                'message' => __('admin/alert.default_error'),
+                "message" => __("admin/general.error")
             ];
         }
     }
 
-    public function imageDelete(Media $image)
+    public function destroyAllImages(Project $project)
     {
         try {
-            $this->service->imageDelete($image);
-
-            return back()
-                ->with('success', __('admin/alert.default_success'));
-        } catch (Throwable $e) {
-            return back()
-                ->with('error', __('admin/alert.default_error'));
-        }
-    }
-
-    public function imageAllDelete(Project $project)
-    {
-        try {
-            $this->service->imageAllDelete($project);
-
-            return back()
-                ->with('success', __('admin/alert.default_success'));
-        } catch (Throwable $e) {
-            return back()
-                ->with('error', __('admin/alert.default_error'));
+            app(MediaService::class)->clearMedia($project, "gallery");
+            return back()->with("success", __("admin/alert.default_success"));
+        } catch (Exception $e) {
+            return back()->with("error", $e->getMessage());
         }
     }
 

@@ -22,7 +22,7 @@ class ImageProjectRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'file' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
+            'gallery' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
         ];
     }
 }

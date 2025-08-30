@@ -63,6 +63,11 @@ class BaseService
         return $item->delete();
     }
 
+    public function imageUpload(array $data, Model $item)
+    {
+        $this->mediaService->handleUploads($item, $data);
+    }
+
     private function hasMediaSupport($item): bool
     {
         return $item instanceof HasMedia;

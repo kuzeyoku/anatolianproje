@@ -1,5 +1,5 @@
 <li class="dropdown">
-    <a href="{{ $menu->url ?? '#' }}">{{ $menu->title }}</a>
+    <a href="{{ $menu->url ?? 'javascript:void(0)' }}">{{ $menu->title }}</a>
     <ul>
         @foreach ($menu->subMenu as $subMenu)
             @if ($subMenu->subMenu->isNotEmpty())

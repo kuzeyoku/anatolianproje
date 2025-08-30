@@ -6,9 +6,8 @@ use App\Enums\ModuleEnum;
 use App\Http\Requests\Blog\CommentRequest;
 use App\Models\Blog;
 use App\Models\BlogComment;
-use App\Services\Front\BlogService;
-use App\Services\CacheService;
-use App\Services\Front\SeoService;
+use App\Services\BlogService;
+use App\Services\SeoService;
 use App\Services\RecaptchaService;
 class BlogController extends Controller
 {

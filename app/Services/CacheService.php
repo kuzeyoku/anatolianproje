@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Enums\StatusEnum;
 use Closure;
 use Illuminate\Support\Facades\Cache;
 use InvalidArgumentException;
@@ -11,7 +10,7 @@ class CacheService
 {
     public static function isActive(): bool
     {
-        return true;
+        return false;
     }
 
     public static function time(): int

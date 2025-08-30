@@ -9,7 +9,6 @@
                 <h2 class="section-title-two__title">Hizmetlerimiz</h2>
             </div>
             <div class="row">
-                <!--Services One Single Start-->
                 @foreach ($services as $service)
                     <div class="col-xl-4 col-lg-6 col-md-6">
                         <div class="services-one__single">
@@ -20,7 +19,7 @@
                             </div>
                             <div class="services-one__content">
                                 <div class="services-one__icon">
-                                    <span class="icon-planning"></span>
+                                    <span class="icon-verified"></span>
                                 </div>
                                 <h3 class="services-one__title"><a href="{{$service->url}}">{{$service->title}}</a></h3>
                                 <div class="services-one__hover-content">

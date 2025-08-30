@@ -561,12 +561,6 @@
       selector.find("li").eq(0).addClass("current");
     }
   }
-
-  if ($(".main-menu__list").length) {
-    // dynamic current class
-    let mainNavUL = $(".main-menu__list");
-    dynamicCurrentMenuClass(mainNavUL);
-  }
   if ($(".service-details__sidebar-service-list").length) {
     // dynamic current class
     let mainNavUL = $(".service-details__sidebar-service-list");

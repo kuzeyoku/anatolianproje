@@ -30,9 +30,8 @@ class SendMessage implements ShouldQueue
     public function handle(Request $request): void
     {
         try {
-            Mail::to(settings('contact.email'))
-                ->send(new Contact($request));
-            LogController::logger('info', 'test edildi');
+            Mail::to(setting('contact', 'email'))
+                ->send(new Contact($request->toArray()));
         } catch (\Exception $e) {
             LogController::logger('error', $e->getMessage());
         }

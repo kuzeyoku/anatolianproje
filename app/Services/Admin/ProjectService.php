@@ -3,9 +3,7 @@
 namespace App\Services\Admin;
 
 use App\Models\Project;
-use App\Models\Category;
 use App\Enums\ModuleEnum;
-use App\Services\CacheService;
 
 class ProjectService extends BaseService
 {
@@ -14,14 +12,8 @@ class ProjectService extends BaseService
         parent::__construct($project, ModuleEnum::Project);
     }
 
-    public function getCategories(string $locale = null): array
+    public function getCategories($arr = false)
     {
-        $locale ??= session("active_locale", app()->getFallbackLocale());
-        return CacheService::remember(ModuleEnum::Project->value . "_categories_{$locale}", function () use ($locale) {
-            return Category::active()->module(ModuleEnum::Project)
-                ->get()
-                ->pluck("titles.{$locale}", "id")
-                ->toArray();
-        });
+        return CategoryService::getModuleCategories(ModuleEnum::Project, $arr);
     }
 }

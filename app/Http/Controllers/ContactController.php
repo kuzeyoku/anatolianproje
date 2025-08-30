@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Contact\ContactRequest;
-use App\Services\Front\ContactService;
-use App\Services\Front\SeoService;
+use App\Services\ContactService;
+use App\Services\SeoService;
 use App\Services\RecaptchaService;
 
 class ContactController extends Controller

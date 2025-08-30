@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Front;
+namespace App\Services;
 
 use App\Enums\ModuleEnum;
 use App\Models\Blog;

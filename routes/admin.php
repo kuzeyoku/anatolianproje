@@ -53,13 +53,6 @@ Route::prefix($adminPrefix)->name('admin.')->group(function () {
             Route::put('/update', 'update')->name('settings.update');
         });
 
-        // Media Management
-        Route::prefix('media')->controller(MediaController::class)->name("media.")->group(function () {
-            Route::get('/', 'index')->name('index');
-            Route::post('/upload', 'store')->name(name: 'upload');
-            Route::delete('/{id}', 'destroy')->name('destroy');
-        });
-
         // Resource-based modules
         Route::resources([
             ModuleEnum::Menu->route() => MenuController::class,
@@ -88,12 +81,37 @@ Route::prefix($adminPrefix)->name('admin.')->group(function () {
             Route::delete('/comment/{comment}', 'comment_delete')->name('comment_delete');
         });
 
+        Route::prefix(ModuleEnum::Page->route())->controller(PageController::class)->name(ModuleEnum::Page->routeName())->group(function () {
+            Route::put("/{page}/status-update", "statusUpdate")->name("status_update");
+        });
+
         Route::prefix(ModuleEnum::Service->route())->controller(ServiceController::class)->name(ModuleEnum::Service->routeName())->group(function () {
             Route::put('/{service}/status-update', "statusUpdate")->name("status_update");
         });
 
         Route::prefix(ModuleEnum::Reference->route())->controller(ReferenceController::class)->name(ModuleEnum::Reference->routeName())->group(function () {
             Route::put('/{reference}/status-update', "statusUpdate")->name("status_update");
+        });
+
+        Route::prefix(ModuleEnum::Slider->route())->controller(SliderController::class)->name(ModuleEnum::Slider->routeName())->group(function () {
+            Route::put('/{slider}/status-update', "statusUpdate")->name("status_update");
+        });
+
+        Route::prefix(ModuleEnum::Category->route())->controller(CategoryController::class)->name(ModuleEnum::Category->routeName())->group(function () {
+            Route::put('/{category}/status-update', "statusUpdate")->name("status_update");
+        });
+
+        Route::prefix('media')->controller(MediaController::class)->name("media.")->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::post('/upload', 'store')->name(name: 'upload');
+            Route::delete('/{media}', 'destroy')->name('destroy');
+        });
+
+        Route::prefix(ModuleEnum::Project->route())->controller(ProjectController::class)->name(ModuleEnum::Project->routeName())->group(function () {
+            Route::put('/{project}/status-update', "statusUpdate")->name("status_update");
+            Route::post("/{project}/image-upload", "storeImage")->name("storeImage");
+            Route::delete('/{project}/all-media-clear', "destroyAllImages")->name("destroyAllImages");
+            Route::get("/{project}/image", "image")->name("image");
         });
 
         Route::prefix(ModuleEnum::Message->route())->controller(MessageController::class)->name(ModuleEnum::Message->routeName())->group(function () {
@@ -106,8 +124,8 @@ Route::prefix($adminPrefix)->name('admin.')->group(function () {
 
         // Notification Management
         Route::prefix('notifications')->controller(NotificationController::class)->name('notifications.')->group(function () {
-            Route::get('{id}/read', 'read')->name('read');
-            Route::get('mark-all-as-read', 'markAllAsRead')->name('mark_all_as_read');
+            Route::get('/{id}/read', 'read')->name('read');
+            Route::get('/mark-all-as-read', 'markAllAsRead')->name('mark_all_as_read');
         });
 
         // Editor & File Upload
@@ -117,8 +135,8 @@ Route::prefix($adminPrefix)->name('admin.')->group(function () {
 
         // System Management
         Route::prefix('system')->controller(HomeController::class)->name('system.')->group(function () {
-            Route::get('cache-clear', 'cacheClear')->name('cache_clear');
-            Route::post('clear-visitor-counter', 'clearVisitorCounter')->name('clear_visitor_counter');
+            Route::get('/cache-clear', 'cacheClear')->name('cache_clear');
+            Route::post('/clear-visitor-counter', 'clearVisitorCounter')->name('clear_visitor_counter');
         });
     });
 });

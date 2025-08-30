@@ -3718,7 +3718,7 @@ ul {
 .services-one {
     position: relative;
     display: block;
-    padding: 120px 0 216px;
+    padding: 100px 0 100px;
     margin-top: -140px;
     z-index: 1;
 }
@@ -4855,7 +4855,7 @@ ul {
 .project-one__carousel {
     position: relative;
     display: block;
-    max-width: 600px;
+    max-width: 400px;
     width: 100%;
     margin: 0 auto;
 }
@@ -5956,7 +5956,7 @@ ul {
 .brand-one {
     position: relative;
     display: block;
-    padding: 70px 0 150px;
+    padding: 80px 0 80px;
     background-color: var(--bizgrow-black);
     z-index: 1;
 }
@@ -6003,7 +6003,6 @@ ul {
     bottom: 0;
     border: 2px solid #2B3139;
     border-radius: 20px;
-
     z-index: -1;
 }
 
@@ -6049,7 +6048,7 @@ ul {
 
 .brand-one__hover-img img {
     width: auto;
-    border-radius: 20p;
+    border-radius: 20px;
     padding: 20px;
 }
 
@@ -6086,7 +6085,7 @@ ul {
 .blog-one {
     position: relative;
     display: block;
-    padding: 120px 0 150px;
+    padding: 100px 0 100px;
     z-index: 1;
 }
 
@@ -6369,7 +6368,6 @@ ul {
     position: relative;
     display: block;
     background-color: var(--bizgrow-black);
-    margin-top: -105px;
     overflow: hidden;
     z-index: 1;
 }
@@ -6401,7 +6399,7 @@ ul {
 .site-footer__top {
     position: relative;
     display: block;
-    padding: 205px 0 76px;
+    padding: 100px 0 76px;
 }
 
 .footer-widget__about {
@@ -9423,6 +9421,8 @@ ul {
     transition-timing-function: ease-in-out;
     transition-duration: .7s;
     transition-property: all;
+    object-fit: cover;
+    height: 450px;
 }
 
 .blog-page__single:hover .blog-page__img img {
@@ -11497,7 +11497,7 @@ ul {
 .service-benifit {
     position: relative;
     display: block;
-    padding: 80px 0 50px;
+    padding: 80px 0 100px;
 }
 
 .service-benifit__inner {
@@ -14991,7 +14991,7 @@ ul {
 .services-carousel-page {
     position: relative;
     display: block;
-    padding: 120px 0 170px;
+    padding: 100px 0 220px;
 }
 
 .services-carousel-page .services-one__single {
@@ -15029,3 +15029,7 @@ ul {
 /*--------------------------------------------------------------
 # End
 --------------------------------------------------------------*/
+
+.content-documents{
+    padding: 50px 0 0 0;
+}

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Front;
+namespace App\Services;
 
 use App\Enums\StatusEnum;
 use App\Models\BlockedUser;

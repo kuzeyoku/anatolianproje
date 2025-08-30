@@ -15,7 +15,7 @@ class CategoryController extends Controller
     public function __construct(private readonly CategoryService $service)
     {
         View::share([
-            'categories' => $this->service->getCategories(),
+            'categories' => $this->service->toSelectArray(),
             'modules' => $this->service->modulesToSelectArray(),
             'route' => $this->service->route(),
             'folder' => $this->service->folder(),

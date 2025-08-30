@@ -2,37 +2,39 @@
 
 namespace App\Services\Admin;
 
-use Illuminate\Http\UploadedFile;
+use Exception;
 use Illuminate\Support\Str;
+use Illuminate\Http\UploadedFile;
 use Spatie\MediaLibrary\HasMedia;
 
 class MediaService
 {
-    public function clearMedia(HasMedia $item, string $collection = "default")
-    {
-        $item->clearMediaCollection($collection);
-
-    }
     public function handleUploads(HasMedia $item, array $files)
     {
-        if (isset($files["image"]) && $files["image"] instanceof UploadedFile && $files["image"]->isValid()) {
+        if (isset($files["image"])) {
+            $this->validateFile($files["image"]);
             $this->clearMedia($item);
             $this->addMedia($item, $files["image"]);
         }
 
+        if (isset($files["document"])) {
+            $this->validateFile($files["document"]);
+            $this->clearMedia($item, "document");
+            $this->addMedia($item, $files["document"], "document");
+        }
+
         if (isset($files["documents"])) {
             foreach ($files["documents"] as $document) {
-                if ($document instanceof UploadedFile && $document->isValid()) {
-                    $this->addMedia($item, $document, "documents");
-                }
+                $this->validateFile($document);
+                $this->addMedia($item, $document, "documents");
             }
         }
 
         if (isset($files["gallery"])) {
-            foreach ($files["gallery"] as $image) {
-                if ($image instanceof UploadedFile && $image->isValid()) {
-                    $this->addMedia($item, $image, "gallery");
-                }
+            $gallery = is_array($files["gallery"]) ? $files["gallery"] : [$files["gallery"]];
+            foreach ($gallery as $image) {
+                $this->validateFile($image);
+                $this->addMedia($item, $image, "gallery");
             }
         }
     }
@@ -40,10 +42,26 @@ class MediaService
     public function addMedia(HasMedia $item, UploadedFile $file, string $collection = "default")
     {
         $fileName = self::generateFileName($file);
-        $item->addMedia($file)->usingFileName($fileName)->toMediaCollection($collection);
+        try {
+            $item->addMedia($file)->usingFileName($fileName)->toMediaCollection($collection);
+        } catch (Exception $e) {
+            throw new Exception("Beklenmedik Bir Hata Meydana Geldi");
+        }
     }
 
-    public function generateFileName(UploadedFile $file): string
+    public function clearMedia(HasMedia $item, string $collection = "default")
+    {
+        if ($item->getMedia($collection)->isEmpty())
+            throw new Exception("Silinecek Dosya Bulunamadı");
+        $item->clearMediaCollection($collection);
+    }
+
+    private function validateFile($file): void
+    {
+        throw_if(!$file instanceof UploadedFile || !$file->isValid(), Exception::class, "Dosya Doğrulanamadı");
+    }
+
+    private function generateFileName(UploadedFile $file): string
     {
         $timestamp = now()->format("YmdHis");
         $random = Str::random(8);
